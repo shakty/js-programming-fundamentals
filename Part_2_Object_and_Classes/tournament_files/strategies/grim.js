@@ -19,12 +19,17 @@ class Grim extends Strategy {
         super.update(ownAction, otherAction, ownPayoff, otherPayoff);
     }
 
-    win() {
-        console.log('I won, do not mess up with me!');
+    static win() {
+        console.log('I won, do not mess up with me, I am grim!');
     }
 
-    defeat() {
+    static defeat() {
         console.log('I lost, I am even more grim.')
+    }
+
+    reset() {
+        this.hasDefected = false;
+        super.reset();
     }
 }
 

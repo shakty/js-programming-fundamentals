@@ -9,7 +9,7 @@
 
 const Tournament = require('./tournament_files/tournament.js');
 
-let tournament = new Tournament();
+let tournament = new Tournament({ verbose: true });
 
 // A strategy is the name of a file inside the strategies folder (without .js).
 tournament.addStrategy('random');
@@ -22,6 +22,7 @@ tournament.addStrategy('random09');
 tournament.addStrategy('tit4tat');
 
 tournament.start();
+tournament.declareWinner()
 
 console.log(tournament.results);
 

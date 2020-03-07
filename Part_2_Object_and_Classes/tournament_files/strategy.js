@@ -16,6 +16,9 @@ class Strategy {
 
         // Tmp payoff is cleared by the reset method.
         this.payoff = 0;
+
+        // Set the name to the class name (for extending classes).
+        this.name = this.constructor.name;
     }
 
     action() {
@@ -39,15 +42,15 @@ class Strategy {
         return this.history[len -1];
     }
 
-    win() {
+    static win() {
         console.log('I am the best!')
     }
 
-    defeat() {
+    static defeat() {
         console.log('This game is rigged.')
     }
 
-    reset(all=false) {
+    reset() {
         this.history = [];
         this.payoff = 0;
     }

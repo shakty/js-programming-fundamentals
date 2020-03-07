@@ -41,5 +41,5 @@ var brendan = new Person('Brendan', 'Eich', 1961);
 
 // Behind there is still a prototype object.
 // So if you make changes to
-console.log(Person.prototype)
+console.log(Person.prototype);
 console.log(brendan.__proto__)

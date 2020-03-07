@@ -3,6 +3,7 @@ const Strategy = require('../strategy.js');
 class Tit4Tat extends Strategy {
 
     action() {
+        debugger;
         let lastOutcome = this.getOutcome();
         if (!lastOutcome || lastOutcome.otherAction === this.COOPERATE) {
             return this.COOPERATE;
