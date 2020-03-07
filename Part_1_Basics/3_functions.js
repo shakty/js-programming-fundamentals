@@ -80,8 +80,6 @@ function whoIsYounger(person1, person2) {
 younger = whoIsYounger(brendan, linus);
 printSentence(younger);
 
-
-
 // EXERCISE 3 Scope.
 ////////////////////
 
@@ -192,7 +190,8 @@ console.log(privateVariableDollB); // Will throw an error.
 // have, and in fact they do, properties like objects and used as input
 // parameters to other functions.
 
-// a. Create a function that takes in input another function
+// a. Create a function that takes in input another a person and another
+// function and prints a string accordingly.
 
 function isGreat() {
     return ' is great.';
@@ -208,12 +207,30 @@ function judgePerson(person, cb) {
 judgePerson(brendan, isGreat);
 judgePerson(brendan, isNotGreat);
 
-// b. Anonymous functions.
+// b. Most commonly, you will pass functions as paramters to other
+// function anonimously. That is you can have functions without names,
+// which are used once and thrown away later. This has the advantage of
+// not cluttering the scope. Not every programming language support this
+// feature, this is actually pretty neat Brendan!
 
-myInterval = setInterval(function() {
-    console.log(new Date());
+// An example of anonymous function is a sorting functions for elemnets of
+// the array. A sorting (or comparator) function takes as input two elements
+// of the array and returns 1, if the first element preceeds the second,
+// of -1 if vice versa. The function iterates through all possible pairs
+// of elements in the array to create the ranking.
+
+// Create a function that sorts the elements of the persons array from
+// youngest to older.
+persons = [ brendan, linus ];
+
+persons.sort(function(a, b) {
+    if (a.year < b.year) return 1;
+    return -1;
 });
+persons;
 
-// Great work! You finish the second exercise sheet!
-// Pat yourself on the back or ask the person to your left to do it,
-// if that is appropriate.
+
+
+
+// Great work! You finish the third exercise sheet!
+// Stop patting yourself, do the final exercise of Part 1 first!
