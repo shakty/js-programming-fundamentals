@@ -11,12 +11,12 @@ class Random extends Strategy {
         return Math.random() > this.probability ? this.DEFECT : this.COOPERATE;
     }
 
-    win() {
-        console.log('I won, do not mess up with me!');
+    static win() {
+        console.log('I randomly won!');
     }
 
-    defeat() {
-        console.log('I lost, I am even more grim.')
+    static defeat() {
+        console.log('I lost, randomly.')
     }
 }
 

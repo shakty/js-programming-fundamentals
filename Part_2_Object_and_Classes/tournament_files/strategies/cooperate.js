@@ -6,11 +6,11 @@ class Cooperate extends Strategy {
         return this.COOPERATE;
     }
 
-    win() {
+    static win() {
         console.log('When you cooperate, you win, like my mama told me.')
     }
 
-    defeat() {
+    static defeat() {
         console.log('It\'s all right. Cooperation is a principle.')
     }
 }

@@ -6,11 +6,11 @@ class Defect extends Strategy {
         return this.DEFECT;
     }
 
-    win() {
+    static win() {
         console.log('I won! You suckers!');
     }
 
-    defeat() {
+    static defeat() {
         console.log('No comment.');
     }
 }

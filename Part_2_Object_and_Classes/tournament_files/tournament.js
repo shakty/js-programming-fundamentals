@@ -91,8 +91,7 @@ class Tournament {
             this.resultsByStrategy[i] = 0;
             // Initialize a new row of results.
             this.results[i] = new Array(s.length);
-            for (let j=0 ; j < s.length; j++) {
-                // if (i === 3 && j === 1) debugger
+            for (let j=0 ; j < s.length; j++) {                
                 let strategy2 = new s[j]();
                 strategy1.reset();
                 strategy2.reset();

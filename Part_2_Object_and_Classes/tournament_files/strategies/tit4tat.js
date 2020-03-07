@@ -11,11 +11,11 @@ class Tit4Tat extends Strategy {
         return this.DEFECT;
     }
 
-    win() {
+    static win() {
         console.log('Tit for Win!');
     }
 
-    defeat() {
+    static defeat() {
         console.log('Tat for Lost.')
     }
 }
