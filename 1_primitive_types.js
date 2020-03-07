@@ -155,10 +155,14 @@ randomNumber*= 100000;
 // Write a short code statement that compares the size of the population
 // in Luzern computed from Exercise 1 with the random number you generated
 // in exercise 3. If the random number is larger than the population of
-// Luzern print "Go Luzern!", otherwise print "Few but good!"
+// Luzern print "Go Luzern!", if exactly equal print "Are we in the Matrix?",
+// otherwise print "Few but good!"
 // Hint: Use console.log to print.
 if (luzernPopulation > randomNumber) {
     console.log('Go Luzern!');
+}
+else if (luzernPopulation === randomNumber) {
+    console.log('Are we in the Matrix?');
 }
 else {
     console.log('Few but good!')

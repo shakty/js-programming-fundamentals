@@ -107,10 +107,11 @@ persons[randomNumber];
 //////////////////////////////////////////////////////////
 
 // You just realized that Phil Katz (born 1962) also deserves to be
-// added to the list. Who is Phil Katz? This is a sad story.
+// added to the list. Who is Phil Katz? This is a sad story that deserve some
+// attention.
 // Hint: There are a couple of ways of achieving this, depending to where
-// you would like to add the element. For instance push will add at the bottom
-// of the array.
+// you would like to add the element. For instance the method `push`
+// will add at the bottom of the array.
 persons.push({
     first: 'Phil',
     last: 'Katz',
@@ -122,7 +123,7 @@ persons[3];
 //////////////////////////////////////////////////////////
 
 // Maybe you hurried too much with Phil Katz. What about
-// Linus Torvalds (1969) instead?
+// replacing him with Linus Torvalds (1969) instead?
 // Hint: simply assign a new value at a given array index.
 persons[3] = {
     first: 'Linus',
@@ -131,7 +132,86 @@ persons[3] = {
 };
 persons[3];
 
+// EXERCISE 6. Remove elements from the array of persons.
+//////////////////////////////////////////////////////////
 
+// You decided to give a more consistent look to the persons array:
+// it should be about notable figures in computer science. Hence,
+// sorry Picasso and Napoleon you have to go. Remove the two objects
+// containing the data about Picasso and Napoleon.
+// Hint: the method `splice` modifies the original array and returns the
+// removed elements.
+persons.splice(1,2);
+persons;
 
-// Pat yourself on the back or ask the person to your right to do it,
+// EXERCISE 7. Loop through the elements of an array.
+/////////////////////////////////////////////////////
+
+// "Where there is an array there is a loop" is a famous adagio. Indeed,
+// loops are a fundamental part of evey computer language. Let's try them out.
+
+// a. Loop through the elements of the persons array and print only the year
+// in which the persons are born.
+// Hint: use console.log to print. Use let when you define the iterating index.
+for (let i=0; i < persons.length; i++) {
+    console.log(persons[i].year);
+}
+
+// b. This time you want to create a short paragraph which verbosely
+// describes the content of the person array. The final paragraph should look
+// like this:
+// 'There are 2 elements in the array: element 1 is Brendan Eich,
+// born in 1961, element 2 is Linus Torvalds, born in 1962.'
+// Hint: define a new string variable and add new information to it, as
+// you loop through the items in the array.
+// Hint2: You will also need some if logic to correctly add or not the comma
+// between the first and the second element.
+paragraph = `There are ${persons.length} elements in the array: `;
+for (let i=0; i < persons.length; i++) {
+    let p = persons[i];
+    paragraph += `element ${i+1} is ${p.first} ${p.last}, born in ${p.year}`
+    if (i !== persons.length - 1) paragraph += ', ';
+}
+paragraph += '.';
+
+// c. bonus. Can you replace the part "element 1" with "the first element" and
+// "element 2" with the "second element" and so on?
+paragraph = `There are ${persons.length} elements in the array: `;
+// Will work only up to five elements.
+ordinals = [ 'first', 'second', 'third', 'fourth', 'fifth' ];
+for (let i=0; i < persons.length; i++) {
+    let p = persons[i];
+    paragraph += `the ${ordinals[i]} element `;
+    paragraph += `is ${p.first} ${p.last}, born in ${p.year}`
+    if (i !== persons.length - 1) paragraph += ', ';
+}
+paragraph += '.';
+
+// EXERCISE 7. Loop through the properties of an object.
+////////////////////////////////////////////////////////
+
+// Looping through the properties of an object is slightly different
+// than looping through the items of an array, and also less reliable.
+// For instance, there is no guarantee about the order in which they are
+// accessed and there is even the risk to access properties that you have
+// not defined yourself. What?! Argh, you did it again Brendan!
+// Keep calm and use the `hasOwnProperty` method to avoid this rookie mistake.
+
+// Print all the property names and their values of an object
+// in the persons array. For Brendan, the result should look like:
+// first: 'Brendan'
+// last:  'Eich'
+// year: ' 1961'
+// (however the order might be different).
+// Hint: in this exercise objects behave like arrays, but instead of a
+// numeric index, you use the property name.
+obj = persons[0];
+for (let property in obj) {
+    if (obj.hasOwnProperty(property)) {
+        console.log(property + ': ' + obj[property]);
+    }
+}
+
+// Great work! You finish the second exercise sheet!
+// Pat yourself on the back or ask the person to your left to do it,
 // if that is appropriate.
