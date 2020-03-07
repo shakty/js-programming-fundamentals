@@ -2,10 +2,6 @@ const Strategy = require('../strategy.js');
 
 class Cooperate extends Strategy {
 
-    constructor() {
-        super();
-    }
-
     action() {
         return this.COOPERATE;
     }

@@ -2,9 +2,12 @@ const path = require('path');
 
 class Tournament {
 
+    // Codes for defection and cooperation.
     static DEFECT = 0;
     static COOPERATE = 1;
 
+    // Initialize the tournament instance.
+    // It is called once for every new object of type tournament.
     constructor(options = {}) {
 
         // Initialize the payoff matrix.
@@ -29,6 +32,7 @@ class Tournament {
         this.results = [];
     }
 
+    // Return the payoffs for a given pair of actions, for the first player.
     getPayoff(ownAction, otherAction) {
         let p = this.payoffMatrix;
         if (ownAction === this.DEFECT) {
@@ -39,6 +43,7 @@ class Tournament {
         return p.bothCooperate;
     }
 
+    // Adds a strategy to the pool.
     addStrategy(filename) {
         let pathToFile = path.join(__dirname, 'strategies', filename);
         try {
@@ -63,22 +68,29 @@ class Tournament {
         }
     }
 
+    // Start the tournament
     start(N = 100) {
+        // Rest the array of results.
+        this.results = [];
+
         let s = this.strategies;
         for (let i=0; i < s.length ; i++) {
             let strategy1 = s[i];
+            // Initialize a new row of results.
+            this.results[i] = new Array(s.length);
             for (let j=0 ; j < s.length; j++) {
+                debugger
                 let strategy2 = s[j];
                 strategy1.reset();
                 strategy2.reset();
                 this.battleStrategies(N, strategy1, strategy2);
-
-                this.results[i, j] = strategy1.tmpScore;
-                this.results[j, i] = strategy1.tmpScore;
+                // Save results.
+                this.results[i, j] = strategy1.payoff;
             }
         }
     }
 
+    // Play two strategies against each other for a fixed number of rounds
     battleStrategies(nRounds, strategy1, strategy2) {
         for (let i=0; i < nRounds ; i++) {
             let action1 = strategy1.action();
@@ -89,6 +101,11 @@ class Tournament {
             strategy2.update(action2, action1, payoff2, payoff1);
         }
     }
+
+    set ve(verbose=true) {
+        this.verbose = verbose;
+    }
 }
 
+// Exports the class outside of the file.
 module.exports = Tournament;

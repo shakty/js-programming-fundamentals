@@ -7,7 +7,6 @@
 // EXERCISE 1. Prisoner Dilemma Tournament!
 ///////////////////////////////////////////
 
-
 const Tournament = require('./tournament_files/tournament.js');
 
 let tournament = new Tournament();
@@ -23,3 +22,7 @@ tournament.addStrategy('random09');
 tournament.addStrategy('tit4tat');
 
 tournament.start();
+
+console.log(tournament.results);
+
+// tournament.save('./tournament_files/results/payoffs.csv');

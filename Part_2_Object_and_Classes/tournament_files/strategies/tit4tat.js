@@ -2,10 +2,6 @@ const Strategy = require('../strategy.js');
 
 class Tit4Tat extends Strategy {
 
-    constructor() {
-        super();
-    }
-
     action() {
         let lastOutcome = this.getOutcome();
         if (!lastOutcome || lastOutcome.otherAction === this.COOPERATE) {

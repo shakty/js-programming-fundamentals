@@ -56,6 +56,14 @@ myInterval = setInterval(function() {
 }, 2000);
 
 
+// FUN EXERCISE
+
+// You have done everything! You are a Jenius (shorthand for JavaScript Genius)!
+// Why don't you relax and have some fun programming a JS robot?
+// Check out: https://lab.reaal.me/jsrobot/
+
+
+
 
 
 // Great work! You finish the third exercise sheet!

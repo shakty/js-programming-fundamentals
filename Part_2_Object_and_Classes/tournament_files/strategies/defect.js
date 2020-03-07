@@ -2,11 +2,6 @@ const Strategy = require('../strategy.js');
 
 class Defect extends Strategy {
 
-    constructor() {
-        super();
-
-    }
-
     action() {
         return this.DEFECT;
     }
