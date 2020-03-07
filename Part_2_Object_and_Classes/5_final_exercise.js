@@ -9,3 +9,20 @@
 
 // Not really an exercise, it is more a small warm up to recall the different
 // primitive types in JavaScript and to get you familiar with ATOM Hydrogen.
+
+
+import Tournament from 'tournament_files/tournament.js';
+
+let tournament = new Tournament();
+
+// A strategy is the name of a file inside the strategies folder (without .js).
+tournament.addStrategy('random');
+tournament.addStrategy('grim');
+tournament.addStrategy('defect');
+tournament.addStrategy('cooperate');
+tournament.addStrategy('random09');
+
+// This needs to be implemented.
+tournament.addStrategy('tit4tat');
+
+tournament.start();
