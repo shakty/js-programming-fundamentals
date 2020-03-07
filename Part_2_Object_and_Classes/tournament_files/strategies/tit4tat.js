@@ -8,7 +8,7 @@ class Tit4Tat extends Strategy {
 
     action() {
         let lastOutcome = this.getOutcome();
-        if (!lastOutcome || lastOutcome.otherAction === COOPERATE) {
+        if (!lastOutcome || lastOutcome.otherAction === this.COOPERATE) {
             return this.COOPERATE;
         }
         return this.DEFECT;
@@ -23,4 +23,4 @@ class Tit4Tat extends Strategy {
     }
 }
 
-module.exports = Tit4Tat
+module.exports = Tit4Tat;

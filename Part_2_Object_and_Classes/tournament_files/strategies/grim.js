@@ -5,8 +5,6 @@ class Grim extends Strategy {
     constructor() {
         super();
         this.hasDefected = false;
-        // Keep a reference to previous update function, we will need it.
-        this._update = this.update;
     }
 
     action() {
@@ -18,7 +16,7 @@ class Grim extends Strategy {
     update(ownAction, otherAction, ownPayoff, otherPayoff) {
         if (otherAction === this.DEFECT) this.hasDefected = true;
         // Perform the original update.
-        this._update(ownAction, otherAction, ownPayoff, otherPayoff);
+        super.update(ownAction, otherAction, ownPayoff, otherPayoff);
     }
 
     win() {
