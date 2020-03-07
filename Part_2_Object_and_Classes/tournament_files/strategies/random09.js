@@ -1,4 +1,4 @@
-import Strategy from 'strategy.js';
+const Random = require('./random.js');
 
 class Random09 extends Random {
 
@@ -7,3 +7,5 @@ class Random09 extends Random {
         this.probability = 0.9;
     }
 }
+
+module.exports = Random09;

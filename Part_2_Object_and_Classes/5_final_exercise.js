@@ -4,14 +4,11 @@
 
 // Part 2 Object Oriented Programming.
 
-// EXERCISE 1. Classes.
-///////////////////////////////
-
-// Not really an exercise, it is more a small warm up to recall the different
-// primitive types in JavaScript and to get you familiar with ATOM Hydrogen.
+// EXERCISE 1. Prisoner Dilemma Tournament!
+///////////////////////////////////////////
 
 
-import Tournament from 'tournament_files/tournament.js';
+const Tournament = require('./tournament_files/tournament.js');
 
 let tournament = new Tournament();
 

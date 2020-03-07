@@ -1,4 +1,4 @@
-import Strategy from 'strategy.js';
+const Strategy = require('../strategy.js');
 
 class Defect extends Strategy {
 
@@ -19,3 +19,5 @@ class Defect extends Strategy {
         console.log('No comment.');
     }
 }
+
+module.exports = Defect;

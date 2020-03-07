@@ -1,4 +1,4 @@
-import Strategy from 'strategy.js';
+const Strategy = require('../strategy.js');
 
 class Cooperate extends Strategy {
 
@@ -18,3 +18,5 @@ class Cooperate extends Strategy {
         console.log('It\'s all right. Cooperation is a principle.')
     }
 }
+
+module.exports = Cooperate;

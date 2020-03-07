@@ -1,4 +1,4 @@
-import Strategy from 'strategy.js';
+const Strategy = require('../strategy.js');
 
 class Grim extends Strategy {
 
@@ -29,3 +29,5 @@ class Grim extends Strategy {
         console.log('I lost, I am even more grim.')
     }
 }
+
+module.exports = Grim;

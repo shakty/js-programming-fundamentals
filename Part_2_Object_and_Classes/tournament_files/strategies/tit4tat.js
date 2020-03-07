@@ -1,4 +1,4 @@
-import Strategy from 'strategy.js';
+const Strategy = require('../strategy.js');
 
 class Tit4Tat extends Strategy {
 
@@ -22,3 +22,5 @@ class Tit4Tat extends Strategy {
         console.log('Tat for Lost.')
     }
 }
+
+module.exports = Tit4Tat

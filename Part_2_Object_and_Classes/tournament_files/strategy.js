@@ -1,17 +1,21 @@
-import { COOPERATE, DEFECT } from 'tournament.js';
+const Tournament = require('./tournament.js');
 
 class Strategy {
 
     constructor(name) {
+
         // Array of history of outcomes.
         this.history = [];
 
         // Available actions.
-        this.DEFECT = DEFECT;
-        this.COOPERATE = COOPERATE;
+        this.DEFECT = Tournament.DEFECT;
+        this.COOPERATE = Tournament.COOPERATE;
 
         // Total payoff.
         this.totPayoff = 0;
+
+        // Tmp payoff is cleared by the reset method.
+        this.payoff = 0;
     }
 
     action() {
@@ -23,6 +27,7 @@ class Strategy {
                                   ownPayoff, otherPayoff);
         this.history.push(outcome);
         this.totPayoff += ownPayoff;
+        this.payoff += ownPayoff;
         if (this.comment) {
             this.comment(ownDecision, otherDecision, ownPayoff, otherPayoff);
         }
@@ -44,6 +49,7 @@ class Strategy {
 
     reset(all=false) {
         this.history = [];
+        this.payoff = 0;
     }
 }
 
@@ -55,3 +61,5 @@ class Outcome {
         this.otherPayoff = otherPayoff;
     }
 }
+
+module.exports = Strategy;
