@@ -28,13 +28,17 @@ divideNumbers('what', {});
 // because of type of NaN is...guess what? 'number'! Ah, Brendan...
 typeof NaN;
 
-// So, here is the exercise. Change the `divideNumber` function so
-// that it checks the input paramters and offer a "graceful fail"
-// in case they are not valid. A graceful fail is, for example,
-// a special return value with a warning on console.log.
+// So, change the `divideNumber` function so that it checks the
+// input paramters and offer a "graceful fail" in case they are not valid.
+// A graceful fail is, for example, a special return value with a warning
+// on console.log.
 
 function divideNumbers(a, b) {
-    // Your code here.
+    if ('number' !== typeof a || 'number' !== typeof b) {
+        console.log('invalid inputs');
+        return false;
+    }
+    return a / b;
 }
 
 divideNumbers('what', {});
@@ -64,7 +68,15 @@ judgePerson(brendan);
 // we catch it with a try and catch statement and print an error message.
 
 function judgePerson(person, cb) {
-    // Your code here.
+    let str;
+    try {
+        str = person.first + ' ' + person.last + cb()
+    }
+    catch(error) {
+        console.log('An error occurred. Are you sure you passed a function?');
+        return;
+    }
+    console.log(str);
 }
 
 brendan = { first: 'Brendan', last: 'Eich', year: 1961 };

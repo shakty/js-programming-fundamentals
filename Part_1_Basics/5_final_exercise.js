@@ -11,9 +11,9 @@
 // the two preceding ones in the sequence, starting from 0 and 1.
 // You can learn more here: https://en.wikipedia.org/wiki/Fibonacci_number
 
-// a. Implement a function that computes the fibonacci number for any input number.
-// For instance, if input is 10
-
+// a. Implement a function that computes the fibonacci number for
+//  any input number.
+// For instance, if input is 10, the result is 55.
 
 function fibonacci(n) {
     let fibo = [ 0, 1 ];

@@ -212,6 +212,28 @@ for (let property in obj) {
     }
 }
 
+// EXERCISE 8. Bonus. Constant objects.
+///////////////////////////////////////
+// This is weird, and it takes a lot of JavaScript to understand why it is so.
+// Constant objects are not constant. For now, just embrace it.
+
+const myObject = {
+    a: 1,
+    b: 2
+};
+
+// Can you change the properties of constant objects? Yes.
+myObject.b = 3; // No error thrown.
+// Can you add a new property to constant objects.
+myObject.c = 4; // No error thrown.
+
+// Can you re-assign it? No!
+myObject = brendan; // it throws an error, it does not want to be brendan.
+
+// Explanation. Objects are pointers to memory addresses. You can change
+// the content of the address, but you can't change the address,
+// which happens upon re-assignment.
+
 // Great work! You finish the second exercise sheet!
 // Pat yourself on the back or ask the person to your left to do it,
 // if that is appropriate.
