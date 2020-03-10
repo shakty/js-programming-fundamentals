@@ -16,14 +16,12 @@
 // In this file, comments contain the instructions for the exercises
 //  as well as useful hints.
 
-// Enough said. Let's begin with the basics of JavaScript!
-// We will start with the "primitive types.""
-// A primitive type (or simply a type) is a category af variables
-// in a language that share a set of common features.
+// Enough said. Let's begin with understanding how to move around
+// in the Atom editor.
 
 // I hope you don't get bored. If so, just continue with the exercises
 // in the next file at your own pace. You will find the solutions in the
-// folder called solutions. Who would expect that?
+// folder called solutions. Who would expect this?
 
 // EXERCISE 1 Indentation.
 //////////////////////////
@@ -49,6 +47,24 @@ a--;
 
 
 // EXERCISE 2 Linting.
+//////////////////////
 
 b = 2
 dewdwe /.d edewdwe
+
+function(notUsed) {
+    console.log('Hello!');
+}
+
+// EXERCISE 3. Autocompletion.
+//////////////////////////////
+// Atom comes with snippet auto-completion. Cool! But what is a "snippet" ?
+// A snippet is simply a portion of code that you can reuse.
+// We haven't learn the syntax of JavaScript, but this is just to show off
+// some useful features of the editor.
+
+// Auto complete for console.log, On the next line, start typing log.
+// A popup window will show up with suggestion, pick the first one.
+
+
+// Auto complete for
