@@ -46,9 +46,6 @@ divideNumbers(1, 2);
 
 divideNumbers(1, 0);
 
-
-
-
 // EXERCISE 2. Catch errors.
 ////////////////////////////
 
