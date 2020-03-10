@@ -8,10 +8,12 @@
 // EXERCISE 0. Definitions.
 //////////////////////////
 
-// Create a function named printMyName that prints out your name.
-// Verify its type and invoke it.
+// Create a function that prints out your name. Verify its type and invoke it.
 
-
+// Objects.
+function printMyName() {
+    console.log('Stefano Balietti');
+}
 // Notice that camel case naming applies also to functions.
 // Further notice  that functions definitions are not terminated by a semicolon.
 typeof printMyName;
@@ -25,6 +27,11 @@ printMyName();
 // printSentence('Brendan');
 // 'Brendan is great!'.
 
+function printSentence(name) {
+    console.log(name + ' is great!');
+}
+printSentence('Brendan');
+
 
 // b. Modify the printSentence function so that it takes an object of the
 // type you createed in the "Objects and loops" exercise and compose a
@@ -36,7 +43,8 @@ printMyName();
 // the brendan object from Exercise Sheed 2 here.
 
 function printSentence(person) {
-    // Add code here
+    console.log(person.first + ' ' + person.last +
+    ' is born in ' + person.year + ' and he is great!');
 }
 personObject = { first: 'Brendan', last: 'Eich', year: 1961 };
 printSentence(personObject);
@@ -47,7 +55,9 @@ printSentence(personObject);
 // Hint: use the ternary operator ? for a more compact function.
 
 function printSentence2(person1, person2) {
-    // Add code here.
+    let person = person1.year < person2.year ? person2 : person1;
+    console.log(person.first + ' ' + person.last +
+    ' is born in ' + person.year + ' and he is great!');
 }
 brendan = { first: 'Brendan', last: 'Eich', year: 1961 };
 linus = { first: 'Linus', last: 'Torvalds', year: 1969 };
@@ -64,7 +74,11 @@ printSentence2(brendan, linus);
 // Create two functions. One returns the person object that is the youngest,
 // the second one prints it.
 // Hint: combine the return statement and the ternary operator for a one-liner.
-
+function whoIsYounger(person1, person2) {
+    return person1.year < person2.year ? person2 : person1;
+}
+younger = whoIsYounger(brendan, linus);
+printSentence(younger);
 
 // EXERCISE 3 Scope.
 ////////////////////
@@ -86,9 +100,14 @@ printSentence2(brendan, linus);
 
 // a. If you followed the argument, there was actually no need to use input
 // parameters for the printSentence function above. Rewrite the function so
-// that it accesses directly the brendan and linus objects created before
-// without using input parameters.
-
+// that it accesses directly the brendan and linus objects without
+// input parameters.
+function printSentence() {
+    let person = brendan.year < linus.year ? linus : brendan;
+    console.log(person.first + ' ' + person.last +
+    ' is born in ' + person.year + ' and he is great!');
+}
+printSentence();
 
 // Certainly, this function is less general than the function with input
 // parameters, so the one with input parameters is the preferred
@@ -100,7 +119,11 @@ printSentence2(brendan, linus);
 // result in a global variable youngest.
 // Hint: whether you use let youngest = ... or simply youngest = ...
 // inside the function makes a big difference. Do you understand why?
-
+youngest = null;
+function whoIsYounger(person1, person2) {
+    youngest = person1.year < person2.year ? person2 : person1;
+}
+whoIsYounger(brendan, linus);
 youngest;
 
 // c. You can think at the scope of a variable like a set of nested
@@ -134,6 +157,26 @@ console.log(privateVariableDollB); // Will throw an error.
 
 // Modify the functions dollA and dollB so that no errors are thrown.
 
+function dollA() {
+    // Without "let" privateVariableDollA is added into the global space.
+    privateVariableDollA = 10;
+    commonVariable += privateVariableDollA;
+    console.log(privateVariableDollB); // Will throw an error.
+}
+
+function dollB() {
+    // Without "let" privateVariableDollB is added into the global space.
+    privateVariableDollB = -10;
+    commonVariable += privateVariableDollB;
+    console.log(privateVariableDollA); // Will throw an error.
+}
+
+dollA();
+console.log(commonVariable);
+console.log(privateVariableDollA); // Will throw an error.
+dollB();
+console.log(commonVariable);
+console.log(privateVariableDollB); // Will throw an error.
 
 // It works now, but it is bad coding practice to "leak" variables defined
 // inside a function into the global space. You should try to avoid it, and
@@ -156,7 +199,8 @@ function isNotGreat() {
     return ' who?';
 }
 function judgePerson(person, cb) {
-    // Your code here.
+    let str = person.first + ' ' + person.last + cb()
+    console.log(str);
 }
 
 judgePerson(brendan, isGreat);
@@ -178,9 +222,10 @@ judgePerson(brendan, isNotGreat);
 // youngest to older.
 persons = [ brendan, linus ];
 
-persons.sort(
-    // Define a comparator function in here.
-);
+persons.sort(function(a, b) {
+    if (a.year < b.year) return 1;
+    return -1;
+});
 persons;
 
 
