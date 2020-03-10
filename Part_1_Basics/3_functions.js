@@ -8,14 +8,14 @@
 // EXERCISE 0. Definitions.
 //////////////////////////
 
-// Create a function that prints out your name, verify its type, and invoke it.
+// Create a function that prints out your name. Verify its type and invoke it.
 
 // Objects.
 function printMyName() {
     console.log('Stefano Balietti');
 }
-// Notice the camel case naming of the function.
-// Notice also that functions definitions are not terminated by a semicolon.
+// Notice that camel case naming applies also to functions.
+// Further notice  that functions definitions are not terminated by a semicolon.
 typeof printMyName;
 printMyName();
 

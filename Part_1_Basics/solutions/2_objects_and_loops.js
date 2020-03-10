@@ -48,16 +48,24 @@ typeof null;
 // decided that the type of null is 'object'.
 // Hint. The property name must contain the full name (Brendan Eich), and
 // the property birth must contain the year in which he was born (1961).
+person = {
+    name: 'Brendan Eich',
+    year: 1961
+};
 
 // b. Access the properties of the person object.
-
+person.name;
+person.year;
 
 // EXERCISE 2. Add and remove properties to the person object.
 //////////////////////////////////////////////////////
 
 // Now you realize that it makes more sense to split the property 'name' into
 // two: 'first' and 'last' name. Accordingly you delete the propery name.
-
+person.first = 'Brendan';
+person.last = 'Eich';
+delete person.name;
+person;
 
 // EXERCISE 3. Create an array of persons.
 //////////////////////////////////////////
@@ -65,15 +73,22 @@ typeof null;
 // a. Create an array called persons containing three items.
 // You already have Brendan, now add another two inspiring personalities.
 // For example, Pablo Picasso and Napoleon Bonaparte. When are they born?
+persons = [
+    person,
+    { first: 'Pablo', last: 'Picasso', year: 1881 },
+    { first: 'Napoleon', last: 'Bonaparte', year: 1821},
+];
 
 // b. Count how many elements are in the array.
+persons.length;
 
 // c. Access the second element of the array.
-
+persons[1];
 // Arrays are 0-indexed, that is the first element has index 0,
 // the second element 1, and so on.
 
 // d. Access the property year of the second element of the array.
+persons[1].year;
 
 // EXERCISE 3. Pick a random item in the array of persons.
 //////////////////////////////////////////////////////////
@@ -105,6 +120,11 @@ persons[3];
 // Maybe you hurried too much with Phil Katz. What about
 // replacing him with Linus Torvalds (1969) instead?
 // Hint: simply assign a new value at a given array index.
+persons[3] = {
+    first: 'Linus',
+    last: 'Torvalds',
+    year: 1969
+};
 
 // Verify who is the bottom of the array.
 persons[3];
@@ -133,7 +153,9 @@ persons;
 // a. Loop through the elements of the persons array and print only the year
 // in which the persons are born.
 // Hint: use console.log to print. Use let when you define the iterating index.
-
+for (let i=0; i < persons.length; i++) {
+    console.log(persons[i].year);
+}
 
 // b. This time you want to create a short paragraph which verbosely
 // describes the content of the person array. The final paragraph should look
@@ -144,9 +166,26 @@ persons;
 // you loop through the items in the array.
 // Hint2: You will also need some if logic to correctly add or not the comma
 // between the first and the second element and finishing with a dot.
+paragraph = `There are ${persons.length} elements in the array: `;
+for (let i=0; i < persons.length; i++) {
+    let p = persons[i];
+    paragraph += `element ${i+1} is ${p.first} ${p.last}, born in ${p.year}`
+    if (i !== persons.length - 1) paragraph += ', ';
+}
+paragraph += '.';
 
 // c. bonus. Can you replace the part "element 1" with "the first element" and
 // "element 2" with the "second element" and so on?
+paragraph = `There are ${persons.length} elements in the array: `;
+// Will work only up to five elements.
+ordinals = [ 'first', 'second', 'third', 'fourth', 'fifth' ];
+for (let i=0; i < persons.length; i++) {
+    let p = persons[i];
+    paragraph += `the ${ordinals[i]} element `;
+    paragraph += `is ${p.first} ${p.last}, born in ${p.year}`
+    if (i !== persons.length - 1) paragraph += ', ';
+}
+paragraph += '.';
 
 // EXERCISE 7. Loop through the properties of an object.
 ////////////////////////////////////////////////////////
@@ -166,7 +205,12 @@ persons;
 // (however the order might be different).
 // Hint: in this exercise objects behave like arrays, but instead of a
 // numeric index, you use the property name.
-
+obj = persons[0];
+for (let property in obj) {
+    if (obj.hasOwnProperty(property)) {
+        console.log(property + ': ' + obj[property]);
+    }
+}
 
 // Great work! You finish the second exercise sheet!
 // Pat yourself on the back or ask the person to your left to do it,
