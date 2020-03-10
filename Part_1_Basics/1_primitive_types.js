@@ -1,20 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
-
-// All the text that follows a double "slash", that is //, is a comment.
-// Whatever follows the double slash on the same line is ignored by
-// the computer, it is just for you to read.
-
-// Empty lines are also ignore, obviously.
-
-// Comments are perhaps the most important
-// What do programmers write in these comments?
-// Imagine yourself opening this file in 2 years. What would you
-// like to know in the most concise way possible?
-
-// In this file, comments contain the instructions for the exercises
-//  as well as useful hints.
+// PS: I know I said the 1st exercise also in Part 0, but that does not count.
 
 // Enough said. Let's begin with the basics of JavaScript!
 // We will start with the "primitive types.""
@@ -23,7 +10,7 @@
 
 // I hope you don't get bored. If so, just continue with the exercises
 // in the next file at your own pace. You will find the solutions in the
-// folder called solutions. Who would expect that?
+// folder called solutions. This time for real.
 
 // EXERCISE 0. Primitive Types.
 ///////////////////////////////
@@ -38,17 +25,16 @@
 // Some operations may be allowed for a certain primitive type and raise
 // an error for another one.
 
-// Important! I am assuming you are using the ATOM Hydrogen package to
-// run these exercise. If so, you do not need to use the declare with let.
-//  This has two advantages:
-//  - you can re-run the same command without throwing errors
-//      of "variable already defined",
-// - you can immediately see the output of your commands.
+// Important! I am assuming you are using the Hydrogen package to
+// run these exercise. If so, you may avoid declarig variables with let.
+// This has the advantage that you can re-run the same command without
+// throwing errorr such as  "variable already defined",
+// This has also the disadvantage that the linter will complain about
+// the variable not being defined. Let it complain, he is a grumpy old linter.
 
-// How to use Hydrogen ATOM? It is very easy:
+// Do you remember how to use Hydrogen? It is very easy:
 // - to execute the line where the cursor is, press Ctrl-Enter.
 // - to execute multiple lines at once, highlight them, and press Ctrl-Enter.
-
 
 // Numbers.
 
@@ -63,7 +49,7 @@ typeof morph;
 // Note Both floating point and integer numbers belong to the same primitive
 // type: 'number'. Other programming language may distinguish different
 // subtypes, such as positive-only, floating point, etc, to save space
-// in memory. However, for you life is easier, they are all numbers.
+// in memory. However, your life is easier, they are all numbers.
 
 // Strings
 
@@ -74,8 +60,8 @@ typeof morph;
 // statically (or strongly typed) will throw an error if you attempt to
 // change the type without calling a special conversion routine.
 
-// A one-type character string is also of type string. Other languages have
-// the type 'char', but not JS.
+// A one-type character string is also a string. Other languages have
+// the type 'char' for this special case, but not JS.
 morph = 'A';
 typeof morph;
 
@@ -85,9 +71,12 @@ typeof morph;
 morph = false;
 typeof morph;
 
-// Undefined
+// Not much to say about booleans, right?
 
-typeof undefined
+// Undefined
+let iAmNotDefinedYet;
+typeof iAmNotDefinedYet;
+typeof undefined;
 // If something does not exist or has not yet been initialized, its type
 // is 'undefined'. We will come back with more examples to this later.
 
@@ -108,7 +97,7 @@ a = (18 + 107) / (5 * 25);
 b = Math.sqrt(1000000);
 // c. Take the remainder of the division betwen 123 and 9 squared, minus 1.
 c = (123 % Math.pow(9, 2)) - 1;
-// d. Take the integer part of the float number 2.123456789
+// d. Take the integer part of the float number 2.123456789 (need to use Math).
 d = Math.floor(2.123456789);
 a*b*c*d;
 
@@ -120,16 +109,15 @@ a*b*c*d;
 // Long Hint. It is really important to name variables with meaningful names.
 // I mean, not meaningful for you, such as the name of your best friend
 // or of your dog, but meaningful with respect to the context of
-// the computer program in which variables belong.
+// the computer program in which they are executed.
 //
 // For instance, you could name the variable in this exercise:
 // the_population_of_Luzern_according_to_Wikipedia
-// However, that would be impractically long.
-// A better name would be:
+// However, that would be impractically long. A better name would be:
 // Luzern_Population
 //
-// However, you can do better. In fact, in every programming language
-// there exist conventions for variable naming. In JavaScript, variables
+// However, you can do even better. In fact, every programming language
+// has fixed conventions for variable naming. In JavaScript, variables
 // should begin with a lower case letter and any following word should be
 // merged in a "camel case" manner. That is: without seperating characters
 // and with a upper case for the first letter of every next word. So:
@@ -140,21 +128,22 @@ luzernPopulation = a*b*c*d;
 // EXERCISE 3. Random numbers.
 //////////////////////////////
 
-// a. Generate a random number between 0 and 1, and store its value in a variable.
-// Hint. The Math object is your friend again (with a proper name!).
+// a. Generate a random number between 0 and 1, and store its value
+// in a variable (and pick a proper name for the variable!).
+// Hint. The Math object is your friend .
 randomNumber = Math.random();
 
 // b. Update the variable so that the value of the random number is
-// between 0 and the 100.000.
+// between 0 and the one hundred thoudands.
 randomNumber*= 100000;
 
 // EXERCISE 4. Conditionals.
 ////////////////////////////
 
-// A small intro to conditionals more on this later.
+// A small intro to conditionals, more on this later.
 // Write a short code statement that compares the size of the population
-// in Luzern computed from Exercise 1 with the random number you generated
-// in exercise 3. If the random number is larger than the population of
+// in Luzern computed in Exercise 1 with the random number you generated
+// in Exercise 3. If the random number is larger than the population of
 // Luzern print "Go Luzern!", if exactly equal print "Are we in the Matrix?",
 // otherwise print "Few but good!"
 // Hint: Use console.log to print.
@@ -183,12 +172,14 @@ finalStr.length;
 
 // c. Did you know that you can also join strings and numbers together?
 // Replace str2 with a new sentence that includes the total population count
-// of the city of Luzern as a term of comparison. Then, join it with str1
-//  and update finalStr.
+// of the city of Luzern that you just computed. For example:
+// "Just like other X persons in Luzern." (X to be replaced with the count)
+// Then, join it with str1 and update finalStr.
+// Important. String must end with a dot (needed for exercise below).
 str2 = 'Just like other ' + luzernPopulation + ' persons in Luzern.';
 finalStr = str1 + ' ' + str2;
 
-// d. Alternatively, you can specify string using the backtick sign `
+// d. Alternatively, you can specify strings using the backtick sign `
 // which allows for in-string variable substitution.
 finalStr = `${str1} Just like ${luzernPopulation} persons in Luzern.`;
 
