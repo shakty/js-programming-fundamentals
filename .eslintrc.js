@@ -16,7 +16,10 @@ module.exports = exports = {
     //
 
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "no-extra-semi": "error",
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "space-after-keywords": "always"
     },
 
     "globals": {
