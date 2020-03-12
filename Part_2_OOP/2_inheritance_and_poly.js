@@ -1,11 +1,27 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
+// Welcome to the 2st exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
 // Part 2 Object Oriented Programming.
 
-// EXERCISE 1. Context.
-///////////////////////
+// EXERCISE 1. Extending a class.
+/////////////////////////////////
+
+// Let's start with creating the Person class from the previous exercise sheet.
+
+class Person {
+
+    constructor(first, last, year) {
+        this.first = first;
+        this.last = last;
+        this.year = year;
+    }
+
+    sayHi() {
+        console.log('Hi, I am ' + this.first + ' ' + this.last +
+        ', I was born in ' + this.year);
+    }
+}
 
 // Each function is executed within a given context. The context is different
 // from the scope, and it specifically refers to the value of the `this`
@@ -57,7 +73,7 @@ brendan.sayHi2 = function() {
 
 brendan.sayHi2();
 
-// b. Use the arrow function.
+// b. Use the arrow function and this.
 
 brendan.sayHi3 = function() {
     console.log('I will tell you who I am in a second.')
@@ -68,20 +84,18 @@ brendan.sayHi3 = function() {
 
 brendan.sayHi3();
 
-// EXERCISE 2 Apply and Call.
-////////////////////////////
+// EXERCISE 2. Bonus. Apply and Call.
+/////////////////////////////////////
 
 // In JavaScript you can specify the context of execution of a function
 // explicitly using the `call` and `apply` methods.
 
-linus = new Person('Linus', 'Torvalds', 1969);
+// b. Create a new person object. For instance: Linus Torvalds, class 1969.
+linus = new ShyPerson('Linus', 'Torvalds', 1969);
 
 brendan.sayHi2.call(linus);
-// Weird? But it has its use cases.
-
 brendan.sayHi2.apply(linus);
+// Ah Brendan, you liar!
 
-// EXERCISE 2 Closures.
-///////////////////////
-
-(function(brendan))
+// In this example call and apply behave the same, they different in the
+// you pass input parameters to them. Not so important right now.
