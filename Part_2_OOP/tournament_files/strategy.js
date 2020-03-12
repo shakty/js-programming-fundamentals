@@ -2,7 +2,7 @@ const Tournament = require('./tournament.js');
 
 class Strategy {
 
-    constructor(name) {
+    constructor() {
 
         // Array of history of outcomes.
         this.history = [];
