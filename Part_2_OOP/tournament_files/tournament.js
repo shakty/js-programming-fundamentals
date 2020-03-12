@@ -8,8 +8,11 @@ class Tournament {
     static DEFECT = 0;
     static COOPERATE = 1;
 
-    // Initialize the tournament instance.
-    // It is called once for every new object of type Tournament.
+    /**
+     * Initialize the tournament instance
+     *
+     * @param {object} options. Configuration object.
+     */
     constructor(options = {}) {
 
         // Initialize the payoff matrix.
