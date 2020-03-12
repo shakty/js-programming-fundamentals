@@ -1,8 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 2st exercise sheet of Programming Fundamentals in JavaScript!
+// Welcome to the 4st exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
 // Part 2 Object Oriented Programming.
+
+// This is an advanced topic. Feel free to skip it and came back here later.
 
 // EXERCISE 1. Context.
 ///////////////////////
