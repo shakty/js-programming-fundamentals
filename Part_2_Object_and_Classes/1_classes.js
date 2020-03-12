@@ -1,9 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 2nd exercise sheet of Programming Fundamentals in JavaScript!
+// Welcome to the 1nd exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
-// Wow, look at you! You did even know how to declare a constant and now
-// you want to do object oriented programming (OOP). I love your ambition!
+// Part 2 Object Oriented Programming.
+
+// Wow, look at you, you grew up! When you started you did not even know
+// how to declare a constant and now you can do object oriented
+// programming (OOP)!
 
 // Let's get started with classes.
 
@@ -11,14 +14,12 @@
 // in the next file at your own pace. You will find the solutions in the
 // folder called solutions.
 
-
-
 // EXERCISE 1. Classes (ES6 syntax).
 ///////////////////////////////////
-// Time to create your first Person class. It is a great step in the life
+// Time to create your first Person class. This is a great step in the life
 // of every programmer.
-//
-// The Person class should take as input three parameters:
+
+// a. The Person class should take as input three parameters:
 // - first name
 // - last name
 // - year of birth
@@ -33,14 +34,91 @@ class Person {
     }
 
     sayHi() {
-        console.log('Hi, I am ' + this.first);
+        console.log('Hi, I am ' + this.first + ' ' + this.last +
+        ', I was born in ' + this.year);
     }
 }
 
-var brendan = new Person('Brendan', 'Eich', 1961);
+// b. Instantiate the class in a new object called brendan. It might sound
+// familiar to you at this point. Invoke the sayHi method.
+brendan = new Person('Brendan', 'Eich', 1961);
+brendan.sayHi();
 
-// EXERCISE 1. Bonus. Prototypical Inherintance.
-///////////////////////////////////////////
+// EXERCISE 2. Setters and getters.
+///////////////////////////////////
+// Getters and setters are useful to set and get the properties
+// of an instance of the class. Makes sense. Since encapsulation in JavaScript
+// is not fully supprted setters do not make much sense actually. But
+// getters are cool because they let can great special properties that act
+// like methods.
+
+// a. You want to reuse the same name for the class: Person. However,
+// Hydrogen will complain that the class is already defined. Restart the
+// Hydrogen JavaScript kernel by clickying on the bottom bar, where it
+// says something like "JavaScript (Node.js) | idle ".
+
+// b. Good. Now, copy the Person class you created in EXERCISE 1, but
+// this time add a getter method that returns the full name of brendan.
+// Hint: add the keyword get in front of the method.
+
+class Person {
+
+    get fullName() {
+        return this.first + ' ' + this.last;
+    }
+
+    constructor(first, last, year) {
+        this.first = first;
+        this.last = last;
+        this.year = year;
+    }
+
+    sayHi() {
+        console.log('Hi, I am ' + this.first + ' ' + this.last +
+        ', I was born in ' + this.year);
+    }
+}
+
+brendan = new Person('Brendan', 'Eich', 1961);
+brendan.fullName;
+
+// EXERCISE 3. static methods and properties (ES6 syntax).
+// Static methods belong to the class rather than to the object. These are
+// usually used to create helper functions or to common features for every
+// object of the same class.
+
+// a. You want to reuse the same name for the class: Person. However,
+// Hydrogen will complain that the class is already defined. Restart the
+// Hydrogen JavaScript kernel by clickying on the bottom bar, where it
+// says something like "JavaScript (Node.js) | idle ".
+
+// b. Good. Now, you can define the Person class again. This time add a
+// a static method that returns the number of legs..
+// Hint: just add the keyword static in front of the method.
+class Person {
+
+    constructor(first, last, year) {
+        this.first = first;
+        this.last = last;
+        this.year = year;
+    }
+
+    sayHi() {
+        console.log('Hi, I am ' + this.first + ' ' + this.last +
+        ', I was born in ' + this.year);
+    }
+
+    static numberOfLegs() {
+        return 2;
+    }
+}
+
+// Invoke the method directly on the class.
+Person.numberOfLegs();
+
+
+// EXERCISE 4. Bonus. Prototypical Inherintance.
+////////////////////////////////////////////////
 // You can still create a class like in the good old days of JavaScript.
 // It is actually very illuminating to understand what classes and objects
 // really are in JavaScript, and what "prototypical inherintance" means.
