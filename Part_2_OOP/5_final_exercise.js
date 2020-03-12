@@ -4,9 +4,12 @@
 
 // Part 2 Object Oriented Programming.
 
+// You can have a look around, but wait for everybody to get here!
+
 // EXERCISE 1. Prisoner Dilemma Tournament!
 ///////////////////////////////////////////
 
+// Warning: This command might not run properly on Hydrogen.
 const Tournament = require('./tournament_files/tournament.js');
 
 let tournament = new Tournament({ verbose: true });
@@ -25,5 +28,3 @@ tournament.start();
 tournament.declareWinner()
 
 console.log(tournament.results);
-
-// tournament.save('./tournament_files/results/payoffs.csv');

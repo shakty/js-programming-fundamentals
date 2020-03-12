@@ -50,8 +50,26 @@ brendan.sayHi();
 
 // a. Use the old-timer that = this trick.
 
+brendan.sayHi2 = function() {
+    let that = this;
+    console.log('I will tell you who I am in a second.')
+    setTimeout(function() {
+        console.log('Hi, I am ' + that.first);
+    }, 1000);
+}
+
+brendan.sayHi2();
 
 // b. Use the arrow function and this.
+
+brendan.sayHi3 = function() {
+    console.log('I will tell you who I am in a second.')
+    setTimeout(() => {
+        console.log('Hi, I am ' + this.first);
+    }, 1000);
+}
+
+brendan.sayHi3();
 
 // EXERCISE 2. Bonus. Apply and Call.
 /////////////////////////////////////
