@@ -11,10 +11,7 @@ class Strategy {
         this.DEFECT = Tournament.DEFECT;
         this.COOPERATE = Tournament.COOPERATE;
 
-        // Total payoff.
-        this.totPayoff = 0;
-
-        // Tmp payoff is cleared by the reset method.
+        // Payoff of the strategy.
         this.payoff = 0;
 
         // Set the name to the class name (for extending classes).
