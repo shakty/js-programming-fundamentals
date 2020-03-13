@@ -1,8 +1,7 @@
 # JS Course for Beginners
 
 
-It focuses on Object Oriented Programming. And it is supposed to be a bit funny. Only supposed...BlaBla
+It focuses on Object Oriented Programming. And it is supposed to be a bit funny. Only supposed...
 
-Tit Tat
-New Change
+Tschüss Baba.
 
