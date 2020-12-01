@@ -24,6 +24,8 @@ tournament.addStrategy('random09');
 // This needs to be implemented.
 tournament.addStrategy('tit4tat');
 
+tournament.addStrategy('mystrategy');
+
 tournament.start();
 tournament.declareWinner()
 
