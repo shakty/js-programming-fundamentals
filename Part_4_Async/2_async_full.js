@@ -270,7 +270,7 @@ function yummy() {
 }
 
 function doItAll() {
-  // console.clear();
+  console.clear();
   console.log();
   console.log("The bread and butter of async programming:");
   console.log();
