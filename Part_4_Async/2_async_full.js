@@ -2,22 +2,27 @@
 // Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
-// EXERCISE 1. Timeouts and Intervals.
-/////////////////////////////////////
-
-// This is async 101, I know you can make it.
-
 // Variable process represents this NodeJS process, and argv
 // contains all command-line arguments to execute this file.
-const args = process.argv;
 
 // This file is executed with a command like: node fileName arg1 arg2.
-// So the args array contains ["node", "fileName", arg1, arg2], where
-// arg1 and arg2 are optional.
+// So the args array contains ["node", "fileName", arg1, arg2, arg3], where
+// arg1, arg2, and arg3 are optional.
+const args = process.argv;
 
-// By default don't do async and don't do silly.
-const doSilly = (args[2] === "--silly" || args[3] === "--silly") || false;
-const doAsync = (args[2] === "--async" || args[3] === "--async") || false;
+
+// By default don't do neither async, nor silly, nor exit.
+
+// If TRUE, some silly actions might take place, so the preparation of the
+// bread and butter of async programming might fail.
+const doSilly = args.indexOf("--silly") !== -1 || false;
+// If TRUE, some actions might take longer to execute, so the preparation of
+// the bread and butter of async programming might fail.
+const doAsync = args.indexOf("--async") !== -1 || false;
+// If TRUE, it will exit the program early if the preparation of the bread and 
+// butter of async programming fails.
+const doExit = args.indexOf("--exit") !== -1 || false;
+
 
 ///////////////////////
 // Random variables. //
@@ -37,7 +42,8 @@ let nSlicesAvailable = Math.max(3, Math.ceil(Math.random() * 10));
 if (doSilly) nSlicesAvailable = 2;
 
 // I will cut between 1 and the number of available slices.
-let nSlicesNeeded = Math.ceil(Math.random() * nSlicesAvailable);
+let nSlicesNeeded = doAsync ?
+  Math.ceil(Math.random() * nSlicesAvailable) : 1;
 
 ///////////////////////////
 // Init State variables. //
@@ -46,13 +52,19 @@ let nSlicesNeeded = Math.ceil(Math.random() * nSlicesAvailable);
 // Might be open or closed, and contains more or less stuff,
 // including the butter of async programming.
 let fridge = {
-  opened: doSilly ? Math.random() > 0.5 : false,
+  opened: false,
   stuff: {
     butter: true,
     water: true,
     soda: true
   }
 };
+
+// Do silly stuff.
+if (doSilly) {
+  if (Math.random() > 0.5) fridge.opened = true;
+  if (Math.random() > 0.9) fridge.stuff.butter = false;
+}
 
 // If fridge is supposed cluttered, fill it with extra stuff.
 if (fridgeCluttered) {
@@ -104,18 +116,19 @@ function logCounter(txt) {
 }
 
 function quit() {
-  log('I cannot go on like this...');
+  console.log('\nI cannot go on like this...\n');
   process.exit(-1);
 }
 
 function err(txt) {
   txt = "Aaaah!!! " + txt;
   log(txt);
-  quit();
+  if (doExit) quit();
 }
 
-
-//////////////////////////////
+///////////////////////////////////////////////////////////////////
+// Actions to prepare the bread and butter of async programming. //
+///////////////////////////////////////////////////////////////////
 
 function openFridge() {
   logCounter("I am opening the fridge.");
@@ -127,12 +140,15 @@ function openFridge() {
     return;
   }
   if (doSilly && Math.random() > 0.8) {
+    fridge.opened = false;
     log('Oh no, the door is stuck I cannot open the fridge!')
   }
-  fridge.opened = true;
+  else {
+    fridge.opened = true;
+  }
 }
 
-// Closure.
+// Self-executing function (closure) to create private variables. 
 let takeButter = (function() {
 
   // Private function.
@@ -142,7 +158,7 @@ let takeButter = (function() {
     table.butter = true;
   }
 
-  // The actual function that will be called.
+  // The actual function that will be assigned to takeButter.
   return function() {
     if (!fridge.opened) {
       err("The fridge is closed, you fool!");
@@ -166,12 +182,13 @@ let takeButter = (function() {
 })();
 
 // We are just taking the bread and putting on the table.
+// At least this one does not fail.
 function takeBread() {
   table.bread = bread;
   logCounter("I am taking the bread.");
 }
 
-
+// Self-executing function (closure) to create private variables. 
 let sliceBread = (function() {
   
   function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
@@ -181,6 +198,7 @@ let sliceBread = (function() {
     else table.plate.breadSlices++;
   }
   
+    // The actual function that will be assigned to sliceBread.
   return function() {
     let bread = table.bread;
     // Switch-true pattern to check multiple conditions.
@@ -194,25 +212,38 @@ let sliceBread = (function() {
         err("No more bread to slice.");
       case bread.availableSlices < 3:
         logCounter("There is a little bread left, it's kind of difficult to cut it.");
-        if (Math.random() > 0.1) {
+        if (Math.random() > 0.4) {
           err("I cut myself, I told you!");
         }
     }
   
+    // Whole wheat is complicated and we always do at most one slice.
     if (bread.type === "Whole Wheat") {
-        log("Oh, it is " + bread.type.toLowerCase() + "; its crust is kind of hard...it'll take a while to slice it without a chainsaw.");
+        log("Oh, the bread is " + bread.type.toLowerCase() + "; its crust is kind of hard...it'll take a while to slice it without a chainsaw.");
+        
+        // Create async function executed after a timeout of 3 seconds.
         setTimeout(() => {
           _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.');
         }, 3000);
+
     }
+    // If it is white bread we might do more slices.
     else {
+
+      // Cut the first slice.
       _putBreadSliceOnPlate();
 
       if (nSlicesNeeded > 1) {
+
+        // Create async function executed with a periodic interval of 1 second.
+        // We keep a reference to the interval, so that we can remove it when
+        // we are done slicing. 
         let intervalSlicing = setInterval(() => {
           let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
           log(`Just ${stillNeeded} slices left to cut...`);
+          
           _putBreadSliceOnPlate();
+
           if (nSlicesNeeded === table.plate.breadSlices) {
             clearInterval(intervalSlicing);
           }
@@ -240,6 +271,7 @@ function yummy() {
 
 function doItAll() {
   // console.clear();
+  console.log();
   console.log("The bread and butter of async programming:");
   console.log();
   openFridge();
@@ -248,6 +280,7 @@ function doItAll() {
   sliceBread();
   spreadButter();
   yummy();
+  console.log();
 }
 
 doItAll();
