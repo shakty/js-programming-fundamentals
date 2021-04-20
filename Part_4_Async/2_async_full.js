@@ -19,8 +19,6 @@ const args = process.argv;
 const doSilly = (args[2] === "--silly" || args[3] === "--silly") || false;
 const doAsync = (args[2] === "--async" || args[3] === "--async") || false;
 
-console.log("doddddddddddddddddddddddddddddd", doSilly, doAsync)
-console.log('AA')
 ///////////////////////
 // Random variables. //
 ///////////////////////
@@ -35,7 +33,7 @@ let breadType = "White";
 if (doAsync && doSilly && Math.random() > 0.5) breadType = "Whole Wheat"; 
 
 // How much sliceable bread is left?
-let nSlicesAvailable = Math.ceil(Math.random() * 10);
+let nSlicesAvailable = Math.max(3, Math.ceil(Math.random() * 10));
 if (doSilly) nSlicesAvailable = 2;
 
 // I will cut between 1 and the number of available slices.
@@ -173,49 +171,67 @@ function takeBread() {
   logCounter("I am taking the bread.");
 }
 
-function _putBreadSliceOnPlate() {
-  table.plate.breadSlice = true;
-}
 
-function sliceBread() {
-  let bread = table.bread;
-  // Switch-true pattern to check multiple conditions.
-  // It is equivalent to multiple if/else statements.
-  switch (true) {
-    case !table.bread:
-      err('I have no knife!');
-    case !bread:
-      err("There is no bread, I am not in the mood to slice air.");
-    case bread.availableSlices <= 0:
-      err("No more bread to slice.");
-    case bread.availableSlices < 3:
-      logCounter("There is a little bread left, it's kind of difficult to cut it.");
-      if (Math.random() > 0.1) {
-        err("I cut myself, I told you!");
+let sliceBread = (function() {
+  
+  function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
+    logCounter(txt);
+    // Increment the number of bread slices on the plate.
+    if (!table.plate.breadSlices) table.plate.breadSlices = 1;
+    else table.plate.breadSlices++;
+  }
+  
+  return function() {
+    let bread = table.bread;
+    // Switch-true pattern to check multiple conditions.
+    // It is equivalent to multiple if/else statements.
+    switch (true) {
+      case !table.bread:
+        err('I have no knife!');
+      case !bread:
+        err("There is no bread, I am not in the mood to slice air.");
+      case bread.availableSlices <= 0:
+        err("No more bread to slice.");
+      case bread.availableSlices < 3:
+        logCounter("There is a little bread left, it's kind of difficult to cut it.");
+        if (Math.random() > 0.1) {
+          err("I cut myself, I told you!");
+        }
+    }
+  
+    if (bread.type === "Whole Wheat") {
+        log("Oh, it is " + bread.type.toLowerCase() + "; its crust is kind of hard...it'll take a while to slice it without a chainsaw.");
+        setTimeout(() => {
+          _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.');
+        }, 3000);
+    }
+    else {
+      _putBreadSliceOnPlate();
+
+      if (nSlicesNeeded > 1) {
+        let intervalSlicing = setInterval(() => {
+          let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
+          log(`Just ${stillNeeded} slices left to cut...`);
+          _putBreadSliceOnPlate();
+          if (nSlicesNeeded === table.plate.breadSlices) {
+            clearInterval(intervalSlicing);
+          }
+        }, 1000);
       }
+    }
   }
+  
+})();
 
-  if (bread.type === "Whole Wheat") {
-      log("Oh, it is " + bread.type.toLowerCase() + "; its crust is kind of hard...it'll take a while to slice it without a chainsaw.");
-      setTimeout(function() {
-        logCounter('I finally managed to cut a slate from that stone-bread.');
-        _putBreadSliceOnPlate();
-      }, 3000);
-  }
-  else {
-    logCounter("I am slicing the bread.");
-    _putBreadSliceOnPlate();
-  }
-}
 
 function spreadButter() {
   if (!table.butter) {
     err("There is no butter on the table? How can I spread it?");
   }
-  if (!table.plate.breadSlice) {
+  if (!table.plate.breadSlices) {
     err("I haven't sliced my bread yet, how can I spread the butter?");
   }
-  logCounter("I am spreading the butter on a slice of bread.");
+  logCounter("I am spreading the butter on the bread.");
 }
 
 function yummy() {
@@ -223,7 +239,7 @@ function yummy() {
 }
 
 function doItAll() {
-  console.clear();
+  // console.clear();
   console.log("The bread and butter of async programming:");
   console.log();
   openFridge();
