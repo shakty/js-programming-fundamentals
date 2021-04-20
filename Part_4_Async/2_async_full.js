@@ -5,86 +5,131 @@
 // EXERCISE 1. Timeouts and Intervals.
 /////////////////////////////////////
 
-// let args = process.argv;
-// let breadType 
-
 // This is async 101, I know you can make it.
 
+// Variable process represents this NodeJS process, and argv
+// contains all command-line arguments to execute this file.
+const args = process.argv;
 
-let doThrow = false;
-let doAsync = true;
+// This file is executed with a command like: node fileName arg1 arg2.
+// So the args array contains ["node", "fileName", arg1, arg2], where
+// arg1 and arg2 are optional.
 
-// Random variables.
+// By default don't do async and don't do silly.
+const doSilly = (args[2] === "--silly" || args[3] === "--silly") || false;
+const doAsync = (args[2] === "--async" || args[3] === "--async") || false;
 
-let breadType = Math.random() > 0.5 ? "Whole Wheat" : "White";
+console.log("doddddddddddddddddddddddddddddd", doSilly, doAsync)
+console.log('AA')
+///////////////////////
+// Random variables. //
+///////////////////////
 
-let fridgeCluttered = Math.random() > 0.5;
+// If TRUE, there is too much stuff in the fridge and it will
+// take more time to find the butter.
+let fridgeCluttered = doAsync;
 
-let nSlices = Math.ceil(Math.random() * 10);
+// The Whole Wheat bread develops a notoriously hard crust if
+// left outside for too long. It will take more time to slice it.
+let breadType = "White";
+if (doAsync && doSilly && Math.random() > 0.5) breadType = "Whole Wheat"; 
+
+// How much sliceable bread is left?
+let nSlicesAvailable = Math.ceil(Math.random() * 10);
+if (doSilly) nSlicesAvailable = 2;
+
 // I will cut between 1 and the number of available slices.
-let nSlicesNeeded = Math.ceil(Math.random() * nSlices);
+let nSlicesNeeded = Math.ceil(Math.random() * nSlicesAvailable);
 
-// State variables.
-///////////////////
+///////////////////////////
+// Init State variables. //
+///////////////////////////
 
-
+// Might be open or closed, and contains more or less stuff,
+// including the butter of async programming.
 let fridge = {
-  opened: false,
+  opened: doSilly ? Math.random() > 0.5 : false,
   stuff: {
     butter: true,
     water: true,
-    soda: true,
-    misteryJar: true,
-  },
+    soda: true
+  }
 };
 
+// If fridge is supposed cluttered, fill it with extra stuff.
 if (fridgeCluttered) {
+  
+  // Add properties directly.
   fridge.stuff.mushrooms = true;
   fridge.stuff.pizza = true;
   fridge.stuff.giantPot = true;
+  
+  // USE ES6 spread operator ...
+  // Find out more here:
+  // https://oprearocks.medium.com/what-do-the-three-dots-mean-in-javascript-bc5749439c9a
+  fridge.stuff = {
+    ...fridge.stuff,
+    alfredoSauce: true,
+    fruitPunch: true,
+    chineseLeftover: true,
+    misteryJar: true
+  }
 }
 
+// The bread is floating around waiting to be grabbed and sliced.
+// There might be just a few slices left, so it becomes difficult
+// to cut and you might get hurt. Silly.
+let bread = {
+  availableSlices: nSlicesAvailable,
+  type: breadType
+};
+
+// The table holds the knife to cut the bread and the plate where
+// we will put the sliced bread. 
 let table = {
   plate: {},
   knife: true
 };
 
-let bread = {
-  availableSlices: nSlices,
-  type: breadType
-};
-
-// Logging.
-/////////////////////////////////
+////////////////////////////////////////
+// Some simple functions for logging. //
+////////////////////////////////////////
 
 let actionCounter = 0;
+
+function log(txt) {
+  console.log('    ' + txt);
+}
 
 function logCounter(txt) {
   console.log(++actionCounter, txt);
 }
 
 function quit() {
-  console.log('I cannot go ahead like this...');
+  log('I cannot go on like this...');
   process.exit(-1);
 }
 
 function err(txt) {
-  txt = "**** Aaaah!!! " + txt;
-  if (doThrow) throw new Error(txt);
-  console.log(txt);
+  txt = "Aaaah!!! " + txt;
+  log(txt);
   quit();
 }
+
 
 //////////////////////////////
 
 function openFridge() {
   logCounter("I am opening the fridge.");
   if (fridge.opened) {
-    logCounter(
+    log(
       "Wait...it is already open! Who left it opened??? Brendan was it you?"
     );
-    // Early return.
+    // Early return to skip execution of the code below.
     return;
+  }
+  if (doSilly && Math.random() > 0.8) {
+    log('Oh no, the door is stuck I cannot open the fridge!')
   }
   fridge.opened = true;
 }
@@ -112,8 +157,8 @@ let takeButter = (function() {
     if (Object.keys(fridge.stuff).length > 4) {
       // With a certain probability the fridge is cluttered
       // and you cannot find the butter immediately.
-      console.log("Where the hell is the butter?");
-      console.log("Who took my butter?! Brendan!!");
+      log("Where the hell is the butter?");
+      log("Who took my butter?! Brendan!!");
 
       setTimeout(_justTakeTheButter, 2000);
     } else {
@@ -127,8 +172,6 @@ function takeBread() {
   table.bread = bread;
   logCounter("I am taking the bread.");
 }
-
-
 
 function _putBreadSliceOnPlate() {
   table.plate.breadSlice = true;
@@ -153,7 +196,7 @@ function sliceBread() {
   }
 
   if (bread.type === "Whole Wheat") {
-      console.log("Oh, it is a " + bread.type + " bread, its crust is kind of hard...it'll take a while without a chainsaw.");
+      log("Oh, it is " + bread.type.toLowerCase() + "; its crust is kind of hard...it'll take a while to slice it without a chainsaw.");
       setTimeout(function() {
         logCounter('I finally managed to cut a slate from that stone-bread.');
         _putBreadSliceOnPlate();
