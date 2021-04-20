@@ -130,7 +130,7 @@ function err(txt) {
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
-function openFridge() {
+function openFridge(cb) {
   logCounter("I am opening the fridge.");
   if (fridge.opened) {
     log(
@@ -139,7 +139,7 @@ function openFridge() {
     // Early return to skip execution of the code below.
     return;
   }
-
+  
   if (doAsync && Math.random() > 0.8) {
     fridge.opened = false;
     log('Oh no, the door is stuck I cannot open the fridge!')
@@ -147,10 +147,12 @@ function openFridge() {
     setTimeout(() => {
       log('OK, I removed the baby-lock and I opened the fridge\'s door.');
       fridge.opened = true;
+      if (cb) cb();
     }, 2000);
   }
   else {
     fridge.opened = true;
+    if (cb) cb();
   }
 }
 
@@ -158,33 +160,37 @@ function openFridge() {
 let takeButter = (function() {
 
   // Private function.
-  function _justTakeTheButter() {
+  function _justTakeTheButter(cb) {
     logCounter("I am taking the butter.");
     fridge.stuff.butter = false;
     table.butter = true;
+    if (cb) cb();
   }
 
-  // The actual function that will be assigned to takeButter.
-  return function() {
-    if (!fridge.opened) {
-      err("The fridge is closed, you fool!");
-    }
-    if (!fridge.stuff.butter) {
-      err("There is no butter in the fridge, we are all going to die!");
-    }
+    // The actual function that will be assigned to takeButter.
+    return function(cb) {
+      if (!fridge.opened) {
+        err("The fridge is closed, you fool!");
+      }
+      if (!fridge.stuff.butter) {
+        err("There is no butter in the fridge, we are all going to die!");
+      }
+  
+      // Is there too much stuff in the fridge?
+      if (Object.keys(fridge.stuff).length > 4) {
+        // With a certain probability the fridge is cluttered
+        // and you cannot find the butter immediately.
+        log("Where the hell is the butter?");
+        log("Who took my butter?! Brendan!!");
+  
+        setTimeout(() => {
+          _justTakeTheButter(cb);
+        }, 2000);
+      } else {
+        _justTakeTheButter(cb);
+      }
+    };
 
-    // Is there too much stuff in the fridge?
-    if (Object.keys(fridge.stuff).length > 4) {
-      // With a certain probability the fridge is cluttered
-      // and you cannot find the butter immediately.
-      log("Where the hell is the butter?");
-      log("Who took my butter?! Brendan!!");
-
-      setTimeout(_justTakeTheButter, 2000);
-    } else {
-      _justTakeTheButter();
-    }
-  };
 })();
 
 // We are just taking the bread and putting on the table.
@@ -197,16 +203,18 @@ function takeBread() {
 // Self-executing function (closure) to create private variables. 
 let sliceBread = (function() {
   
-  function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
+  function _putBreadSliceOnPlate(txt = "I am slicing the bread.", cb) {
     logCounter(txt);
     // Increment the number of bread slices on the plate.
     if (!table.plate.breadSlices) table.plate.breadSlices = 1;
     else table.plate.breadSlices++;
+    if (cb) cb();
   }
   
     // The actual function that will be assigned to sliceBread.
-  return function() {
+  return function(cb) {
     let bread = table.bread;
+
     // Switch-true pattern to check multiple conditions.
     // It is equivalent to multiple if/else statements.
     switch (true) {
@@ -229,30 +237,37 @@ let sliceBread = (function() {
         
         // Create async function executed after a timeout of 3 seconds.
         setTimeout(() => {
-          _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.');
+          _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.', cb);
         }, 3000);
-
     }
+
     // If it is white bread we might do more slices.
     else {
 
-      // Cut the first slice.
-      _putBreadSliceOnPlate();
-
-      if (nSlicesNeeded > 1) {
+      if (nSlicesNeeded === 1) {
+        // Cut the first slice.
+        _putBreadSliceOnPlate(undefined, cb);
+      }
+      else {
 
         // Create async function executed with a periodic interval of 1 second.
         // We keep a reference to the interval, so that we can remove it when
-        // we are done slicing. 
+        // we are done slicing.
         let intervalSlicing = setInterval(() => {
-          let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
+          let stillNeeded;
+          if (!table.plate.breadSlices) stillNeeded = nSlicesNeeded;
+          else stillNeeded = nSlicesNeeded - table.plate.breadSlices;
           log(`Just ${stillNeeded} slices left to cut...`);
           
-          _putBreadSliceOnPlate();
-
-          if (nSlicesNeeded === table.plate.breadSlices) {
+          // Variable is initialize only if we are about to cut the last slice.
+          let mycb;
+          if (nSlicesNeeded - table.plate.breadSlices === 1) {
             clearInterval(intervalSlicing);
+            mycb = cb;
           }
+          _putBreadSliceOnPlate(undefined, mycb);
+
+          
         }, 1000);
       }
     }
@@ -280,12 +295,16 @@ function doItAll() {
   console.log();
   console.log("The bread and butter of async programming:");
   console.log();
-  openFridge();
-  takeButter();
-  takeBread();
-  sliceBread();
-  spreadButter();
-  yummy();
+  
+  openFridge(() => {
+    takeButter(() => {
+      takeBread();
+      sliceBread(() => {
+        spreadButter();
+        yummy();
+      });
+    });
+  });
   console.log();
 }
 
