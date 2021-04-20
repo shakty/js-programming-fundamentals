@@ -5,11 +5,24 @@
 // EXERCISE 1. Timeouts and Intervals.
 /////////////////////////////////////
 
+// let args = process.argv;
+// let breadType 
+
 // This is async 101, I know you can make it.
 
 
 let doThrow = false;
-let doAsync = false;
+let doAsync = true;
+
+// Random variables.
+
+let breadType = Math.random() > 0.5 ? "Whole Wheat" : "White";
+
+let fridgeCluttered = Math.random() > 0.5;
+
+let nSlices = Math.ceil(Math.random() * 10);
+// I will cut between 1 and the number of available slices.
+let nSlicesNeeded = Math.ceil(Math.random() * nSlices);
 
 // State variables.
 ///////////////////
@@ -20,19 +33,25 @@ let fridge = {
   stuff: {
     butter: true,
     water: true,
-    chicken: true,
+    soda: true,
     misteryJar: true,
   },
 };
 
+if (fridgeCluttered) {
+  fridge.stuff.mushrooms = true;
+  fridge.stuff.pizza = true;
+  fridge.stuff.giantPot = true;
+}
+
 let table = {
-  plate: true,
+  plate: {},
   knife: true
 };
 
 let bread = {
-  availableSlices: 1,
-  type: "integral",
+  availableSlices: nSlices,
+  type: breadType
 };
 
 // Logging.
@@ -45,11 +64,12 @@ function logCounter(txt) {
 }
 
 function quit() {
+  console.log('I cannot go ahead like this...');
   process.exit(-1);
 }
 
 function err(txt) {
-  txt = "Aaaah!!! " + txt;
+  txt = "**** Aaaah!!! " + txt;
   if (doThrow) throw new Error(txt);
   console.log(txt);
   quit();
@@ -88,11 +108,12 @@ let takeButter = (function() {
       err("There is no butter in the fridge, we are all going to die!");
     }
 
-    if (doAsync && Math.random() > 0.5) {
+    // Is there too much stuff in the fridge?
+    if (Object.keys(fridge.stuff).length > 4) {
       // With a certain probability the fridge is cluttered
       // and you cannot find the butter immediately.
-      logCounter("Where the hell is the butter?");
-      logCounter("Who took my butter?!");
+      console.log("Where the hell is the butter?");
+      console.log("Who took my butter?! Brendan!!");
 
       setTimeout(_justTakeTheButter, 2000);
     } else {
@@ -103,11 +124,16 @@ let takeButter = (function() {
 
 // We are just taking the bread and putting on the table.
 function takeBread() {
-  table.bread = true;
+  table.bread = bread;
   logCounter("I am taking the bread.");
 }
 
-// We 
+
+
+function _putBreadSliceOnPlate() {
+  table.plate.breadSlice = true;
+}
+
 function sliceBread() {
   let bread = table.bread;
   // Switch-true pattern to check multiple conditions.
@@ -116,21 +142,35 @@ function sliceBread() {
     case !table.bread:
       err('I have no knife!');
     case !bread:
-      err("I am not in the mood to slice air.");
+      err("There is no bread, I am not in the mood to slice air.");
     case bread.availableSlices <= 0:
       err("No more bread to slice.");
     case bread.availableSlices < 3:
-      log("There is a little bread left, it's kind of difficult to cut it.");
+      logCounter("There is a little bread left, it's kind of difficult to cut it.");
       if (Math.random() > 0.1) {
         err("I cut myself, I told you!");
       }
   }
-  logCounter("I am slicing the bread.");
+
+  if (bread.type === "Whole Wheat") {
+      console.log("Oh, it is a " + bread.type + " bread, its crust is kind of hard...it'll take a while without a chainsaw.");
+      setTimeout(function() {
+        logCounter('I finally managed to cut a slate from that stone-bread.');
+        _putBreadSliceOnPlate();
+      }, 3000);
+  }
+  else {
+    logCounter("I am slicing the bread.");
+    _putBreadSliceOnPlate();
+  }
 }
 
 function spreadButter() {
   if (!table.butter) {
     err("There is no butter on the table? How can I spread it?");
+  }
+  if (!table.plate.breadSlice) {
+    err("I haven't sliced my bread yet, how can I spread the butter?");
   }
   logCounter("I am spreading the butter on a slice of bread.");
 }
