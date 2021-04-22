@@ -1,6 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
+// Welcome to the 2nd exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
+
+// EXERCISE 1. The Bread and Butter of Async Programming.
+/////////////////////////////////////////////////////////
+
+// You are going to learn about the bread and butter of async programming.
+// Instead of jumping into network requests straight away, we will simulate
+// network latency with setTimeout and setInterval methods that we used in 
+// async 101.
+
+// 
+
 
 // Variable process represents this NodeJS process, and argv
 // contains all command-line arguments to execute this file.

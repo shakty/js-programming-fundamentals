@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 3nd exercise sheet of Programming Fundamentals in JavaScript!
+// Welcome to the 5th exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
 // Here we try to put things together and we learn about a new thing:
