@@ -130,7 +130,7 @@ function err(txt) {
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
-async function openFridge(cb) {
+function openFridge(cb) {
   logCounter("I am opening the fridge.");
   if (fridge.opened) {
     log(
@@ -168,7 +168,7 @@ let takeButter = (function() {
   }
 
     // The actual function that will be assigned to takeButter.
-    return async function(cb) {
+    return function(cb) {
       if (!fridge.opened) {
         err("The fridge is closed, you fool!");
       }
@@ -212,7 +212,7 @@ let sliceBread = (function() {
   }
   
     // The actual function that will be assigned to sliceBread.
-  return async function(cb) {
+  return function(cb) {
     let bread = table.bread;
 
     // Switch-true pattern to check multiple conditions.
@@ -290,19 +290,21 @@ function yummy() {
   logCounter("Yummy!");
 }
 
-async function doItAll() {
+function doItAll() {
   console.clear();
   console.log();
   console.log("The bread and butter of async programming:");
   console.log();
   
-  await openFridge();
-  await takeButter();
-  takeBread();
-  await sliceBread();
-  spreadButter();
-  yummy();
-
+  openFridge(() => {
+    takeButter(() => {
+      takeBread();
+      sliceBread(() => {
+        spreadButter();
+        yummy();
+      });
+    });
+  });
   console.log();
 }
 
