@@ -268,7 +268,7 @@ let sliceBread = (function() {
             clearInterval(intervalSlicing);
             mycb = resolve;
           }
-          _putBreadSliceOnPlate(undefined, resolve);
+          _putBreadSliceOnPlate(undefined, mycb);
 
           
         }, 1000);
@@ -320,11 +320,16 @@ function doItAll() {
           spreadButter();
           yummy();
       })
-    });
-    // .catch(err => {
-    //   console.log('ERR', err)
-    // })
-    // .finally(() => console.log('finally'))
+      .catch(err => {
+        console.log('An error happened while slicing the bread.', err)
+      })
+      .finally(() => console.log('Finally!'));
+    })
+    .catch(err => {
+      console.log('An error happened either taking the butter or slicing the bread:', err)
+    })
+
+    
     
   console.log();
 }
