@@ -2,6 +2,7 @@
 // Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
 ///////////////////////////////////////////////////////////////////////////////
 
+
 // Variable process represents this NodeJS process, and argv
 // contains all command-line arguments to execute this file.
 
@@ -130,12 +131,13 @@ function err(txt) {
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
-function openFridge(cb) {
+const openFridge = (resolve, reject) => {
   logCounter("I am opening the fridge.");
   if (fridge.opened) {
     log(
       "Wait...it is already open! Who left it opened??? Brendan was it you?"
     );
+    resolve();
     // Early return to skip execution of the code below.
     return;
   }
@@ -147,33 +149,35 @@ function openFridge(cb) {
     setTimeout(() => {
       log('OK, I removed the baby-lock and I opened the fridge\'s door.');
       fridge.opened = true;
-      if (cb) cb();
+      resolve();
     }, 2000);
   }
   else {
     fridge.opened = true;
-    if (cb) cb();
+    resolve();
   }
-}
+};
 
 // Self-executing function (closure) to create private variables. 
 let takeButter = (function() {
 
   // Private function.
-  function _justTakeTheButter(cb) {
+  function _justTakeTheButter(resolve) {
     logCounter("I am taking the butter.");
     fridge.stuff.butter = false;
     table.butter = true;
-    if (cb) cb();
+    resolve();
   }
 
     // The actual function that will be assigned to takeButter.
-    return function(cb) {
+    return (resolve, reject) => {
       if (!fridge.opened) {
         err("The fridge is closed, you fool!");
+        reject();
       }
       if (!fridge.stuff.butter) {
         err("There is no butter in the fridge, we are all going to die!");
+        reject();
       }
   
       // Is there too much stuff in the fridge?
@@ -184,13 +188,12 @@ let takeButter = (function() {
         log("Who took my butter?! Brendan!!");
   
         setTimeout(() => {
-          _justTakeTheButter(cb);
+          _justTakeTheButter(resolve);
         }, 2000);
       } else {
-        _justTakeTheButter(cb);
+        _justTakeTheButter(resolve);
       }
     };
-
 })();
 
 // We are just taking the bread and putting on the table.
@@ -212,13 +215,13 @@ let sliceBread = (function() {
   }
   
     // The actual function that will be assigned to sliceBread.
-  return function(cb) {
+  return (resolve, reject) => {
     let bread = table.bread;
 
     // Switch-true pattern to check multiple conditions.
     // It is equivalent to multiple if/else statements.
-    switch (true) {
-      case !table.bread:
+    switch (true) {  
+      case !table.knife:
         err('I have no knife!');
       case !bread:
         err("There is no bread, I am not in the mood to slice air.");
@@ -237,7 +240,7 @@ let sliceBread = (function() {
         
         // Create async function executed after a timeout of 3 seconds.
         setTimeout(() => {
-          _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.', cb);
+          _putBreadSliceOnPlate('I finally managed to cut a slate from that stone-bread.', resolve);
         }, 3000);
     }
 
@@ -246,7 +249,7 @@ let sliceBread = (function() {
 
       if (nSlicesNeeded === 1) {
         // Cut the first slice.
-        _putBreadSliceOnPlate(undefined, cb);
+        _putBreadSliceOnPlate(undefined, resolve);
       }
       else {
 
@@ -263,15 +266,15 @@ let sliceBread = (function() {
           let mycb;
           if (nSlicesNeeded - table.plate.breadSlices === 1) {
             clearInterval(intervalSlicing);
-            mycb = cb;
+            mycb = resolve;
           }
-          _putBreadSliceOnPlate(undefined, mycb);
+          _putBreadSliceOnPlate(undefined, resolve);
 
           
         }, 1000);
       }
     }
-  }
+  };
   
 })();
 
@@ -290,21 +293,39 @@ function yummy() {
   logCounter("Yummy!");
 }
 
+/////////////////////////////////////////////////////////////////////
+// Promises are executed when created, so we need to create them 
+// when we need them!
+const asyncActions = {
+  openFridge: openFridge,
+  takeButter: takeButter,
+  sliceBread: sliceBread
+};
+const promiseIt = action => new Promise(asyncActions[action]);
+/////////////////////////////////////////////////////////////////////
+
+
 function doItAll() {
   console.clear();
   console.log();
   console.log("The bread and butter of async programming:");
   console.log();
   
-  openFridge(() => {
-    takeButter(() => {
+  promiseIt('openFridge')
+    .then(() => promiseIt('takeButter'))
+    .then(() => { 
       takeBread();
-      sliceBread(() => {
-        spreadButter();
-        yummy();
-      });
+      promiseIt('sliceBread')
+        .then(() => { 
+          spreadButter();
+          yummy();
+      })
     });
-  });
+    // .catch(err => {
+    //   console.log('ERR', err)
+    // })
+    // .finally(() => console.log('finally'))
+    
   console.log();
 }
 
