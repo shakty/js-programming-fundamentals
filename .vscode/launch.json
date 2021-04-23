@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "name": "chrome://inspect",
+            "request": "launch",
+            "url": "chrome://inspect"
+        }
+    ]
+}
