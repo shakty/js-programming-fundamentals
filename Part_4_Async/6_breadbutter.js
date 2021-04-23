@@ -1,6 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
-///////////////////////////////////////////////////////////////////////////////
+// This is an optional exercise that teaches you 
+// the bread and butter of async programming.
+
 
 // This file is executed with a command like: node fileName arg1 arg2.
 // So the args array contains ["node", "fileName", arg1, arg2, arg3], where
