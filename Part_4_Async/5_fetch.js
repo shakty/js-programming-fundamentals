@@ -1,11 +1,41 @@
-////////////////////////////////////////////////////////////////////////////////
-// Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
-///////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////////////////////
+ // Programming Fundamentals in JavaScript! //
+ /////////////////////////////////////////////
 
-// Execute
+ // Module: Async Programming.
+ /////////////////////////////
+
+// In a world where nothing is like it was, "fetch" is one of the 
+// few things you can still rely upon. It does what it "promises":
+// it will fetch something for you.
+
+// Fetch is very good at fetching stuff from remote servers and
+// it is very well supported in modern browser.
+// However, alas, it does not go along well with old browsers,
+// for which the old-school AJAX (Asynchronous JavaScript And XML) requests 
+// are still the way to go. There is no native support in NodeJS, but 
+// don't worry, exercise 1 has got you covered.
+
+// Exercise 1: install and require node-fetch.
+//////////////////////////////////
+// a. Fetch yourself the node-fetch with this command:
+
 // npm i node-fetch --save
 
+// After you have installed node-fetch, require it and assign it 
+// to a variable named fetch.
+
+// Solution.
 const fetch = require('node-fetch');
+
+
+// Exercise 2: Star Wards API.
+//////////////////////////////
+
+// Now that you have unleashed the power of fetch on your computer,
+// let's use its "force" to do something cool.
+
+// 
 
 const ENDPOINT = 'https://swapi.dev/api/';
 
