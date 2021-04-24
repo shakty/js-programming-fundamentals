@@ -29,7 +29,7 @@
 const fetch = require('node-fetch');
 
 
-// Exercise 2: Star Wards API.
+// Exercise 2: Star Wars API.
 //////////////////////////////
 
 // Now that you have unleashed the power of fetch on your computer,
