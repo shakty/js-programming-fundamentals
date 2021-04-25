@@ -28,16 +28,19 @@ module.exports = function (doAsync, doSilly, doExit) {
         "Wait...it is already open! Who left it opened??? Brendan was it you?"
       );
     }
-    else if (doAsync && Math.random() > 0.8) {
+    else {
+      if (doSilly && Math.random() > 0.8) {
 
-      fridge.opened = false;
-      log("Oh no, the door is stuck I cannot open the fridge!");
+        log("Oh no, the door is stuck I cannot open the fridge!");
 
-      setTimeout(() => {
-        log("OK, I removed the baby-lock and I opened the fridge's door.");
+        setTimeout(() => {
+          log("OK, I removed the baby-lock and I opened the fridge's door.");
+          fridge.opened = true;
+        }, 2000);
+      }
+      else {
         fridge.opened = true;
-      }, 2000);
-
+      }
     }
   }
 
@@ -165,13 +168,15 @@ module.exports = function (doAsync, doSilly, doExit) {
   // Spread Butter.
   /////////////////
   function spreadButter() {
+    logCounter("I am spreading the butter on the bread.");
+    
     if (!table.butter) {
       err("There is no butter on the table? How can I spread it?");
     }
     if (!table.plate.breadSlices) {
       err("I haven't sliced my bread yet, how can I spread the butter?");
     }
-    logCounter("I am spreading the butter on the bread.");
+    
   }
 
   // Yummy!
