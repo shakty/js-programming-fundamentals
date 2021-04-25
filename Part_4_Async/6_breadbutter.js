@@ -63,24 +63,20 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
   // require("./lib/actions.js")(doAsync, doSilly, doThrow);
 
 
-let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
-  require("./lib/actions_callbacks.js")(doAsync, doSilly, doThrow);
-
-// Do it! 
-function breadAndButter() {
-    console.clear();
-    console.log();
-    console.log("The Bread and Butter of async programming:");
-    if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
-    console.log();
-    openFridge();
-    takeButter();
-    takeBread();
-    sliceBread();
-    spreadButter();
-    yummy();
-    console.log();
-}
+// function breadAndButter() {
+//     console.clear();
+//     console.log();
+//     console.log("The Bread and Butter of async programming:");
+//     if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
+//     console.log();
+//     openFridge();
+//     takeButter();
+//     takeBread();
+//     sliceBread();
+//     spreadButter();
+//     yummy();
+//     console.log();
+// }
 
 
 // Exercise 1.
@@ -97,27 +93,108 @@ function breadAndButter() {
 // Exercise 2.
 ///////////////
 
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+//   require("./lib/actions_cb.js")(doAsync, doSilly, doThrow);
 
-function breadAndButterCb() {
-  console.clear();
-  console.log();
-  console.log("The bread and butter of async programming:");
-  console.log();
+// function breadAndButterCb() {
+//   console.clear();
+//   console.log();
+//   console.log("The Bread and Butter of async programming:");
+//   console.log('\tNOW WITH CALLBACKS!\t')
+//   if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
+//   console.log();
   
-  openFridge(() => {
-    takeButter(() => {
-      takeBread();
-      sliceBread(() => {
-        spreadButter();
-        yummy();
-      });
-    });
-  });
-  console.log();
+//   openFridge(() => {
+//     takeButter(() => {
+//       takeBread();
+//       sliceBread(() => {
+//         spreadButter();
+//         yummy();
+//       });
+//     });
+//   });
+
+//   console.log();
+// }
+
+// breadAndButterCb();
+
+
+// Exercise 3.
+///////////////
+
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+//   require("./lib/actions_promise.js")(doAsync, doSilly, doThrow);
+
+/////////////////////////////////////////////////////////////////////
+// Promises are executed when created, so we need to create them 
+// when we need them!
+// const asyncActions = {
+//   openFridge: openFridge,
+//   takeButter: takeButter,
+//   sliceBread: sliceBread
+// };
+// const promiseIt = action => new Promise(asyncActions[action]);
+/////////////////////////////////////////////////////////////////////
+
+
+// Do it! 
+// function breadAndButterPromise() {
+//   console.clear();
+//   console.log();
+//   console.log("The Bread and Butter of async programming:");
+//   console.log('\tNOW WITH PROMISES!\t')
+//   if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
+//   console.log();
+
+//   promiseIt('openFridge')
+//     .then(() => promiseIt('takeButter'))
+//     .then(() => { 
+//       takeBread();
+//       promiseIt('sliceBread')
+//         .then(() => { 
+//           spreadButter();
+//           yummy();
+//       })
+//       .catch(err => {
+//         console.log('An error happened while slicing the bread.', err)
+//       })
+//       .finally(() => console.log('Finally!'));
+//     })
+//     .catch(err => {
+//       console.log('An error happened either taking the butter or slicing the bread:', err)
+//     })
+
+//   console.log();
+// }
+
+// breadAndButterPromise();
+
+// Exercise 4.
+//////////////
+
+let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+  require("./lib/actions_await.js")(doAsync, doSilly, doThrow);
+
+  
+async function breadAndButterAwait() {
+    console.clear();
+    console.log("The Bread and Butter of async programming:");
+    console.log('\tNOW WITH ASYNC/AWAIT!\t')
+    if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
+    console.log();
+    
+    await openFridge();
+    await takeButter();
+    takeBread();
+    await sliceBread();
+    spreadButter();
+    yummy();
+  
+    console.log();
 }
+  
+breadAndButterAwait();
 
-breadAndButterCb();
 
-
-// Execute the bread and butter of async programming passing the --async flag.
 
