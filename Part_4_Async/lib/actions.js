@@ -2,14 +2,14 @@
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
-module.exports = function (doAsync, doSilly, doExit) {
+module.exports = function (doAsync, doSilly, doThrow) {
 
-  let { logCounter, log, err } = require("./log.js")(doAsync, doSilly, doExit);
+  let { logCounter, log, err } = require("./log.js")(doAsync, doSilly, doThrow);
 
   let { fridge, table, bread } = require("./kitchen.js")(
     doAsync,
     doSilly,
-    doExit
+    doThrow
   );
 
   // Let's decide how many bread slices to cut.
@@ -71,8 +71,10 @@ module.exports = function (doAsync, doSilly, doExit) {
       if (Object.keys(fridge.stuff).length > 4) {
         // With a certain probability the fridge is cluttered
         // and you cannot find the butter immediately.
-        log("Where the hell is the butter?");
-        log("Who took my butter?! Brendan!!");
+        log("OMG there is so much stuff in the fridge!");
+        log("Where the heck is my butter?");
+        log("Brendan, did you take my butter?!");
+        log("");
 
         setTimeout(_justTakeTheButter, 2000);
       }
@@ -111,7 +113,7 @@ module.exports = function (doAsync, doSilly, doExit) {
       // Switch-true pattern to check multiple conditions.
       // It is equivalent to multiple if/else statements.
       switch (true) {
-        case !table.bread:
+        case !table.knife:
           err("I have no knife!");
         case !bread:
           err("There is no bread, I am not in the mood to slice air.");
@@ -152,7 +154,8 @@ module.exports = function (doAsync, doSilly, doExit) {
           // we are done slicing.
           let intervalSlicing = setInterval(() => {
             let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
-            log(`Just ${stillNeeded} slices left to cut...`);
+            let s = stillNeeded === 1 ? '' : 's';
+            log(`${stillNeeded} slice${s} left to cut...`);
 
             _putBreadSliceOnPlate();
 
@@ -169,7 +172,7 @@ module.exports = function (doAsync, doSilly, doExit) {
   /////////////////
   function spreadButter() {
     logCounter("I am spreading the butter on the bread.");
-    
+
     if (!table.butter) {
       err("There is no butter on the table? How can I spread it?");
     }

@@ -2,7 +2,7 @@
 // Some simple functions for logging. //
 ////////////////////////////////////////
 
-module.exports = function(doAsync, doSilly, doExit) {
+module.exports = function(doAsync, doSilly, doThrow) {
 
   let actionCounter = 0;
 
@@ -15,14 +15,13 @@ module.exports = function(doAsync, doSilly, doExit) {
   }
 
   function err(txt) {
-    txt = "Aaaah!!! " + txt;
+    txt = "Aaaah!!! " + txt + '\n';
     log(txt);
-    if (doExit) quit();
+    if (doThrow) quit();
   }
 
   function quit() {
-    console.log("\nI cannot go on like this...\n");
-    process.exit(-1);
+    throw new Error("\nI cannot go on like this...\n");
   }
 
   return { log, logCounter, err };

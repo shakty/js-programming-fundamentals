@@ -2,7 +2,7 @@
 // Simplistic Kitchen Environment. //
 /////////////////////////////////////
 
-module.exports = function(doAsync, doSilly, doExit) {
+module.exports = function(doAsync, doSilly, doThrow) {
 
   ///////////////////////
   // Random variables. //

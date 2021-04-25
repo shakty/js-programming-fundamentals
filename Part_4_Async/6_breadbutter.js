@@ -33,13 +33,16 @@
 //
 // This program accepts three inputs parameters, which are:
 // 
-// --async: If TRUE, some actions might take longer to execute, 
-//          so the synchronous preparation of the bread and butter of 
-//          async programming might fail.
+// --async: If TRUE, it might take longer to find the butter, 
+//          or to cutt the bread, so the preparation of
+//          the bread and butter of async programming might fail.
+//
 // --silly: If TRUE, some silly actions might take place, so the preparation
 //          of the bread and butter of async programming might fail.
-// --exit:  If TRUE, it will exit the program early if the preparation of 
-//          the bread and butter of async programming fails.
+//
+// --throw: If TRUE, it will throw an error if the preparation of the bread 
+//          and butter of async programming fails (else the order of 
+//          execution of the actions might not make sense).
 //
 // By default all of those paramerters are FALSE.
 
@@ -48,7 +51,7 @@ const args = process.argv;
 
 const doSilly = args.indexOf("--silly") !== -1 || false;
 const doAsync = args.indexOf("--async") !== -1 || false;
-const doExit  = args.indexOf("--exit")  !== -1 || false;
+const doThrow = args.indexOf("--throw") !== -1 || false;
 
 // The Bread and Butter of Async Programming.
 /////////////////////////////////////////////
@@ -57,14 +60,14 @@ const doExit  = args.indexOf("--exit")  !== -1 || false;
 // of async programming.
 
 let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
-  require("./lib/actions.js")(doAsync, doSilly, doExit);
+  require("./lib/actions.js")(doAsync, doSilly, doThrow);
 
 // Do it! 
 function breadAndButter() {
     console.clear();
     console.log();
     console.log("The Bread and Butter of async programming:");
-    if (!doAsync) console.log('\t(Synchronous Edition)\t');
+    if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
     console.log();
     openFridge();
     takeButter();
