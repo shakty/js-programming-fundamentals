@@ -56,10 +56,29 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // The Bread and Butter of Async Programming.
 /////////////////////////////////////////////
 
-// Import all the actions necessary to execute the bread and butter 
-// of async programming.
+// The bread and butter of async programming consists of 5 actions:
 
-// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+// 1- Opening the fridge,
+// 2- Taking the butter,
+// 3- Taking the bread,
+// 4- Slicing the bread,
+// 5- Spreading the butter on the bread.
+
+// Then you can say Yummy! as in the function below.
+
+function yummy() {
+  console.log('\nYummy!\n');
+}
+
+// Make sure you follow the actions in the correct order or you are not 
+// allowed to say Yummy!
+
+// Exercise 0.
+///////////////
+
+// Import all sync actions for the bread and butter of async programming.
+
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
   // require("./lib/actions.js")(doAsync, doSilly, doThrow);
 
 
@@ -69,13 +88,14 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 //     console.log("The Bread and Butter of async programming:");
 //     if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
 //     console.log();
+//
 //     openFridge();
 //     takeButter();
 //     takeBread();
 //     sliceBread();
 //     spreadButter();
+//
 //     yummy();
-//     console.log();
 // }
 
 
@@ -93,7 +113,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // Exercise 2.
 ///////////////
 
-// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
 //   require("./lib/actions_cb.js")(doAsync, doSilly, doThrow);
 
 // function breadAndButterCb() {
@@ -114,7 +134,6 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 //     });
 //   });
 
-//   console.log();
 // }
 
 // breadAndButterCb();
@@ -123,7 +142,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // Exercise 3.
 ///////////////
 
-// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
 //   require("./lib/actions_promise.js")(doAsync, doSilly, doThrow);
 
 /////////////////////////////////////////////////////////////////////
@@ -137,8 +156,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // const promiseIt = action => new Promise(asyncActions[action]);
 /////////////////////////////////////////////////////////////////////
 
-
-// Do it! 
+ 
 // function breadAndButterPromise() {
 //   console.clear();
 //   console.log();
@@ -146,7 +164,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 //   console.log('\tNOW WITH PROMISES!\t')
 //   if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
 //   console.log();
-
+//
 //   promiseIt('openFridge')
 //     .then(() => promiseIt('takeButter'))
 //     .then(() => { 
@@ -154,7 +172,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 //       promiseIt('sliceBread')
 //         .then(() => { 
 //           spreadButter();
-//           yummy();
+//            yummy();
 //       })
 //       .catch(err => {
 //         console.log('An error happened while slicing the bread.', err)
@@ -164,8 +182,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 //     .catch(err => {
 //       console.log('An error happened either taking the butter or slicing the bread:', err)
 //     })
-
-//   console.log();
+//
 // }
 
 // breadAndButterPromise();
@@ -173,7 +190,7 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // Exercise 4.
 //////////////
 
-let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
   require("./lib/actions_await.js")(doAsync, doSilly, doThrow);
 
   
@@ -190,8 +207,7 @@ async function breadAndButterAwait() {
     await sliceBread();
     spreadButter();
     yummy();
-  
-    console.log();
+
 }
   
 breadAndButterAwait();

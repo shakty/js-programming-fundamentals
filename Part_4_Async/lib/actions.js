@@ -34,7 +34,7 @@ module.exports = function (doAsync, doSilly, doThrow) {
         log("Oh no, the door is stuck I cannot open the fridge!");
 
         setTimeout(() => {
-          log("OK, I removed the baby-lock and I opened the fridge's door.");
+          log("OK, I removed the baby-lock and I opened the fridge's door.\n");
           fridge.opened = true;
         }, 2000);
       }
@@ -101,8 +101,7 @@ module.exports = function (doAsync, doSilly, doThrow) {
   let sliceBread = (function () {
 
     // Private function.  
-    function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
-      logCounter(txt);
+    function _putBreadSliceOnPlate() {
       // Increment the number of bread slices on the plate.
       if (!table.plate.breadSlices) table.plate.breadSlices = 1;
       else table.plate.breadSlices++;
@@ -112,6 +111,8 @@ module.exports = function (doAsync, doSilly, doThrow) {
     return function () {
       let bread = table.bread;
       
+      logCounter("I am slicing the bread.");
+
       // Switch-true pattern to check multiple conditions.
       // It is equivalent to multiple if/else statements.
       switch (true) {
@@ -122,8 +123,8 @@ module.exports = function (doAsync, doSilly, doThrow) {
         case bread.availableSlices <= 0:
           err("No more bread to slice.");
         case bread.availableSlices < 3:
-          logCounter(
-            "There is a little bread left, it's kind of difficult to cut it."
+          log(
+            "There is little bread left, it's kind of difficult to cut it.\n"
           );
           if (Math.random() > 0.4) {
             err("I cut myself, I told you!");
@@ -132,17 +133,13 @@ module.exports = function (doAsync, doSilly, doThrow) {
 
       // Whole wheat is complicated and we always do at most one slice.
       if (bread.type === "Whole Wheat") {
-        log(
-          "Oh, the bread is " +
-            bread.type.toLowerCase() +
-            "; its crust is kind of hard...it'll take a while to slice it without a chainsaw."
-        );
+        log("Interesting, the bread is " + bread.type.toLowerCase() + "...");
+        log("The crust is kind of hard...it will take a while to slice it without a chainsaw.\n");
 
         // Create async function executed after a timeout of 3 seconds.
         setTimeout(() => {
-          _putBreadSliceOnPlate(
-            "I finally managed to cut a slate from that stone-bread."
-          );
+          log("I finally managed to cut a slate from that stone-bread.\n");
+          _putBreadSliceOnPlate();
         }, 3000);
       }
       // If it is white bread we might do more slices.
@@ -158,8 +155,12 @@ module.exports = function (doAsync, doSilly, doThrow) {
           // we are done slicing.
           let intervalSlicing = setInterval(() => {
             let stillNeeded = nSlicesNeeded - (table.plate.breadSlices || 0);
-            let s = stillNeeded === 1 ? '' : 's';
-            log(`${stillNeeded} slice${s} left to cut...`);
+            if (stillNeeded === 1) {
+              log('Last slice!\n');
+            }
+            else {
+              log(`${stillNeeded} slices left to cut...`);
+            }
 
             _putBreadSliceOnPlate();
 
@@ -186,18 +187,11 @@ module.exports = function (doAsync, doSilly, doThrow) {
     
   }
 
-  // Yummy!
-  /////////
-  function yummy() {
-    logCounter("Yummy!");
-  }
-
   return {
     openFridge,
     takeButter,
     takeBread,
     sliceBread,
-    spreadButter,
-    yummy,
+    spreadButter
   };
 };
