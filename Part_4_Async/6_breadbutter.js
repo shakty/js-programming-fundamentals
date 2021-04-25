@@ -59,8 +59,12 @@ const doThrow = args.indexOf("--throw") !== -1 || false;
 // Import all the actions necessary to execute the bread and butter 
 // of async programming.
 
+// let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
+  // require("./lib/actions.js")(doAsync, doSilly, doThrow);
+
+
 let { openFridge, takeButter, takeBread, sliceBread, spreadButter, yummy } = 
-  require("./lib/actions.js")(doAsync, doSilly, doThrow);
+  require("./lib/actions_callbacks.js")(doAsync, doSilly, doThrow);
 
 // Do it! 
 function breadAndButter() {
@@ -86,10 +90,34 @@ function breadAndButter() {
 // contemplate the synchronous version of the bread and butter of async
 // programming.
 
-breadAndButter();
+// breadAndButter();
+
+
 
 // Exercise 2.
 ///////////////
+
+
+function breadAndButterCb() {
+  console.clear();
+  console.log();
+  console.log("The bread and butter of async programming:");
+  console.log();
+  
+  openFridge(() => {
+    takeButter(() => {
+      takeBread();
+      sliceBread(() => {
+        spreadButter();
+        yummy();
+      });
+    });
+  });
+  console.log();
+}
+
+breadAndButterCb();
+
 
 // Execute the bread and butter of async programming passing the --async flag.
 

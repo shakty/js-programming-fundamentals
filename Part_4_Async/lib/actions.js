@@ -100,6 +100,7 @@ module.exports = function (doAsync, doSilly, doThrow) {
   /////////////////////////////////////////////////////////////////
   let sliceBread = (function () {
 
+    // Private function.  
     function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
       logCounter(txt);
       // Increment the number of bread slices on the plate.
@@ -145,15 +146,17 @@ module.exports = function (doAsync, doSilly, doThrow) {
       }
       // If it is white bread we might do more slices.
       else {
-        // Cut the first slice.
-        _putBreadSliceOnPlate();
 
-        if (nSlicesNeeded > 1) {
-          // Create async function executed with a periodic interval of 1 second.
+        if (nSlicesNeeded === 1) {
+          // Cut the first slice without delays.
+          _putBreadSliceOnPlate();
+        }
+        else {
+          // Create async function executed every second.
           // We keep a reference to the interval, so that we can remove it when
           // we are done slicing.
           let intervalSlicing = setInterval(() => {
-            let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
+            let stillNeeded = nSlicesNeeded - (table.plate.breadSlices || 0);
             let s = stillNeeded === 1 ? '' : 's';
             log(`${stillNeeded} slice${s} left to cut...`);
 

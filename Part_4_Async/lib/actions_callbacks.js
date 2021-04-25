@@ -54,14 +54,15 @@ module.exports = function (doAsync, doSilly, doThrow) {
   let takeButter = (function () {
 
     // Private function.
-    function _justTakeTheButter() {
+    function _justTakeTheButter(cb) {
       logCounter("I am taking the butter.");
       fridge.stuff.butter = false;
       table.butter = true;
+      if (cb) cb();
     }
 
     // The actual function that will be assigned to takeButter.
-    return function () {
+    return function (cb) {
       if (!fridge.opened) {
         err("The fridge is closed, you fool!");
       }
@@ -78,10 +79,11 @@ module.exports = function (doAsync, doSilly, doThrow) {
         log("Brendan, did you take my butter?!");
         log("");
 
-        setTimeout(_justTakeTheButter, 2000);
-      }
-      else {
-        _justTakeTheButter();
+        setTimeout(() => {
+          _justTakeTheButter(cb);
+        }, 2000);
+      } else {
+        _justTakeTheButter(cb);
       }
     };
   })();
@@ -102,15 +104,17 @@ module.exports = function (doAsync, doSilly, doThrow) {
   /////////////////////////////////////////////////////////////////
   let sliceBread = (function () {
 
-    function _putBreadSliceOnPlate(txt = "I am slicing the bread.") {
+    // Private function.
+    function _putBreadSliceOnPlate(txt = "I am slicing the bread.", cb) {
       logCounter(txt);
       // Increment the number of bread slices on the plate.
       if (!table.plate.breadSlices) table.plate.breadSlices = 1;
       else table.plate.breadSlices++;
+      if (cb) cb();
     }
 
     // The actual function that will be assigned to sliceBread.
-    return function () {
+    return function (cb) {
       let bread = table.bread;
       // Switch-true pattern to check multiple conditions.
       // It is equivalent to multiple if/else statements.
@@ -141,29 +145,34 @@ module.exports = function (doAsync, doSilly, doThrow) {
         // Create async function executed after a timeout of 3 seconds.
         setTimeout(() => {
           _putBreadSliceOnPlate(
-            "I finally managed to cut a slate from that stone-bread."
+            "I finally managed to cut a slate from that stone-bread.",
+            cb
           );
         }, 3000);
       }
       // If it is white bread we might do more slices.
       else {
-        // Cut the first slice.
-        _putBreadSliceOnPlate();
 
-        if (nSlicesNeeded > 1) {
-          // Create async function executed with a periodic interval of 1 second.
+        if (nSlicesNeeded === 1) {
+          // Cut the first slice.
+          _putBreadSliceOnPlate(undefined, cb);
+        }
+        else {
+          // Create async function executed every second.
           // We keep a reference to the interval, so that we can remove it when
           // we are done slicing.
           let intervalSlicing = setInterval(() => {
-            let stillNeeded = nSlicesNeeded - table.plate.breadSlices;
+            let stillNeeded = nSlicesNeeded - (table.plate.breadSlices || 0);
             let s = stillNeeded === 1 ? '' : 's';
             log(`${stillNeeded} slice${s} left to cut...`);
 
-            _putBreadSliceOnPlate();
-
-            if (nSlicesNeeded === table.plate.breadSlices) {
+            // Variable is initialized only if we cut the last slice.
+            let mycb;
+            if (nSlicesNeeded - table.plate.breadSlices === 1) {
               clearInterval(intervalSlicing);
+              mycb = cb;
             }
+            _putBreadSliceOnPlate(undefined, mycb);
           }, 1000);
         }
       }
