@@ -1,19 +1,19 @@
- /////////////////////////////////////////////
- // Programming Fundamentals in JavaScript! //
- /////////////////////////////////////////////
+/////////////////////////////////////////////
+// Programming Fundamentals in JavaScript! //
+/////////////////////////////////////////////
 
- // Module: Async Programming.
- /////////////////////////////
+// Module: Async Programming.
+/////////////////////////////
 
-// In a world where nothing is like it was, "fetch" is one of the 
+// In a world where nothing is like it was, "fetch" is one of the
 // few things you can still rely upon. It does what it "promises":
 // it will fetch something for you.
 
 // Fetch is very good at fetching stuff from remote servers and
 // it is very well supported in modern browser.
 // However, alas, it does not go along well with old browsers,
-// for which the old-school AJAX (Asynchronous JavaScript And XML) requests 
-// are still the way to go. There is no native support in NodeJS, but 
+// for which the old-school AJAX (Asynchronous JavaScript And XML) requests
+// are still the way to go. There is no native support in NodeJS, but
 // don't worry, exercise 1 has got you covered.
 
 // Exercise 1: install and require node-fetch.
@@ -22,12 +22,11 @@
 
 // npm i node-fetch --save
 
-// After you have installed node-fetch, require it and assign it 
+// After you have installed node-fetch, require it and assign it
 // to a variable named fetch.
 
 // Solution.
-const fetch = require('node-fetch');
-
+const fetch = require("node-fetch");
 
 // Exercise 2: Star Wars API.
 //////////////////////////////
@@ -35,11 +34,11 @@ const fetch = require('node-fetch');
 // Now that you have unleashed the power of fetch on your computer,
 // let's use its "force" to do something cool.
 
-// 
+//
 
-const ENDPOINT = 'https://swapi.dev/api/';
+const ENDPOINT = "https://swapi.dev/api/";
 
-let query = 'people/';
+// let query = 'people/1';
 
 // fetch(ENDPOINT + query)
 //   .then(res => console.log(res));
@@ -63,7 +62,6 @@ let query = 'people/';
 //     console.error(err);
 //   });
 
-
 // // Exercise 2. Async Fetch.
 // ///////////////////////////
 
@@ -80,43 +78,39 @@ let query = 'people/';
 
 //     console.log(user);
 
-//   } 
+//   }
 //   catch(err) {
 //     console.error(err);
 //   }
 // })();
-  
 
 // Exercise 3. Optional. Fetch them all.
 ////////////////////////////////////////
 
-let db = [];
-let page = 1;
+// let db = [];
+// let page = 1;
 
-let doFetch = (page = 1) => {
-  console.log('Fetching page ' + page);
-  fetch(ENDPOINT + query + '?page=' + page)
-    .then(res => {
-      if (res.status >= 400) {
-        throw new Error("Bad response from server");
-      }
-      return res.json();
-    })
-    .then(json => {
-      db = [ ...db, ...json.results ];
-      doFetch(++page);
-    })
-    .catch(err => {
-      console.log(`Fetched ${db.length} Star Wars characters.`);
-      // console.error(err);
-      // fetching = false;
-    });
-}
+// let doFetch = (page = 1) => {
+//   console.log('Fetching page ' + page);
+//   fetch(ENDPOINT + query + '?page=' + page)
+//     .then(res => {
+//       if (res.status >= 400) {
+//         throw new Error("Bad response from server");
+//       }
+//       return res.json();
+//     })
+//     .then(json => {
+//       db = [ ...db, ...json.results ];
+//       doFetch(++page);
+//     })
+//     .catch(err => {
+//       console.log(`Fetched ${db.length} Star Wars characters.`);
+//       // console.error(err);
+//       // fetching = false;
+//     });
+// }
 
-doFetch();
-
-
-
+// doFetch();
 
 // let fetchAll = async () => {
 //   let db = [];
@@ -126,7 +120,7 @@ doFetch();
 //     while(fetching) {
 //       console.log('Fetching page ' + page);
 //       const res = await fetch(ENDPOINT + query + '?page=' + page++);
-      
+
 //       if (res.status >= 400) {
 //         throw new Error("Bad response from server");
 //       }
@@ -135,7 +129,7 @@ doFetch();
 
 //       db = [ ...db, ...json.results ];
 //     }
-//   } 
+//   }
 //   catch(err) {
 //     // console.error(err);
 //     fetching = false;
@@ -148,5 +142,37 @@ doFetch();
 //   console.log(`Fetched ${db.length} Star Wars characters.`);
 // })();
 
+// Exercise 4. Optional. Fetch them all faster.
+///////////////////////////////////////////////
 
+// Now that you now from Exercise 3 how many characters you can fetch
+// from the star wars API, you can setup X concurrent fetch requests.
+// The Promise API has a method named Promise.all which takes
+// as input an array of promises and waits for all them to settle
+// before executing .then().
 
+let query = "people/";
+
+let db = [];
+let page = 1;
+let promises = new Array(9);
+
+for (let i = 0; i < promises.length; i++) {
+  promises[i] = fetch(ENDPOINT + query + "?page=" + page++).then((res) => {
+    if (res.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return res.json();
+  });
+}
+
+Promise.all(promises)
+  .then((array) => {
+    for (let i = 0; i < array.length; i++) {
+      db = [ ...db, ...array[i].results ];
+    }
+    console.log(`Concurrently fetched ${db.length} Star Wars characters.`);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
