@@ -2,13 +2,33 @@
     <head>
         <title>Id and Attributes</title>
     </head>
+    <!-- This is an inline comment inside the HTML -->
+    <!-- This is another one -->    
+    <!-- 
+        This is multi-line comment and
+        it will not be displayed either, 
+        you got the point
+    -->
     <body>
+        
+        <!-- 
+            HTML tags can have attributes.
+            A very common attribute is "id", a **unique** identifier
+            for the element within the page.
+            
+            You add your own attributes as well.
+        -->
+        
         <div id="above" name="Brendan">
             Hello World!
         </div>
-        <div id="below">
+
+        <!-- You you break a tag declaration on multiple lines -->
+        <div 
+            id="below">
             Hello World Again!
         </div>
+        
         <script>
             // Locate the second <DIV> tag.
             let divs = document.getElementsByTagName('div');
@@ -18,15 +38,15 @@
             
             divs[1];
 
-            divs[1].innerHTML = 'I feel the power!'
+            divs[1].innerHTML = 'I feel the power!';
             
             // Locate with ID.
 
-            // This is a faster direct access.
+            // This is a faster direct access to the elements.
             let divAbove = document.getElementById("above");
             let divBelow = document.getElementById("below");
 
-            // Query Selector is a flexible way of locating elements.
+            // The query selector is a flexible way of locating elements.
 
             // Return the first <DIV> element.
             document.querySelector('div');

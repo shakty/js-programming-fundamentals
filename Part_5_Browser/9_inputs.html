@@ -12,12 +12,13 @@
                 text-align: center;
             }
         </style>
-        <link rel="stylesheet" href="./css/style_lists.css" />
+        <link rel="stylesheet" href="./css/style_inputs.css" />
     </head>
     <body>
         
         <div id="above" name="Brendan" class="large wide">
             Do you feel the power?
+            <!-- Option 1 to add an event listener to clicks -->
             <span id="power-yes" class="link" onclick="displayTab('tab-yes');">Yes</span> |
             <span id="power-maybe" class="link">Maybe</span> |
             <span id="power-no" class="link">No</span>
@@ -41,7 +42,7 @@
                 <!-- Img Source: https://time.com/magazine/us/5237427/april-23rd-2018-vol-191-no-15-u-s/ -->
 
                <p>
-                   Oh I am sorry :( <br/><br/>
+                    <strong>Oh I am sorry :(</strong> <br/><br/>
                     Here is a list of things to do that should make you feel better.
                    <ul class="feelbetter-list">
                        <li>Adopt A Pet Dog</li>
@@ -69,13 +70,18 @@
                </p>
 
                <p id="survey" style="display: none">
+            
+                <!-- Span will be filled by JS -->
                 <span id="survey-heading"></span>
+
                 <label for="why-better-input">Write a short sentence here.</label><br/>
                 <input id="why-better-input" type="text" />
                 <br/>
-                <label for="why-better-textarea">In case you want to write more</label><br/>
+                
+                <label for="why-better-textarea">In case you want to write more.</label><br/>
                 <textarea id="why-better-textarea" ></textarea>
                 <br/>
+                
                 <label for="why-better-select">
                     In case you prefer selecting options from a dropdown menu.
                 </label><br/>
@@ -85,22 +91,25 @@
                     <option>Lockdown</option>
                     <option>Learning JavaScript</option>
                 </select>
-               </p>
+               
+            </p>
                 
             </div>
         </div>
 
         <script>
-            // 
+            // Header.
             function makeHeader(div) {
                 div.style.background = '#CCC';
                 div.style.border = '1px solid black';
+                // CSS property box-shadow needs to be quoted in JS to 
+                // avoid confusion with the minus sign.
                 div.style['box-shadow'] = '2px 2px';
             }
-
             let divAbove = document.getElementById("above");
             makeHeader(divAbove);
 
+            // Tabs.
             let currentTab = null;
             function displayTab(tabId) {
                 if (currentTab) currentTab.className = 'tab';
@@ -108,17 +117,17 @@
                 currentTab.className = 'tab tab-active';
             }
 
+            // Option 2 to add an event listener to clicks.
             document.getElementById('power-maybe').onclick = function() {
                 displayTab("tab-maybe");
             };
 
+            // Option 3 to add an event listener to clicks.
             document.getElementById('power-no').addEventListener('click', function() {
                 displayTab("tab-no");
             });
             
-            // Feeling survey.
-
-
+            // Survey about feelings.
             document.getElementById('buttons-better').onclick = function(event) {
                 let surveyHeading = document.getElementById('survey-heading');
                 if (event.target.innerText === 'Yes') {

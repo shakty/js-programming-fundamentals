@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Styling</title>
+        <!-- 
+            There are four ways of styling a page.
+            All involve knowning a little bit of the CSS syntax.
+            Luckily, the syntax is straightforward and intuitive.
+        -->
+
+        <!-- Option 1: Linking an external CSS file -->
+        <link rel="stylesheet" href="./css/style.css" />
+
+        <!-- Option 2: The <STYLE> tag -->
+        <style>
+
+            /* 
+              The order in which the styles are applied is
+              important. What comes later overwrites any
+              conflicting earlier style.
+            */
+
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            /* Overwriting the color set in style.css */
+            #below {
+               color: black;
+            }
+
+        </style>
+    </head>
+    <body>
+        
+        <!-- The class attribute associates one or more classes to elements -->
+        <div id="above" name="Brendan" class="large wide">
+            Hello World!
+        </div>
+
+        <!-- Option 3: the inline "style" attribute --> 
+        <div id="below" class="large centered" style="text-transform: uppercase;">
+           I feel the power!
+        </div>
+        
+        <script>
+            // Option 4: Modify the style property via JS.
+            let divAbove = document.getElementById("above");
+            divAbove.style.background = '#CCC';
+            divAbove.style.border = '1px solid black';
+            // CSS property box-shadow needs to be quoted in JS to 
+            // avoid confusion with the minus sign. 
+            divAbove.style['box-shadow'] = '2px 2px';
+
+            // Have a look at all the style directives. 
+            console.log(divAbove.style);
+            
+        </script>
+    </body>
+</html>

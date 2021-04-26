@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Tabs</title>
+        <style>
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
+        <link rel="stylesheet" href="./css/style_tabs.css" />
+    </head>
+    <body>
+        
+        <div id="above" name="Brendan" class="large wide">
+            Do you feel the power?
+            <!-- Option 1 to add an event listener to clicks -->
+            <span id="power-yes" class="link" onclick="displayTab('tab-yes');">Yes</span> |
+            <span id="power-maybe" class="link">Maybe</span> |
+            <span id="power-no" class="link">No</span>
+        </div>
+        
+        <div id="below" class="large centered">
+           <div id="tab-yes" class="tab">
+               This is a beautiful day!
+           </div>
+           <div id="tab-maybe" class="tab">
+                This is an OK day...
+            </div>
+           <div id="tab-no" class="tab">
+                This is a s****y day!
+            </div>
+        </div>
+
+        <script>
+            // Header.
+            function makeHeader(div) {
+                div.style.background = '#CCC';
+                div.style.border = '1px solid black';
+                // CSS property box-shadow needs to be quoted in JS to 
+                // avoid confusion with the minus sign.
+                div.style['box-shadow'] = '2px 2px';
+            }
+            let divAbove = document.getElementById("above");
+            makeHeader(divAbove);
+
+            // Tabs.
+            let currentTab = null;
+            function displayTab(tabId) {
+                if (currentTab) currentTab.className = 'tab';
+                currentTab = document.getElementById(tabId);
+                currentTab.className = 'tab tab-active';
+            }
+
+            // Option 2 to add an event listener to clicks.
+            document.getElementById('power-maybe').onclick = function() {
+                displayTab("tab-maybe");
+            };
+
+            // Option 3 to add an event listener to clicks.
+            document.getElementById('power-no').addEventListener('click', function() {
+                displayTab("tab-no");
+            });
+        </script>
+    </body>
+</html>

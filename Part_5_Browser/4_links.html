@@ -12,7 +12,7 @@
                 text-align: center;
             }
         </style>
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./css/style_images.css" />
     </head>
     <body>
         <div id="above" name="Brendan" class="large wide">
@@ -23,14 +23,16 @@
            <a href="https://www.youtube.com/watch?v=3I6qBVkD-6Q" target="_blank"><em>in another tab</em></a>
         </div>
         <script>
-            // Locate the first <DIV> tag.
+            // Header.
+            function makeHeader(div) {
+                div.style.background = '#CCC';
+                div.style.border = '1px solid black';
+                // CSS property box-shadow needs to be quoted in JS to 
+                // avoid confusion with the minus sign. 
+                div.style['box-shadow'] = '2px 2px';
+            }
             let divAbove = document.getElementById("above");
-            divAbove.style.background = '#CCC';
-            divAbove.style.border = '1px solid black';
-            divAbove.style['box-shadow'] = '2px 2px';
-
-            console.log(divAbove.style);
-            
+            makeHeader(divAbove);
         </script>
     </body>
 </html>
