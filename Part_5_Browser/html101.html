@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>HTML 101</title>
+    </head>
+    <body>
+        <div>
+            Hello World!
+        </div>
+        <script>
+            // Locate the <DIV> tag.
+            
+            // <BODY> tag.
+            document.body;
+
+            // Array of children elements of the <BODY> tag.
+            document.body.children;
+
+            // The <DIV> tag.
+            document.body.children[0];
+
+            // Locate all <DIV> tags.
+
+            let divs = document.getElementsByTagName('div');
+
+            // The <DIV> tag.
+            divs[0];
+
+            // Modify the content of the <DIV> tag with the .innerHTML property.
+
+            divs[0].innerHTML;
+
+            divs[0].innerHTML = 'Something else';
+
+            // Can also specify HTML tags directly.
+
+            divs[0].innerHTML = '<strong>Something else</strong>';
+
+            
+
+        </script>
+    </body>
+</html>

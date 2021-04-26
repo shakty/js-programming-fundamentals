@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Id and Attributes</title>
+    </head>
+    <body>
+        <div id="above" name="Brendan">
+            Hello World!
+        </div>
+        <div id="below">
+            Hello World Again!
+        </div>
+        <script>
+            // Locate the second <DIV> tag.
+            let divs = document.getElementsByTagName('div');
+            divs.length; // 2
+            
+            divs[0];
+            
+            divs[1];
+
+            divs[1].innerHTML = 'I feel the power!'
+            
+            // Locate with ID.
+
+            // This is a faster direct access.
+            let divAbove = document.getElementById("above");
+            let divBelow = document.getElementById("below");
+
+            // Query Selector is a flexible way of locating elements.
+
+            // Return the first <DIV> element.
+            document.querySelector('div');
+
+            // Return all <DIV> elements.
+            document.querySelectorAll('div');
+
+            // Return the element with ID "above".   
+            document.querySelector('#above');
+
+            
+        </script>
+    </body>
+</html>

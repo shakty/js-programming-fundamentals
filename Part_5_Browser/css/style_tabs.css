@@ -1,0 +1,21 @@
+.large {
+    font-size: 30px;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.wide {
+    padding: 10px;
+    margin: 10px;
+}
+
+.tab {
+    display: none;
+}
+
+.tab-active {
+    display: block;
+}

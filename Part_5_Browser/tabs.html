@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Styling</title>
+        <style>
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
+        <link rel="stylesheet" href="./css/style_tabs.css" />
+    </head>
+    <body>
+        <div id="above" name="Brendan" class="large wide">
+            Hello World!
+        </div>
+        <div id="below" class="large centered">
+           <div id="tab1" class="tab tab-active">
+               This is a beautiful day!
+           </div>
+           <div id="tab1" class="tab">
+                This is an OK day...
+            </div>
+           <div id="tab1" class="tab">
+                his is a sh***y day!
+            </div>
+        </div>
+        </div>
+        <script>
+            // Locate the first <DIV> tag.
+            let divAbove = document.getElementById("above");
+            divAbove.style.background = '#CCC';
+            divAbove.style.border = '1px solid black';
+            divAbove.style['box-shadow'] = '2px 2px';
+
+            console.log(divAbove.style);
+            
+        </script>
+    </body>
+</html>

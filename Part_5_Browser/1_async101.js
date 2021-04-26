@@ -2,8 +2,8 @@
   // Programming Fundamentals in JavaScript! //
   /////////////////////////////////////////////
 
-  // Module: Browser Environment.
-  ///////////////////////////////
+  // Module: Async Programming.
+  /////////////////////////////
 
   // This is async 101, I know you can make it.
 
