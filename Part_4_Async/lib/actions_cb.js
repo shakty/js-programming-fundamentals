@@ -2,7 +2,7 @@
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
-module.exports = function (doAsync, doSilly, doThrow) {
+module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
 
   let { logCounter, log, err } = require("./log.js")(doAsync, doSilly, doThrow);
 
