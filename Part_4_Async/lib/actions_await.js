@@ -134,7 +134,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
           log(
             "There is little bread left, it's kind of difficult to cut it.\n"
           );
-          if (Math.random() > 0.99) {
+          if (Math.random() > 0.4) {
             err("I cut myself, I told you!");
           }
       }

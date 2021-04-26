@@ -5,8 +5,8 @@
 // Module: Async Programming.
 /////////////////////////////
 
-// This is an optional final exercise that teaches you 
-// the bread and butter of async programming. 
+// This is a final optional exercise that teaches you 
+// the Bread and Butter of async programming. 
 
 // To complete this exercise, you should understand
 // how callbacks, promises, async/await, and require work in NodeJS.
@@ -17,7 +17,7 @@
 // The Bread and Butter of Async Programming.
 /////////////////////////////////////////////
 
-// The bread and butter of async programming consists of 5 actions:
+// The Bread and Butter of async programming consists of 5 actions:
 
 // 1- Opening the fridge,                ** can be async
 // 2- Taking the butter,                 ** can be async
@@ -65,7 +65,7 @@ function yummy() {
 // Exercise 1.
 ///////////////
 
-// Let's try out async.
+// Let's try out async now.
 
 // To execute any NodeJS program you type in the console something like: 
 //
@@ -75,25 +75,24 @@ function yummy() {
 //
 // All that is related to the environment in which you run Node.JS is 
 // available through the `process` module. Precisely, `process.argv` is
-// an array containing all that you typed to launch this file, e.g:
+// an array containing all that you typed to launch a new NodeJS process, e.g:
 //
-//  ["node", "fileName", arg1, arg2, arg3]
+//  ["node", "/path/to/fileName.js", arg1, arg2, arg3]
 //
 // This program accepts three inputs parameters, which are:
 // 
-// --async: If TRUE, it might take longer to find the butter, 
-//          or to cutt the bread, so the preparation of
-//          the bread and butter of async programming might fail.
+// --async: If TRUE, finding the butter or to slicing the bread 
+//          might take longer, so the preparation of the
+//          Bread and Butter of async programming might fail.
 //
 // --silly: If TRUE, some silly actions might take place, so the preparation
-//          of the bread and butter of async programming might fail.
+//          of the Bread and Butter of async programming might fail.
 //
-// --throw: If TRUE, it will throw an error if the preparation of the bread 
-//          and butter of async programming fails (else the order of 
-//          execution of the actions might not make sense).
+// --throw: If TRUE, it will throw an error if the preparation of the Bread 
+//          and Butter of async programming fails (else the order of 
+//          execution of the actions might no longer make sense).
 //
-// By default all of those paramerters are FALSE.
-
+// By default all of these paramerters are FALSE.
 
 const args = process.argv;
 
@@ -101,15 +100,15 @@ const doSilly = args.indexOf("--silly") !== -1 || false;
 const doAsync = args.indexOf("--async") !== -1 || false;
 const doThrow = args.indexOf("--throw") !== -1 || false;
 
-// Now we the command-line parameters to the function exported by
+// Now we pass the command-line parameters to the function exported by
 // "./lib/actions.js" to alter its default behavior.
 
 // { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
 //   require("./lib/actions.js")(doAsync, doSilly, doThrow);
 
-// Run the async version and observe what happens.
+// Run the async version of breadAndButter() and observe what happens.
 
-breadAndButter();
+// breadAndButter();
 
 // Exercise 2.
 ///////////////
@@ -117,10 +116,10 @@ breadAndButter();
 // Fix the async version of the Bread and Butter of async programming
 // using the callback pattern. You will need to:
 
-// 1- Copy "./lib/actions.js" and rename it to "./lib/actions_cb.js", 
+// 1- Copy "./lib/actions.js" and save it as "./lib/actions_cb.js", 
 // 2- Edit "./lib/actions_cb.js" to implement the callback pattern,
-// 3- Write the missing code inside breadAndButterCb() that invokes 
-//      the functions using the callback pattern.
+// 3- Write the missing code inside breadAndButterCb() to invoke 
+//      the actions using the callback pattern.
 
 // Remember that only openFridge, takeButter and sliceBread can be async.
 
@@ -156,16 +155,17 @@ breadAndButter();
 // Fix the async version of the Bread and Butter of async programming
 // using the Promise pattern. You will need to:
 
-// 1- Copy "./lib/actions.js" and rename it to "./lib/actions_promise.js", 
+// 1- Copy "./lib/actions.js" and save it as "./lib/actions_promise.js", 
 // 2- Edit "./lib/actions_promise.js" to implement the Promise pattern,
-// 3- Write the missing code inside breadAndButterCb() that invokes 
-//      the functions using the callback pattern.
+// 3- Write the missing code inside breadAndButterCb() to invoke 
+//      the actions using the Promise pattern.
 
 // Remember that only openFridge, takeButter and sliceBread can be async.
 
-// Hint: Here there is an additional difficulty. When you create new promise
-// with the Promise constructor, the function is immediately evaluated. 
-// You will need a function to create new promises only when needed.
+// Hint: Here there is an additional difficulty. 
+// When you create new promise with the Promise constructor,
+// the function is immediately evaluated. 
+// You will need a function that creates new promises only when needed.
 
 // let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
 //   require("./lib/actions_promise.js")(doAsync, doSilly, doThrow);
@@ -218,16 +218,12 @@ breadAndButter();
 // Fix the async version of the Bread and Butter of async programming
 // using the Promise pattern. You will need to:
 
-// 1- Copy "./lib/actions.js" and rename it to "./lib/actions_await.js", 
-// 2- Edit "./lib/actions_await.js" to implement the Promise pattern,
+// 1- Copy "./lib/actions.js" and save it as "./lib/actions_await.js", 
+// 2- Edit "./lib/actions_await.js" to implement the async/await pattern,
 // 3- Write the missing code inside breadAndButterCb() that invokes 
-//      the functions using the callback pattern.
+//      the functions using the async/await pattern.
 
 // Remember that only openFridge, takeButter and sliceBread can be async.
-
-// Hint: Here there is an additional difficulty. When you create new promise
-// with the Promise constructor, the function is immediately evaluated. 
-// You will need a function to create new promises only when needed.
 
 let { openFridge, takeButter, takeBread, sliceBread, spreadButter } = 
   require("./lib/actions_await.js")(doAsync, doSilly, doThrow);
