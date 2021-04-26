@@ -33,3 +33,16 @@
 .link:hover {
     text-decoration: underline;
 }
+
+.img {
+    width: 400px;
+    border: 5px solid black;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.feelbetter-list {
+    text-align: left;
+    margin-left: 30%;
+}
