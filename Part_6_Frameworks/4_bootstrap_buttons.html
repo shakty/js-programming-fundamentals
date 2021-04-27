@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         
-        <title>Bootstrap Tabs</title>
+        <title>Bootstrap Buttons</title>
         
         <!-- Bootstrap -->
         <meta charset="utf-8">
@@ -69,33 +69,34 @@
                <p>
                     <strong>Oh I am sorry :(</strong> <br/><br/>
                     Here is a list of things to do that should make you feel better.
-                   <ul class="feelbetter-list">
-                       <li>Adopt A Pet Dog</li>
-                       <li>Host A Dinner Party With Friends</li> 
-                       <li>Play With Legos
-                       <li>Make Coffee Ice Cubes</li>
-                       <li>Have A Karaoke Night</li>
-                       <li>Volunteer To Babysit For A Friend</li>
-                       <li>Try A Science Experiment</li>
-                       <li>Learn To Juggle</li>
-                       <li>Have A Water Balloon Fight</li>
-                       <li>Take A Power Nap</li>
-                       <li>Make S'mores</li>
-                       <li>Watch The Sunset</li>
-                   </ul>
+
+                    <div class="progress" style="width: 600px; margin: 0 auto;">
+                        <div id="progress-bar" 
+                        class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                      </div>
                </p> 
+               
+               <div id="buttons-survey" style="display: none;">
+                <p>
+                    And now do you feel better?<br/>
+    
+                     <div id="buttons-better">
+                         <button class="btn btn-lg">Yes</button>
+                         <button class="btn btn-lg">No</button>
+                     </div>
+
+                </p>
+               </div>
+               
                 
             </div>
         </div>
 
         <script>
            
-
             // Tabs.
             let currentTab = null;
             function displayTab(tabId) {
-                // We need to change the class name of both the tab
-                // and its navigation link. 
                 if (currentTab) {
                     let linkId = currentTab.id.replace("tab", "power");
                     document.getElementById(linkId).className = 'nav-link';
@@ -116,7 +117,68 @@
             document.getElementById('power-no').onclick = function() {
                 displayTab("tab-no");
             };
-          
+
+            // Simulate fetching a list of things 
+            // to do from a remote server.
+            function fetchThingsToDo(cb) {
+                let todos = [
+                    'Adopt A Pet Dog',
+                    'Host A Dinner Party With Friends', 
+                    'Play With Legos',
+                    'Make Coffee Ice Cubes',
+                    'Have A Karaoke Night',
+                    'Volunteer To Babysit For A Friend',
+                    'Try A Science Experiment',
+                    'Learn To Juggle',
+                    'Have A Water Balloon Fight',
+                    'Take A Power Nap',
+                    'Make S\'mores',
+                    'Watch The Sunset'
+                ];
+                setTimeout(() => {
+                    if (cb) cb(todos);
+
+                }, 6010);
+            }
+
+            let updates = [ 0, 20, 40, 60, 80, 100 ];
+
+            function updateProgress(x) {
+                document.getElementById("progress-bar").style.width = x + '%';
+            }
+            updates.forEach((update, idx) => {
+                setTimeout(() => updateProgress(update), idx * 1000);
+            });
+
+            // Create a new element <ul>. This element is not yet
+            // added to the DOM tree, but we can still manipulate it.
+            let ul = document.createElement('ul');
+
+            // We set the class of <ul>. Note: in JS the attribute "class"
+            // is named "className" because "class" is a reserved word.
+            ul.className = 'feelbetter-list';
+
+            fetchThingsToDo(todos => {
+                todos.forEach(todo => {
+                    let li = document.createElement('li');
+                    li.innerHTML = todo;
+                    // Add a new child element at the bottom of <ul>.
+                    ul.appendChild(li);
+                }); 
+                
+                // Hide progress bar.
+                let progress = document.querySelector('.progress');
+                progress.style.display = 'none';
+
+                // Find the first <p> tag inside the 
+                // element with id "tab-no".
+                let p = document.querySelector('#tab-no p');
+
+                // Append the <ul> and all of its children here.
+                p.appendChild(ul);
+
+                document.getElementById('')
+            });
 
         </script>
     </body>
