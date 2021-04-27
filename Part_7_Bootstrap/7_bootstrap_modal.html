@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+        <title>Bootstrap Grid</title>
+        
+        <!-- Bootstrap -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+         <!-- End Bootstrap -->
+
+        <style>
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .card {
+                min-height: 220px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <link rel="stylesheet" href="./css/style_inputs.css" />
+    </head>
+    <body>
+        
+        <div class="jumbotron">
+            <div class="container">
+              <h1 class="display-4">Do you feel the power?</h1>
+              <p class="lead">
+                  
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                        <a id="power-yes" class="nav-link h3" href="#">Yes</a>
+                        </li>
+                        <li class="nav-item">
+                        <a id="power-maybe" class="nav-link h3" href="#">Maybe</a>
+                        </li>
+                        <li class="nav-item">
+                        <a id="power-no" class="nav-link h3" href="#">No</a>
+                        </li>
+                    </ul>
+                    </p>
+            </div>
+          </div>
+
+        
+        <div id="below" class="centered">
+
+           <div id="tab-yes" class="tab">
+
+                <div class="card centered" style="width: 25rem;">
+                <img src="https://img.prod.portals.aws.zehnder.ch/s/baf8b716b0f7efedd95887aa740d4708b1c9ed99-zna-343276-1200-816/441x300m.jpg" class="card-img-top" alt="Beautiful day!">
+                <div class="card-body">
+                  <h5 class="card-title">This is a beautiful day!</h5>
+                  <p class="card-text">Yes it is becaue blah blah.</p>
+                  <a href="https://www.luzern.com/en/" class="btn btn-primary" target="_blank">Get there!</a>
+                </div>
+              </div>
+
+               <!-- Img Source: https://www.luzerner-rundschau.ch/stadt/detail/article/initiative-aufwertung-der-innenstadt-abgelehnt-00123055/ 
+               -->
+
+           </div>
+           <div id="tab-maybe" class="tab">
+
+                <div class="card centered" style="width: 25rem;">
+                <img src="https://i.pinimg.com/originals/71/28/c5/7128c55d18eb6e235dee15e32f8039f6.jpg" class="card-img-top" alt="OKish Day">
+                <div class="card-body">
+                  <h5 class="card-title">This is an OKish day...</h5>
+                  <p class="card-text">Not to mention that...</p>
+                  <a href="https://weather.com/weather/tenday/l/Lucerne+Lucerne+Switzerland?canonicalCityId=48f8e1733108c3c69b3e257e7dfff3bc848123bed3715657220bd8ba1ad1eee3" target="_blank" class="btn btn-primary">Check it</a>
+                </div>
+              </div>
+              <!-- Img Source: https://www.pinterest.com/pin/210472982565641957/ -->
+
+                
+            </div>
+           <div id="tab-no" class="tab">
+                
+
+            <div class="container">
+
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="card centered" style="width: 20rem;">
+                        <img src="https://api.time.com/wp-content/uploads/2018/04/trumpstormycover.jpg?quality=85&w=1012" class="card-img-top" alt="S****y Day">
+                        <div class="card-body">
+                          <h5 class="card-title">This is a s****y day!</h5>
+                          <p class="card-text">In Fact...</p>
+                          <button class="btn btn-primary" onclick="doSomethingAboutIt()">Do something about it</button>
+                        </div>
+                        
+                        <!-- Img Source: https://time.com/magazine/us/5237427/april-23rd-2018-vol-191-no-15-u-s/ -->
+                      </div>
+                  </div>
+                </div>
+
+                <div id="row-progress" class="row" style="display: none;">
+                  <div class="col-sm">
+                    I am loading a list of things to do that should make you feel better.
+
+                    <div class="progress" style="width: 600px; margin: 0 auto;">
+                        <div id="progress-bar" 
+                        class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                      </div>
+                  </div>
+                </div>
+
+              </div>                
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="surveyModal" tabindex="-1" aria-labelledby="surveyModalLabel" aria-hidden="true">
+
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="surveyModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Would you like to take a small survey?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="yes-do-survey" type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script src="js/tabs.js" ></script>
+        <script src="js/activities.js"></script>
+        <script>
+          
+          $('#"yes-do-survey').click(() => {
+            window.location.href = "8_bootstrap_forms.html";
+          });
+
+          setTimeout(() => {
+            $('#surveyModal').modal('show');
+            // $('#myModal').on('shown.bs.modal', function () {
+            //   $('#myInput').trigger('focus')
+            // });
+          }, 1000);
+
+          function addModalBtn() {
+            let btn =
+`
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+`;
+            return btn;
+}
+         
+          
+        </script>
+    </body>
+</html>
