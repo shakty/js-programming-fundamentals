@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+        <title>Bootstrap Grid</title>
+        
+        <!-- Bootstrap -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+         <!-- End Bootstrap -->
+
+        <style>
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .card {
+                min-height: 220px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <link rel="stylesheet" href="./css/style_inputs.css" />
+    </head>
+    <body>
+        
+        <div class="jumbotron">
+            <div class="container">
+              <h1 class="display-4">Do you feel the power?</h1>
+              <p class="lead">
+                
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                        <a id="power-yes" class="nav-link h3" href="#">Yes</a>
+                        </li>
+                        <li class="nav-item">
+                        <a id="power-maybe" class="nav-link h3" href="#">Maybe</a>
+                        </li>
+                        <li class="nav-item">
+                        <a id="power-no" class="nav-link h3" href="#">No</a>
+                        </li>
+                    </ul>
+                    </p>
+            </div>
+          </div>
+
+        
+        <div id="below" class="centered">
+
+           <div id="tab-yes" class="tab">
+
+                <div class="card centered" style="width: 25rem;">
+                <img src="https://img.prod.portals.aws.zehnder.ch/s/baf8b716b0f7efedd95887aa740d4708b1c9ed99-zna-343276-1200-816/441x300m.jpg" class="card-img-top" alt="Beautiful day!">
+                <div class="card-body">
+                  <h5 class="card-title">This is a beautiful day!</h5>
+                  <p class="card-text">Yes it is becaue blah blah.</p>
+                  <a href="https://www.luzern.com/en/" class="btn btn-primary" target="_blank">Get there!</a>
+                </div>
+              </div>
+
+               <!-- Img Source: https://www.luzerner-rundschau.ch/stadt/detail/article/initiative-aufwertung-der-innenstadt-abgelehnt-00123055/ 
+               -->
+
+           </div>
+           <div id="tab-maybe" class="tab">
+
+                <div class="card centered" style="width: 25rem;">
+                <img src="https://i.pinimg.com/originals/71/28/c5/7128c55d18eb6e235dee15e32f8039f6.jpg" class="card-img-top" alt="OKish Day">
+                <div class="card-body">
+                  <h5 class="card-title">This is an OKish day...</h5>
+                  <p class="card-text">Not to mention that...</p>
+                  <a href="https://weather.com/weather/tenday/l/Lucerne+Lucerne+Switzerland?canonicalCityId=48f8e1733108c3c69b3e257e7dfff3bc848123bed3715657220bd8ba1ad1eee3" target="_blank" class="btn btn-primary">Check it</a>
+                </div>
+              </div>
+              <!-- Img Source: https://www.pinterest.com/pin/210472982565641957/ -->
+
+                
+            </div>
+           <div id="tab-no" class="tab">
+                
+
+            <div class="container">
+
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="card centered" style="width: 20rem;">
+                        <img src="https://api.time.com/wp-content/uploads/2018/04/trumpstormycover.jpg?quality=85&w=1012" class="card-img-top" alt="S****y Day">
+                        <div class="card-body">
+                          <h5 class="card-title">This is a s****y day!</h5>
+                          <p class="card-text">In Fact...</p>
+                          <button class="btn btn-primary" onclick="doSomethingAboutIt()">Do something about it</button>
+                        </div>
+                        
+                        <!-- Img Source: https://time.com/magazine/us/5237427/april-23rd-2018-vol-191-no-15-u-s/ -->
+                      </div>
+                  </div>
+                </div>
+
+                <div id="row-progress" class="row" style="display: none;">
+                  <div class="col-sm">
+                    I am loading a list of things to do that should make you feel better.
+
+                    <div class="progress" style="width: 600px; margin: 0 auto;">
+                        <div id="progress-bar" 
+                        class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                      </div>
+                  </div>
+                </div>
+
+              </div>                
+            </div>
+        </div>
+        <script src="js/tabs.js" ></script>
+        <script>
+           
+            // Do something about it.
+            async function doSomethingAboutIt() {
+
+              document.getElementById('row-progress').style.display = '';
+              
+              let updates = [ 0, 20, 40, 60, 80, 100 ];
+              updates.forEach((update, idx) => {
+                setTimeout(() => updateProgress(update), idx * 1000);
+              });
+
+                let activities = await fetchActivities();
+
+                let row = createActivitiesRow(activities);
+
+                // Get the second element with class .container,
+                // and append the row with activities cards.
+                document.querySelectorAll('.container')[1].appendChild(row);
+
+                document.querySelector("#feelbetter-grid").scrollIntoView({
+                    behavior: "smooth",
+                    block: "end"
+                });
+                
+                document.getElementById('row-progress').style.display = 'none';
+            }
+
+            function getActivityCard(card) {
+              let template =
+`                    <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">${card.title}</h5>
+                            <p class="card-text">${card.description}</p>
+                            <a target="_blank" href="${card.link}" class="btn btn-primary">Do it</a>
+                          </div>
+                        </div>
+                      </div>
+`
+              return template;
+            }
+
+            async function fetchActivities(cb) {
+              return fetch('http://localhost:3000/activities/');
+            }
+
+            function createActivitiesRow(cards) {
+              let row = document.createElement('div');
+              row.className = 'row';
+              row.id = 'feelbetter-grid';
+              cards.forEach(card => {
+                row.innerHTML += '\n' + getActivityCard(card);
+              });
+              return row;
+            }
+
+            // Update Progress bar.
+            function updateProgress(x) {
+              document.getElementById("progress-bar").style.width = x + '%';
+            }
+
+        </script>
+    </body>
+</html>

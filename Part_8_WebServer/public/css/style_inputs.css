@@ -1,0 +1,61 @@
+.large {
+    font-size: 30px;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.wide {
+    padding: 10px;
+    margin: 10px;
+}
+
+.tab {
+    display: none;
+}
+
+.tab-active {
+    display: block;
+}
+
+.link {
+    color:navy;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.link:first-of-type {
+    margin-left: 20px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.img {
+    width: 400px;
+    border: 5px solid black;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.feelbetter-list {
+    text-align: left;
+    margin-left: 30%;
+}
+
+/* These rules are applied to elements with these tags */
+button, input, textarea, select {
+    padding: 10px;
+    font-size: 20px;
+}
+
+input, textarea, select {
+    margin: 5px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+

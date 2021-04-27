@@ -1,0 +1,35 @@
+.large {
+    font-size: 30px;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.wide {
+    padding: 10px;
+    margin: 10px;
+}
+
+.tab {
+    display: none;
+}
+
+.tab-active {
+    display: block;
+}
+
+.link {
+    color:navy;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.link:first-of-type {
+    margin-left: 20px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

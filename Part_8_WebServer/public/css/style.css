@@ -1,0 +1,30 @@
+/* A comment inside a CSS file */
+
+/* 
+  A dot followed by name create a class,
+  meaning that the styling instructions
+  will be applied together.
+*/
+
+.large {
+    font-size: 30px;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.wide {
+    padding: 10px;
+    margin: 10px;
+}
+
+/* 
+  It is also possible to apply styles to ids
+  using the pound sign.
+*/
+
+#below {
+    color: red;
+}
