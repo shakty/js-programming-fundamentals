@@ -162,14 +162,23 @@
               return template;
             }
 
-            async function fetchActivities() {
-              return await fetch('http://localhost:3000/activities/')
-                              .then(res => {
-                                if (res.status >= 400) {
-                                  throw new Error("Bad response from server");
-                                }
-                                return res.json();
-                              });
+            async function fetchActivities(cb) {
+              let opts = {
+                  method: "POST",
+                  headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: JSON.stringify({ key: "123" })
+              };
+              return await fetch('http://localhost:3000/activities/', opts)
+                            .then(res => {
+                              debugger
+                              if (res.status >= 400) {
+                                throw new Error("Bad response from server");
+                              }
+                              return res.json();
+                            });
             }
 
             function createActivitiesRow(cards) {

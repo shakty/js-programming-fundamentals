@@ -60,6 +60,9 @@ app.get('/secret', (req, res) => {
   res.send('How did you know about this route? It was a secret!');
 });
 
+// Start the server on port 3000.
+app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+
 // Exercise 5: REST.
 ////////////////////
 
@@ -73,7 +76,11 @@ app.get("/activities/", async (req, res) => {
 	res.send(activities)
 });
 
-// b. Express can assign route segments to variables. This is
+// b. Copy index.html and rename to fetch.html. Update it to to fetch
+// the activities with a using the REST API that you created here.
+// Hint: use the fetch command.
+
+// c. Express can assign route segments to variables. This is
 // useful to create more readable and compact urls, avoiding the use of
 // query string. For instance, these two routes are equivalent:
 
@@ -92,18 +99,56 @@ app.get("/activities/", async (req, res) => {
 // Create a route that returns just one activity, the id of which is its
 // position in the array of activities as returned by getActivities().
 
+// Finally, copy file fetch.html and rename to fetch_one.html and fetch
+// a random activity.
+
+// Hint: generate a random integer between 0 and 11 (tot num of activities):
+// https://www.w3schools.com/JS/js_random.asp  
+
 app.get("/activities/:id", async (req, res) => {
 	const activities = await getActivities();
 	res.send(activities[req.params.id]);
 });
 
 
-// Start the server on port 3000.
-app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+// d. Optional. 
+// You want to protect your precious list of activities with a super secret
+// access key (equal to "123").
+//
+// You know by now that GET requests are not well-suited for sensitive data
+// and you decided to reimplement a., b. using POST routes. 
+//
+// Finally, copy file fetch.html and rename to fetch_post.html and fetch
+// the activities with a POST request instead of a GET request. 
 
+// Hint1: On Express, you can simply specify a route as app.post(...). 
+// Hint2: On the browser, the fetch implements GET requests by default. You
+// can modify this behavior with additional configuration object:
 
-// Exercise 5: Create a simple auth middleware.
-///////////////////////////////////////////////
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+// Hint3: Do not forget to call JSON.stringify on your payload.
+
+// We could use a middleware, but it would apply also to GET requests. So
+// we create this "poor-man" middleware and use it as a function inside
+// the route's callback.
+let checkAuth = (req, res) => {
+  if (req.body.key !== "123") {
+      res.status(500);
+      res.send("You are not authorized");
+      return false;  
+  };
+  return true;
+}
+
+app.post("/activities/", async (req, res) => {
+  if (!checkAuth(req, res)) return;
+	const activities = await getActivities();
+	res.send(activities);
+});
+
+// Get Activities Functions.
+////////////////////////////
 
 async function getActivities() {
      // Activity Cards.

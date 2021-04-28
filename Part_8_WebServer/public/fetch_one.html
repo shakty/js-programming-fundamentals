@@ -106,7 +106,7 @@
 
                 <div id="row-progress" class="row" style="display: none;">
                   <div class="col-sm">
-                    I am loading a list of things to do that should make you feel better.
+                    I am loading something to do that should make you feel better.
 
                     <div class="progress" style="width: 600px; margin: 0 auto;">
                         <div id="progress-bar" 
@@ -149,7 +149,7 @@
 
             function getActivityCard(card) {
               let template =
-`                    <div class="col-sm-3">
+`                    <div class="col-sm-5">
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title">${card.title}</h5>
@@ -163,7 +163,9 @@
             }
 
             async function fetchActivities() {
-              return await fetch('http://localhost:3000/activities/')
+              // Get a random activity id.
+              let idx = Math.floor(Math.random()*12);
+              return await fetch('http://localhost:3000/activities/' + idx)
                               .then(res => {
                                 if (res.status >= 400) {
                                   throw new Error("Bad response from server");
@@ -174,8 +176,10 @@
 
             function createActivitiesRow(cards) {
               let row = document.createElement('div');
-              row.className = 'row';
+              row.className = 'row justify-content-md-center';
               row.id = 'feelbetter-grid';
+              // Make it an array.
+              if (!Array.isArray(cards)) cards = [ cards ];
               cards.forEach(card => {
                 row.innerHTML += '\n' + getActivityCard(card);
               });
