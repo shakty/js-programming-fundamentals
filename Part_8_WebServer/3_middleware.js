@@ -63,12 +63,12 @@ app.use(function(err, req, res, next) {
 
 // Intercepts all requests.
 app.get('/', (req, res) => {
-    res.send('Yay! The server is running');
+    res.send('Yay! The server is running!');
 });
 
-// Intercepts requests through the path /ASDA.
-app.get('/asda', (req, res) => {
-    res.send('How did you know about this route? ASDA!');
+// Intercepts requests through the path /secret.
+app.get('/secret', (req, res) => {
+    res.send('How did you know about this route? It was a secret!');
 });
 
 // Start the server on port 3000.
