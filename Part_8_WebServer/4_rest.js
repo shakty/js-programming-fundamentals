@@ -38,6 +38,10 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+// Need these instructions for cloud.
+// const cors = require('cors');
+// app.use(cors());
+
 // File in directory /public/ will be cached and served.
 app.use(express.static('public'));
 

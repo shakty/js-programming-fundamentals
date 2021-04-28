@@ -165,17 +165,21 @@
             async function fetchActivities(cb) {
               let opts = {
                   method: "POST",
-                  headers: {
-                    'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  body: JSON.stringify({ key: "123" })
+                  // headers: {
+                  //   'Content-Type': 'application/json'
+                  //   // 'Content-Type': 'application/x-www-form-urlencoded',
+                  // },
+                  body: JSON.stringify({ key: "123" }),
+                  // mode: 'no-cors'
               };
-              return await fetch('http://localhost:3000/activities/', opts)
+              let host = 'https://serene-refuge-39616.herokuapp.com';
+              return await fetch(host + '/activities/', opts)
                             .then(res => {
+                              console.log(res);
                               if (res.status >= 400) {
                                 throw new Error("Bad response from server");
                               }
+                              debugger
                               return res.json();
                             });
             }
