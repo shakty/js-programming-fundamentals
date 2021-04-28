@@ -60,10 +60,37 @@ app.get('/secret', (req, res) => {
   res.send('How did you know about this route? It was a secret!');
 });
 
+// Exercise 5: REST.
+////////////////////
+
+// a. Create a new route "/activities" that returns all the activities used
+// in app developed in the Bootstrap chapter. 
+// Simulate a delay in accessing a database creating an async function and 
+// with a timeout. 
+
 app.get("/activities/", async (req, res) => {
 	const activities = await getActivities();
 	res.send(activities)
 });
+
+// b. Express can assign route segments to variables. This is
+// useful to create more readable and compact urls, avoiding the use of
+// query string. For instance, these two routes are equivalent:
+
+// /activities/?id=1
+// /activities/1
+
+// To parse "1" as an id in the second route in the example above, 
+// create the route using the colon operator followed by a variable name:
+
+// "/activities/:id" 
+
+// The id variable will theh be available in the res object under
+
+// res.params.id
+
+// Create a route that returns just one activity, the id of which is its
+// position in the array of activities as returned by getActivities().
 
 app.get("/activities/:id", async (req, res) => {
 	const activities = await getActivities();
