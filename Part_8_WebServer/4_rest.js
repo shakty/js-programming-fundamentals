@@ -2,22 +2,37 @@
 // Programming Fundamentals in JavaScript! //
 /////////////////////////////////////////////
 
-// TODO: move somewhere else.
-// npm install express-generator -g
-// Might require admin rights.
-// Follow instructions on screen to launch the web server.
-
-
 // Module: Web Server.
-///////////////////////////////
+//////////////////////
 
-// Express is a fast web server for NodeJS.
+// Exercise 5: REST.
+////////////////////
 
-// Exercise 1: Express Middleware.
-//////////////////////////////////
+// REST (Representational Transfer State) is a widely used pattern
+// to create API which is implemented by Express.
 
-// Full reference:
-// https://expressjs.com/en/guide/using-middleware.html
+// It contains four methods to do CRUD operations: 
+
+// - POST:     Create a new resource, 
+// - GET:      Read an existing resource,
+// - PUT:      Update an existing resource,
+// - DELETE:   Delete an exiting resource.
+
+// More details here: 
+// https://restfulapi.net/
+// https://www.edureka.co/blog/what-is-rest-api/
+
+// In practice this semantic representation is seldom implemented in full,
+// and only GET and POST requests are used. 
+
+// The main difference between GET and POST is that POST submits additional
+// information as a payload to body of the HTTP request, while GET as a query
+// string. For this, POST is preferred when larger pieces of information are 
+// transferred or when dealing with sensitive data. 
+
+// More details here:
+// https://www.w3schools.com/tags/ref_httpmethods.asp
+// https://www.guru99.com/difference-get-post-http.html
 
 const express = require('express');
 const app = express();
@@ -26,60 +41,14 @@ const PORT = 3000;
 // File in directory /public/ will be cached and served.
 app.use(express.static('public'));
 
-// Built-in. Parses incoming requests with JSON payloads.
-app.use(express.json());
-
+// POST (and PUT) requests require additional middleware to parse
+// the HTTP requests' body.
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
-// You DO NOT NEED express.json() and express.urlencoded() for GET Requests or DELETE Requests.
-
-// You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request
-
-// Built-in. Parses incoming requests with JSON payloads.
-app.use(express.json());
-
 // Third-party. Load the cookie-parsing middleware.
 const cookieParser = require('cookie-parser');
 app.use(cookieParser())
-
-// app.use((req, res, next) => {
-//     console.log('Time: ', Date.now());
-//     console.log('Request type: ', req.method);
-//     next();
-// });
-
-
-// Third-party. Load the cookie-parsing middleware.
-const cookieParser = require('cookie-parser');
-app.use(cookieParser())
-
-// app.use((req, res, next) => {
-//     console.log('Time: ', Date.now());
-//     console.log('Request type: ', req.method);
-//     next();
-// });
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-// app.use((err, req, res, next) => {
-//     console.error(err.stack)
-//     res.status(500).send('Something broke!')
-//   })
 
 // Intercepts all requests.
 app.get('/', (req, res) => {
@@ -106,6 +75,8 @@ app.get("/activities/:id", async (req, res) => {
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
 
 
+// Exercise 5: Create a simple auth middleware.
+///////////////////////////////////////////////
 
 async function getActivities() {
      // Activity Cards.

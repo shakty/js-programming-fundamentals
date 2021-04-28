@@ -8,6 +8,10 @@
 // We are going to use a few more middleware functions
 // to get familiar with them.
 
+// Middleware functions are like callback functions for routes,
+// but they accept a third parameter, next, which passes the
+// control to the next middleware.
+
 // Full reference:
 // https://expressjs.com/en/guide/using-middleware.html
 
@@ -21,7 +25,8 @@ const PORT = 3000;
 app.use((req, res, next) => {
     console.log();
     console.log('First Middleware looks into the req objects:')
-    
+    console.log('Time: ', Date.now());
+    console.log();
     console.log('Protocol: ', req.protocol)    // "https"
     console.log('Host: ', req.hostname)        // "example.com"
     console.log('Path: ', req.path)            // "/users"
@@ -40,7 +45,8 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     console.log();
     console.log('Second middleware checks the headers.');
-      
+    console.log('Time: ', Date.now());
+    console.log();
     console.log('Type: ', req.header('Content-Type'));           // "application/json"
     console.log('User Agent: ', req.header('user-agent'));       // "Mozilla/5.0 (Macintosh Intel Mac OS X 10_8_5) AppleWebKi..."
     console.log('Authorization: ', req.header('Authorization')); // "asdasda..."
