@@ -35,6 +35,19 @@ app.use(express.urlencoded({ extended: true }));
 
 // You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request
 
+// Built-in. Parses incoming requests with JSON payloads.
+app.use(express.json());
+
+// Third-party. Load the cookie-parsing middleware.
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
+
+// app.use((req, res, next) => {
+//     console.log('Time: ', Date.now());
+//     console.log('Request type: ', req.method);
+//     next();
+// });
+
 
 // Third-party. Load the cookie-parsing middleware.
 const cookieParser = require('cookie-parser');

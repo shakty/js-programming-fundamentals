@@ -48,6 +48,8 @@ app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
 // 
 // - req: an object with info about the incoming network request,
 // - res: an object with info and methods to respond to the request.
+//
+// (more details on req and res in the next exercises).
 
 // Intercepts all requests.
 app.get('/', (req, res) => {
