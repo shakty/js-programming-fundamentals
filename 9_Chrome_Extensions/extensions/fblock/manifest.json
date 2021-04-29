@@ -8,7 +8,7 @@
   },
   "permissions": [ "storage", "activeTab", "scripting", "tabs" ],
   "action": {
-    "default_popup": "hello.html",
-    "default_icon": "hello_extensions.png"
-  }
+    "default_icon": "icon.png"
+  },
+  "host_permissions": [ "*://*/*" ]
 }
