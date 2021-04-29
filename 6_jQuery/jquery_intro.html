@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>JQUERY 101 - INTRO</title>
+</head>
+<body>
+
+    <div class=myClass-0 id=myID-0>
+
+        <div class=myClass-0-1 id=myID-0-1>
+        </div>
+
+        <div class=myClass-0-2 id=myID-0-2>
+        </div>
+
+        <div class=myClass-0-3 id=myID-0-3>
+        </div>
+
+        <div class=myClass-0-3 id=myID-0-3>
+        </div>
+
+        <div class=myClass-0-3 id=myID-0-3>
+        </div>
+
+        <div class=myClass-0-3 id=myID-0-3>
+        </div>
+
+        <div class=myClass-0-3 id=myID-0-3>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- TO BE ABLE TO USE JQUERY YOU NEED TO ACCESS ITS LIBRARY -->
+    <!-- THERE ARE MULTIPLE WAYS TO DO IT -->
+    <!-- ONE OPTION IS TO PLACE THE BELOW JQUERY ADDRESS TO THE END OF YOUR DOM -->
+    <!-- THIS OPTION REQUIRES INTERNET AS IT FETCHES THE JQUERY LIBRARY FROM
+    THE ADDRESS -->
+    <!-- ANOTHER OPTION IS TO HAVE THE LIBRARY UNDER YOUR JS FOLDER BUT YOU SHOULDN'T
+    WORRY ABOUT THAT FOR NOW -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+    <!-- ONCE YOU HAVE THE LIBRARY YOU CAN BEGIN USING IT IN YOUR SCRIPT -->
+
+    <script>
+
+    $(document).ready( function() {
+
+
+
+        //----------------------------------- INTRO -----------------------------------------//
+
+
+        // There is nothing on the page...
+
+        // Let's fill it in with stuff
+
+        // Let's begin with some text
+
+        // With jquery life is easy all you do is use the command
+        // .html('place the text you want here')
+
+        // how do we select the div we want to manipulate?
+
+        // you can access a div by its class name: $('.CLASS_NAME')
+        let myDiv01 = $('.myClass-0-1')
+
+        // Now let's combine the two
+        $('.myClass-0-1').html('jquery is easy')
+
+
+        // The text is there but small. Let's make it bigger.
+        $('.myClass-0-1').css({'font-size':'40px'});
+
+
+        // You can change multiple attributes at once.
+        $('.myClass-0-1').css({
+            'margin-left':'30%',
+            'margin-top':'30%'
+        });
+
+
+        // You can also us the ID of the div: $('#ID_NAME')
+        $('#myID-0-1').css({
+            'transition':'1s',
+            'margin-left':'33%',
+            'margin-top':'10%'
+        });
+
+
+        // Let's constraint the parent div's (myClass-0) active region
+        $('.myClass-0').css({
+            'margin-left':'20%',
+            'margin-right':'20%'
+        });
+
+
+        // If there are multiple divs with the same class name
+        // All will be affected by the jquery command
+        // Try to add some text to divs with class name: myClass-0-3
+
+        $('.myClass-0-3').html('some text');
+
+        // Add some fun attributes to your text
+        $('.myClass-0-3').css({
+            'transition':'1s',
+            'background-color':'black',
+            'color':'white',
+            'font-size':'40px'
+        })
+
+
+
+        // Try to change the text to divs with the same id: myID-0-3
+        $('#myID-0-3').html('another text')
+
+        // When you query a div by its id, jquery will only fetch the first
+        // object with that id name.
+
+
+
+        //------------------------------------------------------------------------//
+        /*
+        * PRACTICE .CSS AND .HTML
+        * SKY IS THE LIMIT
+        */
+        //------------------------------------------------------------------------//
+
+
+    })
+
+
+    </script>
+
+</body>
+</html>

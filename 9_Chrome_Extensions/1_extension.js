@@ -15,5 +15,12 @@
 // only on Chrome extensions. 
 
 
+// We will review 
+
+
+// Exercise 1: Hello World Extension.
+/////////////////////////////////////
+
+// Create an extension that opens a popup
 
 // chrome.action: API to control the toolbar button
