@@ -25,6 +25,17 @@ changeColor.addEventListener("click", async () => {
     currentWindow: true,
   });
 
+  debugger
+  
+  console.log('AAAAA');
+
+  
+  console.log(tab);
+
+
+  console.log('AAAAA', tab.url);
+
+
   // Chrome API: scripting.
   //
   // The scripting API executes scripts in different contexts.
