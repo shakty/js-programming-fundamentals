@@ -1,49 +1,26 @@
-// const tabId = getTabId();
-
-// async function getCurrentTab() {
-//   let queryOptions = { active: true, currentWindow: true };
-//   let [tab] = await chrome.tabs.query(queryOptions);
-//   return tab;
-// }
-
-// chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-//   let url = tabs[0].url;
-//   // use `url` here inside the callback because it's asynchronous!
-// });
-
+// Whenever there is an update on any tab in the browser
+// this function is called.
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+  
+  // We loaded a new tab.
   if (changeInfo.status == 'complete' && tab.active) {
 
-    // do your things
-    console.log(tabId);
-    console.log(tab);
-    debugger
+    // See data if you are curious.
+    // console.log(tabId);
+    // console.log(tab);
 
+    // If we are on Facebook let's do something.
+    if (tab.url.indexOf('facebook') !== -1) {
+
+      setTimeout(function() {
+        chrome.scripting.executeScript({
+          target: {tabId: tabId, allFrames: true },
+          files: [ 'content-script.js' ]
+        });
+        
+      }, 1000); 
+
+    }
+    
   }
 })
-
-setInterval(function() {
-  console.log('AH!');
-  debugger;
-}, 3000);
-
-// let checkResults = (injectionResults) => {
-//   for (const frameResult of injectionResults)
-//     console.log('Frame Title: ' + frameResult.result);
-// }
-
-// chrome.scripting.executeScript(
-//     {
-//       target: { tabId: tabId, allFrames: true },
-//       files: [ 'script.js' ],
-//     },
-//     checkResults);
-
-  
-// const css = 'body { background-color = "red"; }';
-// chrome.scripting.insertCSS(
-//   {
-//     target: { tabId: tabId },
-//     css: css,
-//   },
-//   checkResults);

@@ -1,7 +1,7 @@
 {
   "name": "Say Hello!",
   "description": "Opens a popup that says hello!",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "action": {
     "default_popup": "hello.html",
@@ -10,10 +10,13 @@
   "commands": {
     "_execute_action": {
       "suggested_key": {
-        "default": "Ctrl+Shift+F",
-        "mac": "MacCtrl+Shift+F"
+        "default": "Ctrl+Shift+X",
+        "mac": "MacCtrl+Shift+X"
       },
       "description": "Opens hello.html"
     }
-  }
+  },
+  "background": {
+    "service_worker": "background.js"
+  } 
 }
