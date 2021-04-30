@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Ionic 101</title>
+
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"
+    />
+  </head>
+  <body>
+    <!-- We create a vanilla Javascript function to call the alert -->
+    <script>
+      hello = async function () {
+        alert("Hello World!");
+      };
+    </script>
+
+    <!-- We declare an Ionic app using the <ion-app/> element -->
+    <ion-app>
+      <!-- Cool thing, the Ionic CSS utilities could be used too -->
+      <ion-content text-center>
+        <h1>Basic usage</h1>
+        <!-- We add an ion-button with an onclick event -->
+        <ion-button onclick="hello()">Click me</ion-button>
+      </ion-content>
+    </ion-app>
+  </body>
+</html>

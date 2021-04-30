@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Ionic Modal</title>
+
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"
+    />
+  </head>
+  <body>
+    <!-- 
+        Modal as from: https://ionicframework.com/docs/api/modal 
+    
+        JavaScript/Usage
+
+        Extra comments added.
+    -->
+    <script>
+      // customElements let us define our own tags.
+      // Ref: https://javascript.info/custom-elements
+      customElements.define(
+        "modal-page",
+        class extends HTMLElement {
+          connectedCallback() {
+            const modalElement = document.querySelector('ion-modal');
+            let props = modalElement.componentProps;
+            this.innerHTML = `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>${props.title}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button onClick="dismissModal(this)">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  ${props.content}
+</ion-content>`;
+          }
+        }
+      );
+
+      function presentModal() {
+        // create the modal with the `modal-page` component
+        const modalElement = document.createElement("ion-modal");
+        modalElement.component = "modal-page";
+        modalElement.cssClass = "my-custom-class";
+
+        modalElement.componentProps = {
+          title: 'Modal Title',
+          content: 'Modal Content'
+        };
+
+        // present the modal
+        document.body.appendChild(modalElement);
+        return modalElement.present();
+      }
+
+      async function dismissModal() {
+        const modalElement = document.querySelector('ion-modal');
+        await modalElement.dismiss({
+          dismissed: true,
+        });
+      }
+    </script>
+
+    <!-- We declare an Ionic app using the <ion-app/> element -->
+    <ion-app>
+      <!-- Cool thing, the Ionic CSS utilities could be used too -->
+      <ion-content text-center>
+        <h1>Basic usage</h1>
+        <!-- We add an ion-button with an onclick event -->
+        <ion-button onclick="presentModal()">Click me</ion-button>
+      </ion-content>
+    </ion-app>
+  </body>
+</html>
