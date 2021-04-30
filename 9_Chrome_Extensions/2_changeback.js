@@ -15,22 +15,18 @@
 // We will focus only on Chrome extensions. 
 
 
-// Exercise 1: Hello World Extension.
-/////////////////////////////////////
+// Exercise 1: Change Background Extension.
+///////////////////////////////////////////
 
-// Let's do our first baby steps. It is hard to learn new things, 
-// so let's make an extension that encourages to do our best.
-
-// This simple extension will simply open a popup and display an
-// encouraging message if you click on the icon on the toolbar.
-
-// Checkout extentions/hello-world.
+// Checkout extentions/changeback.
 
 // You will learn about:
 
-// 1. The basic structure of the manifest file.
+// 1. Create an options page.
 
-// 2. How to create a popup file.
+// 2. Interact with storage API.
+
+// 3. Modify the content of a page.
 
 
 // a. Add an icon for the extension.

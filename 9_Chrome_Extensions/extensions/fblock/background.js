@@ -29,4 +29,19 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
     }
     
   }
-})
+});
+
+// Listen to message from the content script.
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+
+    if (request.hidden) {
+      // setBadgeText requires a string, so we do the conversion.
+      chrome.action.setBadgeText({ text: '' + request.hidden });
+    }
+  }
+);

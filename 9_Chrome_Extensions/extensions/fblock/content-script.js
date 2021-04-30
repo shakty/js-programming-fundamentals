@@ -5,12 +5,16 @@ const SPONSORED = "S\nt\nS\nS\np\ns\no\np\no\nn\nh\ns\no\nf\nt\nt\nn\nr\nS\nso\n
 
 const SPONSORED2 = "S\nr\npo\nt\nh\nl\ng\nu\nn\nS\nS\np\no\no\nn\nu\ns\no\na\nn\nr\ne\ns\nm\nored\nd"
 
-let lastSpanFound = 0;
+let lastFound = 0;
 
 let hiddenPosts = [];
 
 // We do the search for unwanted posts every 5 seconds, not great.
-let interval = setInterval(doSearch, 5000);
+let interval = setInterval(doSearchByNumChildren, 5000);
+
+function updateBadge(n) {
+    chrome.runtime.sendMessage({ hidden: n });
+}
 
 function doSearch() {
 
@@ -22,7 +26,7 @@ function doSearch() {
     // Facebook keeps add new spans as we scroll down, 
     // no need to re-search the same one over and over,
     // so we start from the last examined. 
-    for (let i = lastSpanFound; i < spans.length ; i++) {
+    for (let i = lastFound; i < spans.length ; i++) {
         
         // If you are curious to look into all texts.
         // console.log()
@@ -40,7 +44,77 @@ function doSearch() {
     }
 
     // Keep reference to the last span found.
-    lastSpanFound = spans.length;
+    lastFound = spans.length;
+
+    updateBadge(lastFound);
+}
+
+function doSearchByNumChildren() {
+
+    // It's very difficult to locate via attributes 
+    // the sponsored posts, so we look into all <SPAN> tags. 
+    let spans = document.getElementsByTagName('span');
+    
+    console.log('<SPAN>s found', spans.length);
+    // Facebook keeps add new spans as we scroll down, 
+    // no need to re-search the same one over and over,
+    // so we start from the last examined. 
+    for (let i = lastFound; i < spans.length ; i++) {
+        
+        // If you are curious to look into all texts.
+        // console.log()
+        // console.log()
+        // console.log(spans[i].innerText);
+        // console.log()
+        // console.log()
+        
+        // It is fishy to have more than 20 children in a span.
+        if (spans[i].children && spans[i].children.length > 20) {
+            let res = hidePost(spans[i]);
+            // If post was hidden, add a reference to the hidden posts.
+            if (res) hiddenPosts.push(i);
+        }
+    }
+
+    // Keep reference to the last span found.
+    lastFound = spans.length;
+
+    updateBadge(lastFound);
+}
+
+
+function doSearchByLink() {
+     // It's very difficult to locate via attributes 
+    // the sponsored posts, so we look into all <SPAN> tags. 
+    let links = document.getElementsByTagName('a');
+    
+    console.log('<A>s found', links.length);
+    // Facebook keeps add new links as we scroll down, 
+    // no need to re-search the same one over and over,
+    // so we start from the last examined. 
+    for (let i = lastFound; i < links.length ; i++) {
+        
+        // If you are curious to look into all texts.
+        console.log()
+        console.log()
+        console.log(links[i].href);
+        console.log()
+        console.log()
+        
+        if (links[i].href.indexOf('/ads/') !== -1) {
+            debugger
+            let res = hidePost(links[i]);
+            // If post was hidden, add a reference to the hidden posts.
+            if (res) hiddenPosts.push(i);
+        }
+    }
+
+    // Keep reference to the last span found.
+    lastFound = links.length;
+
+    
+    updateBadge(lastFound);
+
 }
 
 
@@ -58,24 +132,20 @@ function doSearch() {
 //     }
 // }
 
-function hidePost (el) {
+function hidePost (el, limit) {
         
     // We go up the DOM, from child to parent and
     // hide the whole post (8 parents above is enough).
-    const LIMIT = 9; 
+    const LIMIT = limit || 9; 
     let counter = 0;
     let curElement = el;
     while (counter < LIMIT) {
         let parent = curElement.parentNode;
-        if (!parent) break;
+        if (!parent || !parent.display) return false;
         parent.style.display = 'none';
         parent.innerHTML = '';
         curElement = parent;
         counter++;
     }
-    if (parent) {
-        parent.style.display = 'none';
-        return true;
-    }
-    return false;
+    return true;
 }
