@@ -21,6 +21,12 @@ chrome.commands.onCommand.addListener(function(command) {
 
 // and we add a new listener to the event 'onInstalled'.
 
+// Chrome API: runtime.
+//
+// The runtime API retrieves the background page, return details
+// about the manifest, and listen for and respond to events in
+// the app or extension lifecycle.
+
 // Ref:
 // https://developer.chrome.com/docs/extensions/reference/events/
 

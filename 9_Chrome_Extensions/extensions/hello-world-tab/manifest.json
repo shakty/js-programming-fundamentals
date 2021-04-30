@@ -1,6 +1,6 @@
 {
-  "name": "Say Hello!",
-  "description": "Opens a popup that says hello!",
+  "name": "Say Hello Tab!",
+  "description": "Opens a popup and a tab that says hello!",
   "version": "1.1",
   "manifest_version": 3,
   "action": {

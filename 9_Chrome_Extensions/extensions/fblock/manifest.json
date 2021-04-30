@@ -1,6 +1,6 @@
 {
-  "name": "Facebook Post BLOCK",
-  "description": "Remove Unwanted Posts from Facebook Feed",
+  "name": "Post BLOCK",
+  "description": "Remove Unwanted Posts from News Feeds",
   "version": "1.0",
   "manifest_version": 3,
   "background": {

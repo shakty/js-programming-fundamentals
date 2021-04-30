@@ -25,16 +25,8 @@ changeColor.addEventListener("click", async () => {
     currentWindow: true,
   });
 
-  debugger
-  
-  console.log('AAAAA');
-
-  
-  console.log(tab);
-
-
-  console.log('AAAAA', tab.url);
-
+  // We cannot write JS code to modify directly here, we need to
+  // inject it into the page with the scripting API.
 
   // Chrome API: scripting.
   //

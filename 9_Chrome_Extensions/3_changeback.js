@@ -5,15 +5,6 @@
 // Module: Chrome Extension.
 ////////////////////////////
 
-// Chrome extensions---who might guess it?---extend_ the 
-// functionalities of the Chrome browser.
-
-// https://developer.chrome.com/docs/extensions/
-
-// Every modern browser is somewhat extendible and the language to
-// extend it is generally JavaScript-based, however with some differences.
-// We will focus only on Chrome extensions. 
-
 
 // Exercise 3: Change Background Extension.
 ///////////////////////////////////////////
@@ -26,9 +17,22 @@
 
 // 2. Interact with storage API.
 
-// 3. Modify the content of a page.
+// 3. Modify the content of a page with the scripting API.
 
 
-// a. Add an icon for the extension.
-////////////////////////////////////
+// a. Add the options page.
+///////////////////////////
+
+// Inside the manifest, add a new line:
+
+// "options_page": "options.html",
+
+// Open the options page from Chrome's menu.
+
+// a. Checks the options page.
+///////////////////////////
+
+// Inside the manifest, add a new line:
+
+// "options_page": "options.html",
 
