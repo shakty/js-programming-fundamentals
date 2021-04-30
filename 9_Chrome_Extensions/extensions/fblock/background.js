@@ -32,6 +32,10 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
 });
 
 // Listen to message from the content script.
+
+// Message passing ref:
+// https://developer.chrome.com/docs/extensions/mv3/messaging/
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 

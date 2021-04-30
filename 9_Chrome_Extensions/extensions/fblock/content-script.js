@@ -12,6 +12,8 @@ let hiddenPosts = [];
 // We do the search for unwanted posts every 5 seconds, not great.
 let interval = setInterval(doSearchByNumChildren, 5000);
 
+// Message passing ref:
+// https://developer.chrome.com/docs/extensions/mv3/messaging/
 function updateBadge(n) {
     chrome.runtime.sendMessage({ hidden: n });
 }
@@ -116,7 +118,6 @@ function doSearchByLink() {
     updateBadge(lastFound);
 
 }
-
 
 // function isSponsored(el) {
 //     let children = el.children;

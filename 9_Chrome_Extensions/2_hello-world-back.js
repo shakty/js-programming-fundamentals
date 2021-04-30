@@ -1,0 +1,18 @@
+/////////////////////////////////////////////
+// Programming Fundamentals in JavaScript! //
+/////////////////////////////////////////////
+
+// Module: Chrome Extension.
+////////////////////////////
+
+
+// Exercise 2: Hello Word Background.
+/////////////////////////////////////
+
+// Checkout extentions/hello-word-back.
+
+// You will learn about:
+
+// 1. Listen to events in the background script.
+
+// 2. Create a new tab.
