@@ -27,8 +27,19 @@
         Extra comments added.
     -->
     <script>
-      // customElements let us define our own tags.
+
+      // The object customElements exposes methods that let us define
+      // our own tags.
       // Ref: https://javascript.info/custom-elements
+
+      // Note: customElements are not suppported in older browser.
+      
+      // If this is an issue, consider a polyfill:
+      // https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
+
+      // Polyfill?
+      // https://developer.mozilla.org/en-US/docs/Glossary/Polyfill
+
       customElements.define(
         "modal-page",
         class extends HTMLElement {
@@ -54,7 +65,7 @@
       );
 
       function presentModal() {
-        // create the modal with the `modal-page` component
+        // Create the modal with the `modal-page` component.
         const modalElement = document.createElement("ion-modal");
         modalElement.component = "modal-page";
         modalElement.cssClass = "my-custom-class";
@@ -64,7 +75,7 @@
           content: 'Modal Content'
         };
 
-        // present the modal
+        // Present the modal.
         document.body.appendChild(modalElement);
         return modalElement.present();
       }
