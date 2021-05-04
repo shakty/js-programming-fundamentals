@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <title>Inputs</title>
+        <style>
+            .large {
+                font-size: 30px;
+            }
+
+            .centered {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
+        <link rel="stylesheet" href="./css/style_inputs.css" />
+    </head>
+    <body>
+        
+        <div id="above" name="Brendan" class="large wide">
+            Do you feel the power?
+            <!-- Option 1 to add an event listener to clicks -->
+            <span id="power-yes" class="link" onclick="displayTab('tab-yes');">Yes</span> |
+            <span id="power-maybe" class="link">Maybe</span> |
+            <span id="power-no" class="link">No</span>
+        </div>
+        
+        <div id="below" class="large centered">
+           <div id="tab-yes" class="tab">
+               This is a beautiful day!
+               <img class="img" src="https://img.prod.portals.aws.zehnder.ch/s/baf8b716b0f7efedd95887aa740d4708b1c9ed99-zna-343276-1200-816/441x300m.jpg" title="Beatiful Day" />
+               <!-- Img Source: https://www.luzerner-rundschau.ch/stadt/detail/article/initiative-aufwertung-der-innenstadt-abgelehnt-00123055/ -->
+           </div>
+           <div id="tab-maybe" class="tab">
+                This is an OKish day...
+                <img class="img" src="https://i.pinimg.com/originals/71/28/c5/7128c55d18eb6e235dee15e32f8039f6.jpg" title="OKish Day" />
+                <!-- Img Source: https://www.pinterest.com/pin/210472982565641957/ -->
+                
+            </div>
+           <div id="tab-no" class="tab">
+                This is a s****y day!
+                <img class="img" src="https://api.time.com/wp-content/uploads/2018/04/trumpstormycover.jpg?quality=85&w=1012" title="S****y Day" />
+                <!-- Img Source: https://time.com/magazine/us/5237427/april-23rd-2018-vol-191-no-15-u-s/ -->
+
+               <p>
+                    <strong>Oh I am sorry :(</strong> <br/><br/>
+                    Here is a list of things to do that should make you feel better.
+                   <ul class="feelbetter-list">
+                       <li>Adopt A Pet Dog</li>
+                       <li>Host A Dinner Party With Friends</li> 
+                       <li>Play With Legos
+                       <li>Make Coffee Ice Cubes</li>
+                       <li>Have A Karaoke Night</li>
+                       <li>Volunteer To Babysit For A Friend</li>
+                       <li>Try A Science Experiment</li>
+                       <li>Learn To Juggle</li>
+                       <li>Have A Water Balloon Fight</li>
+                       <li>Take A Power Nap</li>
+                       <li>Make S'mores</li>
+                       <li>Watch The Sunset</li>
+                   </ul>
+               </p> 
+
+               <p>
+                   And now do you feel better?<br/>
+
+                    <div id="buttons-better">
+                        <button>Yes</button>
+                        <button>No</button>
+                    </div>
+               </p>
+
+               <p id="survey" style="display: none">
+            
+                <!-- Span will be filled by JS -->
+                <span id="survey-heading"></span>
+
+                <label for="why-better-input">Write a short sentence here.</label><br/>
+                <input id="why-better-input" type="text" />
+                <br/>
+                
+                <label for="why-better-textarea">In case you want to write more.</label><br/>
+                <textarea id="why-better-textarea" ></textarea>
+                <br/>
+                
+                <label for="why-better-select">
+                    In case you prefer selecting options from a dropdown menu.
+                </label><br/>
+                <select id="why-better-select">
+                    <option>Pandemic</option>
+                    <option>Covid-19</option>
+                    <option>Lockdown</option>
+                    <option>Learning JavaScript</option>
+                </select>
+               
+            </p>
+                
+            </div>
+        </div>
+
+        <script>
+            
+            // Bonus.
+
+            // DOM loading and variable scoping.
+            
+            // Actually we have been doing it wrong the whole time.
+
+            // The page load is fully asynchronous, and the browser
+            // fires the "onload" event once the page is displayed.
+
+            // If you do not wait for the "onload" event, it could be
+            // that the browser start executing your script _before_
+            // the elements are rendered, throwing errors.
+
+            // Just wrap everything inside a function bound to the 
+            // onload event to be on the safe side.
+
+            // Checkpoint.
+            // There is an important implication to understand with 
+            // wrapping your code: all variables declared in the onload
+            // function will no longer be available outside of it.
+            // How can you to display its value in the JS console without
+            // entering the debug mode?
+
+            window.onload = function() {
+
+                // Uncomment for step-by-step execution.
+                // debugger;
+                
+                // Header.
+                function makeHeader(div) {
+                    div.style.background = '#CCC';
+                    div.style.border = '1px solid black';
+                    // CSS property box-shadow needs to be quoted in JS to 
+                    // avoid confusion with the minus sign.
+                    div.style['box-shadow'] = '2px 2px';
+                }
+
+                let divAbove = document.getElementById("above");
+                makeHeader(divAbove);
+
+                // Tabs.
+                let currentTab = null;
+                function displayTab(tabId) {
+                    if (currentTab) currentTab.className = 'tab';
+                    currentTab = document.getElementById(tabId);
+                    currentTab.className = 'tab tab-active';
+                }
+
+                // Option 2 to add an event listener to clicks.
+                document.getElementById('power-maybe').onclick = function() {
+                    displayTab("tab-maybe");
+                };
+
+                // Option 3 to add an event listener to clicks.
+                document.getElementById('power-no').addEventListener('click', function() {
+                    displayTab("tab-no");
+                });
+                
+                // Survey about feelings.
+                document.getElementById('buttons-better').onclick = function(event) {
+                    let surveyHeading = document.getElementById('survey-heading');
+                    if (event.target.innerText === 'Yes') {
+                        surveyHeading.innerHTML = 'Please tell us why you are feeling better now.';
+                    }
+                    else {
+                        surveyHeading.innerHTML = 'Please tell us why you are <em>not</em> feeling better now.';
+                    }
+                    // A bit more space.
+                    surveyHeading.innerHTML += '<br/><br/>';
+                    
+                    // Make the survey visible.
+                    document.getElementById('survey').style.display = '';
+                }
+            };
+
+        </script>
+    </body>
+</html>
