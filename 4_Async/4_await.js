@@ -20,25 +20,62 @@ hello();
 let hello = async () => { return "Hello" };
 hello();
 
-// It might look similars, but it has superpowers.
-
-// You can chain a promise to it.
+// They might look similar, but the async function has superpowers:
+// it returns a promise, to which you can chain the usual .then().
 hello().then((value) => console.log(value));
+// Or even more compact:
 hello().then(console.log);
 
-// An async function can pause the execution
-async function hello() {
-  return greeting = await Promise.resolve("Hello");
+// An async function can pause the execution of a program without
+// blocking the event loop (so other requests can be fulfilled in the wait).
+
+// For this, use the "await" keyword, for instance: 
+// let word = await hello();
+
+// But there is a catch 22. 
+// Await can await async functions only inside an async function.
+// (tl;dr the JS compiler wants to know in advance if an await is coming).
+
+
+// Let's make hello really async now.
+let hello = async () => { 
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Hello"), 1000);
+  });
+  let word = await promise;
+  console.log(word);
 };
 
-hello().then();
+hello();
+
+// Exercise: handling errors in async/await.
+////////////////////////////////////////////
+
+// What if the promise is not fulfilled? We need to use the good old 
+// try/catch block.
+
+// Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+
+// Rewrite hello() so that it rejects the promise and catch the error
+// in a try/catch block.
+
+// Let's make hello really async now.
+let hello = async () => { 
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => reject("Nope!"), 1000);
+  });
+  try {
+    let word = await promise;
+    console.log(word);
+  }
+  catch(e) {
+    console.log(e);
+  }
+};
+
+hello();
 
 
-wrapper();
-
-// promise
-//   .then(res => console.log(`2. Yes, he/she is one of them!`))
-//   .catch(res => console.log(`2. Nope, let's keep searching.`));
 
 
 
