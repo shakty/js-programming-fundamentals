@@ -53,7 +53,10 @@ promise
 let comfortObj = 1/3;
 
 promise = new Promise(function(resolve, reject) {
-  // Write the body of this promise.
+  setTimeout(() => {
+    if (Math.random() > comfortObj) resolve(true);
+    else reject(false);
+  }, 2000);
 });
 
 console.log('Do you sleep with a Teddy bear?');
@@ -85,7 +88,8 @@ promise
   .then(res => console.log(`Yes, you are!`))
   .catch(res => console.log(`No, you are not.`))
   .finally(() => {
-    // Something here.
+    isSearching = true;
+    console.log('Is the exercise over?', isSearching ? 'Yes!' : 'No!');
   });
 
   

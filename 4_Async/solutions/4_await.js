@@ -1,37 +1,30 @@
-/////////////
-// App Dev //
-/////////////
-
-// Module: Async programming.
-/////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Welcome to the 1st exercise sheet of Programming Fundamentals in JavaScript!
+///////////////////////////////////////////////////////////////////////////////
 
 // The await/async pattern is so called "sugar coating" over the Promise syntax
-// It means that it makes writing code involving promises easier and faster.
-// You don't even realize you are writing a Promise!
+// It means that it makes writing code involing promises easier and faster.
 
 // EXERCISE 1. Async/await.
 ///////////////////////////
 
-// This is a plain, normal, boring function.
+// Now implement the example above in an async way.
+// Hint: setTimeout
+
 let hello = () => { return "Hello" };
 hello();
 
-// This is a really cool, brand new, async function.
 let hello = async () => { return "Hello" };
 hello();
 
-// It might look similars, but it has superpowers.
-
-// You can chain a promise to it.
 hello().then((value) => console.log(value));
 hello().then(console.log);
 
-// An async function can pause the execution
+
 async function hello() {
   return greeting = await Promise.resolve("Hello");
 };
-
-hello().then();
+hello().then(alert);
 
 
 wrapper();

@@ -14,11 +14,12 @@
 // Modify the code below so that the printNews method is called after
 // all news are fetched inside the timeout.
 
+// Solution.
 let printNews = (allNews) => {
   allNews.forEach(news => console.log(`- Breaking News: ${news.title}`));
 };
 
-let getLatestNews = () => {
+let getLatestNews = (cb) => {
   // Imagine to connect to a server and getting back the  
   setTimeout(() => {
     let news = [ 
@@ -31,7 +32,7 @@ let getLatestNews = () => {
         title: 'Bitcoin price crashed 20%!'
       }
     ];
-    console.log('News fetched, now I can print them.');
+    if (cb) cb(news);
   }, 2000);
 };
 
