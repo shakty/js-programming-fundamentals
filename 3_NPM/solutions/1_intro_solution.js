@@ -15,16 +15,16 @@
 // b. Make the following lines of code executables without 
 // errors.
 
-// Add something here.
-
+// Solution.
+const isOdd = require('is-odd');
 let odd = 1;
 console.log(isOdd(odd));
 
 
 // c. Now, make these lines work...
 
-// Add something here.
-
+// Solution.
+const isEven = require('is-even');
 let even = 2;
 console.log(isEven(even));
 
@@ -40,6 +40,8 @@ console.log(isEven(even));
 // Now, I know you know how to do it, so why don't you  write down the two 
 // one-liners that reproduce the methods isOdd and isEven used above?
 
+console.log(odd % 2 === 1);
+console.log(even % 2 === 0);
 
 // EXERCISE 3. Understanding the packaging.
 ///////////////////////////////////////////
@@ -56,6 +58,15 @@ console.log(isEven(even));
 // https://docs.npmjs.com/cli/v6/configuring-npm/package-json
 
 
+// Solution.
+// The file referenced in "main" node_modules/is-even/package.json is 
+// "index.js". So you may open node_modules/is-even/index.js. You will see
+// that is-even requires the package is-odd, and executes isOdd and negates it.
+//
+// If you look inside node_modules/is-odd/index.js you will notice that, to be
+// fair, the package is-odd does a little bit more than the one-liner of 
+// Exercise 2. It also checks if the value is a valid integer. Still not worth
+// a dependency.
 
 // b. The the package isNumber is not part of the default node library. So, 
 // why does the following code work even if you never installed it? 
@@ -70,6 +81,14 @@ console.log(isNumber(123));
 // other than is-odd and is-even (such as is-buffer, is-number)? 
 // Who put them there? Check again the package.json files of is-odd, 
 // section "dependencies."
+
+
+// Solution.
+// The package "is-number" is a dependency of the package "is-odd." 
+// During installation, NPM flattens all dependencies of all packages inside 
+// the node_modules/ folder, becoming available to the NodeJS require() //
+// function.
+
 
 
 

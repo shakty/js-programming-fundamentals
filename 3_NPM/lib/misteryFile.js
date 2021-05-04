@@ -1,3 +1,3 @@
-module.exports = function() {
-    console.log('Mistery solved.');
+module.exports = function(again) {
+    console.log(('Mistery solved' + (!again ? '.' : '...again!')));
 };
