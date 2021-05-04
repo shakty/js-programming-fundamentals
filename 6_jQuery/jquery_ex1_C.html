@@ -56,7 +56,7 @@
 
     // We wrap the whole code in the .ready() method to make sure the DOM is 
     // fully loaded once we start interacting with it. 
-    $(document).ready( function() {
+    $(document).ready(function() {
         
         // From Ex1.
         // We can chain methods in jQuery.
@@ -122,10 +122,10 @@
         // Ref:
         // https://api.jquery.com/each/#each-function
 
-        // Modify the code below to
+        // a. Modify the code below to
         // 
         // 1. Display the ordinal position of each div the page.
-        // 2. Assign a different background color to each div.
+        // 2. Create a gradient of background colors across all divs.
 
         $('.myClass-0-3').each(function(counter) {
 
@@ -140,7 +140,7 @@
         });
 
         // Solution.
-        const baseColor = 50;
+        const baseBlue = 50;
         $('.myClass-0-3').each(function(counter) {
 
             // Counter is a zero-based index of the elements in the each() loop.
@@ -151,13 +151,76 @@
 
             // Let's differentiate the divs based on the index number.
             // Use the index to differentiate their rgb color code.
-            let someOtherNumber = baseColor * counter;
-            let someColor = 'rgb(100, 200, ' + someOtherNumber + ')';
+            // Ref: https://www.w3schools.com/Css/css_colors_rgb.asp
+            let blue = baseBlue * counter;
+            let someColor = 'rgb(100, 200, ' + blue + ')';
             
             // Let's set the color as the background of the div with .css().
             $(this).css({'background-color' : someColor});
         });
 
+        // b. Let's parametrize the gradient creation.
+        ///////////////////////////////////////////////
+
+        // - Create a new function that takes two parameters: red and green.
+        // - Modify the function in a. to set those two parameters in the 
+        //   rgb background definition.
+        // - Add some delay to see the result (hint: setTimeout()).
+
+        // Solution.
+        // Let's work with arrow functions, so that we don't forget about them.
+        let doGradient = (red, green) => {
+
+            console.log('Making a nice parametric gradient...');
+
+            const baseBlue = 50;
+            $('.myClass-0-3').each(function(counter) {
+
+                // Counter is a zero-based index of the elements in 
+                // the each() loop.
+                counter++;
+
+                let myString = 'This is div number ' + counter;
+                $(this).html(myString);
+
+                // Let's differentiate the divs based on the index number.
+                // Use the index to differentiate their rgb color code.
+                // Ref: https://www.w3schools.com/Css/css_colors_rgb.asp
+                let blue = baseBlue * counter;
+                let someColor = `rgb(${red}, ${green}, ${blue})`;
+                
+                // Let's set the color as the background of the div with .css().
+                $(this).css({'background-color' : someColor});
+            });
+        };
+
+
+        // to see the effect of our function let's wait a bit for the initial
+        // action to settle then call the function with any value we want
+
+        setTimeout(()=> {
+            doGradient(Math.floor(Math.random()*255), 
+                       Math.floor(Math.random()*255));
+        }, 2000);
+
+
+        // c. Fun facts.
+
+        // Let's add some fun facts.
+        // Ref: https://www.rd.com/list/interesting-facts/.
+        let funFacts = [
+            'McDonald\'s once made bubblegum-flavored broccoli',
+            'Some fungi create zombies, then control their minds',
+            'There\'s only one letter that doesn’t appear in any U.S. state name',
+            'Scotland has 421 words for "snow"',
+            'Peanuts aren\'t technically nuts'
+        ];
+
+        // Set the text of the divs to the fun facts above.
+        $('.myClass-0-3').each(function(counter) {
+            // Not using jQuery in here.
+            this.innerText = funFacts[counter];
+        });
     });
 
     </script>
