@@ -83,7 +83,8 @@ breadAndButter();
 // Exercise 1.
 ///////////////
 
-// Let's try out async now.
+// Let's try out async now: set doAsync to true.
+// Does the output makes sense?
 
 let doAsync = true;
 let doSilly = false;
@@ -128,6 +129,9 @@ breadAndButter();
 //      the actions using the callback pattern.
 
 // Remember that only openFridge, takeButter and sliceBread can be async.
+
+// Solution.
+// Remember to copy the actions_cb.js file inside the lib/ folder.
 
 let doAsync = true;
 let doSilly = false;
@@ -180,6 +184,9 @@ breadAndButterCb();
 // When you create new promise with the Promise constructor,
 // the function is immediately evaluated. 
 // You will need a function that creates new promises only when needed.
+
+// Solution.
+// Remember to copy the actions_promise.js file inside the lib/ folder.
 
 let doAsync = true;
 let doSilly = false;
@@ -243,6 +250,9 @@ breadAndButterPromise();
 //      the functions using the async/await pattern.
 
 // Remember that only openFridge, takeButter and sliceBread can be async.
+
+// Solution.
+// Remember to copy the actions_await.js file inside the lib/ folder.
 
 let doAsync = true;
 let doSilly = false;

@@ -2,6 +2,8 @@
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
+// To be copied inside the lib/ folder.
+
 module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
 
   let { logCounter, log, err } = require("./log.js")(doAsync, doSilly, doThrow);
@@ -20,31 +22,30 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
 
   // Open Fridge.
   ///////////////
-  let openFridge = function (resolve, reject) {
+  async function openFridge() {
     logCounter("I am opening the fridge.");
 
     if (fridge.opened) {
       log(
         "Wait...it is already open! Who left it opened??? Brendan was it you?"
       );
-      resolve();
-      // Early return to skip execution of the code below.
-      return;
-    }
-  
-    if (doSilly && Math.random() > 0.8) {
-
-      log("Oh no, the door is stuck I cannot open the fridge!");
-
-      setTimeout(() => {
-        log("OK, I removed the baby-lock and I opened the fridge's door.\n");
-        fridge.opened = true;
-        resolve();
-      }, 2000);
     }
     else {
-      fridge.opened = true;
-      resolve();
+      if (doSilly && Math.random() > 0.8) {
+
+        log("Oh no, the door is stuck I cannot open the fridge!");
+
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            log("OK, I removed the baby-lock and I opened the fridge's door.\n");
+            fridge.opened = true;
+            resolve();
+          }, 2000);
+        });
+      }
+      else {
+        fridge.opened = true;
+      }
     }
   }
 
@@ -56,22 +57,19 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
   let takeButter = (function () {
 
     // Private function.
-    function _justTakeTheButter(resolve) {
+    function _justTakeTheButter() {
       logCounter("I am taking the butter.");
       fridge.stuff.butter = false;
       table.butter = true;
-      resolve();
     }
 
     // The actual function that will be assigned to takeButter.
-    return (resolve, reject) => {
+    return async function () {
       if (!fridge.opened) {
         err("The fridge is closed, you fool!");
-        reject();
       }
       if (!fridge.stuff.butter) {
         err("There is no butter in the fridge, we are all going to die!");
-        reject();
       }
 
       // Is there too much stuff in the fridge?
@@ -83,11 +81,15 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
         log("Brendan, did you take my butter?!");
         log("");
 
-        setTimeout(() => {
-          _justTakeTheButter(resolve);
-        }, 2000);
-      } else {
-        _justTakeTheButter(resolve);
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            _justTakeTheButter();
+            resolve();
+          }, 2000);
+        });
+      }
+      else {
+        _justTakeTheButter();
       }
     };
   })();
@@ -108,7 +110,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
   /////////////////////////////////////////////////////////////////
   let sliceBread = (function () {
 
-    // Private function.
+    // Private function.  
     function _putBreadSliceOnPlate() {
       // Increment the number of bread slices on the plate.
       if (!table.plate.breadSlices) table.plate.breadSlices = 1;
@@ -116,9 +118,9 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
     }
 
     // The actual function that will be assigned to sliceBread.
-    return (resolve, reject) => {
+    return async function () {
       let bread = table.bread;
-
+      
       logCounter("I am slicing the bread.");
 
       // Switch-true pattern to check multiple conditions.
@@ -136,7 +138,6 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
           );
           if (Math.random() > 0.4) {
             err("I cut myself, I told you!");
-            reject();
           }
       }
 
@@ -146,41 +147,43 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
         log("The crust is kind of hard...it will take a while to slice it without a chainsaw.\n");
 
         // Create async function executed after a timeout of 3 seconds.
-        setTimeout(() => {
-          log("I finally managed to cut a slate from that stone-bread.\n");
-          _putBreadSliceOnPlate();
-          resolve();
-        }, 3000);
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            log("I finally managed to cut a slate from that stone-bread.\n");
+            _putBreadSliceOnPlate();
+            resolve();
+          }, 3000);
+        });
       }
       // If it is white bread we might do more slices.
       else {
 
         if (nSlicesNeeded === 1) {
-          // Cut the first slice.
+          // Cut the first slice without delays.
           _putBreadSliceOnPlate();
-          resolve();
         }
         else {
           // Create async function executed every second.
           // We keep a reference to the interval, so that we can remove it when
           // we are done slicing.
-          let intervalSlicing = setInterval(() => {
-            let stillNeeded = nSlicesNeeded - (table.plate.breadSlices || 0);
-            if (stillNeeded === 1) {
-              log('Last slice!\n');
-            }
-            else {
-              log(`${stillNeeded} slices left to cut...`);
-            }
-            
-            _putBreadSliceOnPlate();
-            
-            if (nSlicesNeeded - table.plate.breadSlices === 0) {
-              clearInterval(intervalSlicing);
-              resolve();
-            }
+          await new Promise((resolve, reject) => {
+            let intervalSlicing = setInterval(() => {
+              let stillNeeded = nSlicesNeeded - (table.plate.breadSlices || 0);
+              if (stillNeeded === 1) {
+                log('Last slice!\n');
+              }
+              else {
+                log(`${stillNeeded} slices left to cut...`);
+              }
 
-          }, 1000);
+              _putBreadSliceOnPlate();
+
+              if (nSlicesNeeded === table.plate.breadSlices) {
+                clearInterval(intervalSlicing);
+                resolve();
+              }
+            }, 1000);
+          });
         }
       }
     };
@@ -200,11 +203,12 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
     
   }
 
+
   return {
     openFridge,
     takeButter,
     takeBread,
     sliceBread,
-    spreadButter
+    spreadButter,
   };
 };

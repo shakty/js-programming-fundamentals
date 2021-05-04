@@ -2,6 +2,8 @@
 // Actions to prepare the bread and butter of async programming. //
 ///////////////////////////////////////////////////////////////////
 
+// To be copied inside the lib/ folder.
+
 module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
 
   let { logCounter, log, err } = require("./log.js")(doAsync, doSilly, doThrow);
@@ -20,29 +22,31 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
 
   // Open Fridge.
   ///////////////
-  function openFridge(cb) {
+  let openFridge = function (resolve, reject) {
     logCounter("I am opening the fridge.");
 
     if (fridge.opened) {
       log(
         "Wait...it is already open! Who left it opened??? Brendan was it you?"
       );
+      resolve();
+      // Early return to skip execution of the code below.
+      return;
+    }
+  
+    if (doSilly && Math.random() > 0.8) {
+
+      log("Oh no, the door is stuck I cannot open the fridge!");
+
+      setTimeout(() => {
+        log("OK, I removed the baby-lock and I opened the fridge's door.\n");
+        fridge.opened = true;
+        resolve();
+      }, 2000);
     }
     else {
-      if (doSilly && Math.random() > 0.8) {
-
-        log("Oh no, the door is stuck I cannot open the fridge!");
-
-        setTimeout(() => {
-          log("OK, I removed the baby-lock and I opened the fridge's door.\n");
-          fridge.opened = true;
-          if (cb) cb();
-        }, 2000);
-      }
-      else {
-        fridge.opened = true;
-        if (cb) cb();
-      }
+      fridge.opened = true;
+      resolve();
     }
   }
 
@@ -54,20 +58,22 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
   let takeButter = (function () {
 
     // Private function.
-    function _justTakeTheButter(cb) {
+    function _justTakeTheButter(resolve) {
       logCounter("I am taking the butter.");
       fridge.stuff.butter = false;
       table.butter = true;
-      if (cb) cb();
+      resolve();
     }
 
     // The actual function that will be assigned to takeButter.
-    return function (cb) {
+    return (resolve, reject) => {
       if (!fridge.opened) {
         err("The fridge is closed, you fool!");
+        reject();
       }
       if (!fridge.stuff.butter) {
         err("There is no butter in the fridge, we are all going to die!");
+        reject();
       }
 
       // Is there too much stuff in the fridge?
@@ -80,10 +86,10 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
         log("");
 
         setTimeout(() => {
-          _justTakeTheButter(cb);
+          _justTakeTheButter(resolve);
         }, 2000);
       } else {
-        _justTakeTheButter(cb);
+        _justTakeTheButter(resolve);
       }
     };
   })();
@@ -112,7 +118,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
     }
 
     // The actual function that will be assigned to sliceBread.
-    return function (cb) {
+    return (resolve, reject) => {
       let bread = table.bread;
 
       logCounter("I am slicing the bread.");
@@ -132,6 +138,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
           );
           if (Math.random() > 0.4) {
             err("I cut myself, I told you!");
+            reject();
           }
       }
 
@@ -144,7 +151,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
         setTimeout(() => {
           log("I finally managed to cut a slate from that stone-bread.\n");
           _putBreadSliceOnPlate();
-          if (cb) cb();
+          resolve();
         }, 3000);
       }
       // If it is white bread we might do more slices.
@@ -153,7 +160,7 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
         if (nSlicesNeeded === 1) {
           // Cut the first slice.
           _putBreadSliceOnPlate();
-          if (cb) cb();
+          resolve();
         }
         else {
           // Create async function executed every second.
@@ -169,10 +176,12 @@ module.exports = function (doAsync = false, doSilly = false, doThrow = false) {
             }
             
             _putBreadSliceOnPlate();
+            
             if (nSlicesNeeded - table.plate.breadSlices === 0) {
               clearInterval(intervalSlicing);
-              if (cb) cb();
+              resolve();
             }
+
           }, 1000);
         }
       }

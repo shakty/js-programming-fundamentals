@@ -150,15 +150,7 @@ function breadAndButterCb() {
   if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
   console.log();
   
-  openFridge(() => {
-    takeButter(() => {
-      takeBread();
-      sliceBread(() => {
-        spreadButter();
-        yummy();
-      });
-    });
-  });
+  // Write the async invocation code with callbacks here.
 }
 
 breadAndButterCb();
@@ -210,23 +202,7 @@ function breadAndButterPromise() {
   if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
   console.log();
 
-  promiseIt('openFridge')
-    .then(() => promiseIt('takeButter'))
-    .then(() => { 
-      takeBread();
-      promiseIt('sliceBread')
-        .then(() => { 
-          spreadButter();
-           yummy();
-      })
-      .catch(err => {
-        console.log('An error happened while slicing the bread.', err)
-      })
-      .finally(() => console.log('Finally!'));
-    })
-    .catch(err => {
-      console.log('An error happened either taking the butter or slicing the bread:', err)
-    })
+   // Write the async invocation code with promises here.
 
 }
 
@@ -264,13 +240,7 @@ async function breadAndButterAwait() {
     if (!doAsync && !doSilly) console.log('\t(Synchronous Edition)\t');
     console.log();
     
-    await openFridge();
-    await takeButter();
-    takeBread();
-    await sliceBread();
-    spreadButter();
-    yummy();
-
+    // Write the async invocation code with async/await here.
 }
   
 breadAndButterAwait();
