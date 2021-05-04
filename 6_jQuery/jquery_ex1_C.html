@@ -1,0 +1,166 @@
+<html>
+<head>
+    <title>jQuery 101 - Ex 1</title>
+</head>
+<body>
+
+    <div class="myClass-0" id="myID-0">
+
+        <div class="myClass-0-1" id="myID-0-1">
+        </div>
+
+        <div class="myClass-0-2" id="myID-0-2">
+        </div>
+
+        <div class="myClass-0-3" id="myID-0-3">
+        </div>
+
+        <div class="myClass-0-3" id="myID-0-4">
+        </div>
+
+        <div class="myClass-0-3" id="myID-0-5">
+        </div>
+
+        <div class="myClass-0-3" id="myID-0-6">
+        </div>
+
+        <div class="myClass-0-3" id="myID-0-7">
+        </div>
+
+
+    </div>
+
+
+
+    <!-- 
+        
+        To use jQuery we need to import the library. 
+    
+        There are a couple of options to do it: 
+    
+        1- You may include the library locally (like a css, or local js file)
+        2- Use a CDN (Content Delivery Network), i.e., an online repository.
+   
+        We use the second approach here.
+    -->
+
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">    
+    </script>
+
+    <script>
+
+    // jQuery exposes the $ operator to access all jQuery methods.
+    // It is in fact an alias for the jQuery object, but in this 
+    // case the shorter the better.
+
+    // We wrap the whole code in the .ready() method to make sure the DOM is 
+    // fully loaded once we start interacting with it. 
+    $(document).ready( function() {
+        
+        // From Ex1.
+        // We can chain methods in jQuery.
+        $('.myClass-0-1').html('jQuery is <em>easy</em>.<br/><br/>');
+        // The text is there but small. Let's make it bigger.
+        $('.myClass-0-1').css({ 'font-size': '40px' });
+        ///////////////////////////////////////////////
+
+        // From Ex2.
+
+        // Let sets the left and top margin to a percentage.
+        // Let's use the parent div's (myClass-0) to position all children.
+        $('.myClass-0').css({
+            'margin-left':  '20%',
+            'margin-right': '20%'
+        });
+
+        // Let's add some texts to some divs.
+        $('.myClass-0-3').html('Some text.');
+
+        // Let's make it less boring with some animation.
+
+        // We can add the 'transition' property to tell the browser
+        // to make the requested change happen gradually.
+
+        // You can also us the ID of the div: $('#ID_NAME').
+        // We are moving the first children.
+        $('#myID-0-1').css({
+            'transition':'1s',
+            'margin-left':'33%',
+            'margin-top':'10%'
+        });
+        
+
+        // Add a transition for divs with class name: myClass-0-3
+        // The transition will be effective for _all_ properties that
+        // you specify.
+        // Hint: try 'background-color', 'color', and 'font-size';
+
+
+        // Solution.
+        // Add some fun attributes to your text.
+        $('.myClass-0-3').css({
+            'transition': '1s',
+            'background-color': 'black',
+            'color': 'white',
+            'font-size': '40px',
+            'margin-bottom': '5px',
+            'padding': '5px'
+        });
+        /////////////////////////////////////////////////////////
+       
+
+        // Exercise 3: each().
+        //////////////////////
+
+        // jQuery has an edge over vanilla JS when it comes to manipulate 
+        // multiple elements at once.
+
+        // When you fetch multiple divs with the same class you can also
+        // go through each of them and do something different with each().
+
+        // Ref:
+        // https://api.jquery.com/each/#each-function
+
+        // Modify the code below to
+        // 
+        // 1. Display the ordinal position of each div the page.
+        // 2. Assign a different background color to each div.
+
+        $('.myClass-0-3').each(function(counter) {
+
+            // Write here anything you want to happen
+            // for each div with the same class.
+
+            // Here 'this' represents a single div.
+            
+            // this.html('');
+            // this.css({'':''});
+
+        });
+
+        // Solution.
+        const baseColor = 50;
+        $('.myClass-0-3').each(function(counter) {
+
+            // Counter is a zero-based index of the elements in the each() loop.
+            counter++;
+
+            let myString = 'This is div number ' + counter;
+            $(this).html(myString);
+
+            // Let's differentiate the divs based on the index number.
+            // Use the index to differentiate their rgb color code.
+            let someOtherNumber = baseColor * counter;
+            let someColor = 'rgb(100, 200, ' + someOtherNumber + ')';
+            
+            // Let's set the color as the background of the div with .css().
+            $(this).css({'background-color' : someColor});
+        });
+
+    });
+
+    </script>
+
+</body>
+</html>

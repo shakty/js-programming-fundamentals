@@ -1,30 +1,30 @@
 <html>
 <head>
-    <title>JQUERY 101 - EX 1</title>
+    <title>jQuery 101 - Ex 1</title>
 </head>
 <body>
 
-    <div class='myClass-0' id='myID-0'>
+    <div class="myClass-0" id="myID-0">
 
-        <div class='myClass-0-1' id='myID-0-1'>
+        <div class="myClass-0-1" id="myID-0-1">
         </div>
 
-        <div class='myClass-0-2' id='myID-0-2'>
+        <div class="myClass-0-2" id="myID-0-2">
         </div>
 
-        <div class='myClass-0-3' id='myID-0-3'>
+        <div class="myClass-0-3" id="myID-0-3">
         </div>
 
-        <div class='myClass-0-3' id='myID-0-3'>
+        <div class="myClass-0-3" id="myID-0-4">
         </div>
 
-        <div class='myClass-0-3' id='myID-0-3'>
+        <div class="myClass-0-3" id="myID-0-5">
         </div>
 
-        <div class='myClass-0-3' id='myID-0-3'>
+        <div class="myClass-0-3" id="myID-0-6">
         </div>
 
-        <div class='myClass-0-3' id='myID-0-3'>
+        <div class="myClass-0-3" id="myID-0-7">
         </div>
 
 
@@ -32,167 +32,73 @@
 
 
 
-    <!-- TO BE ABLE TO USE JQUERY YOU NEED TO ACCESS ITS LIBRARY -->
-    <!-- THERE ARE MULTIPLE WAYS TO DO IT -->
-    <!-- ONE OPTION IS TO PLACE THE BELOW JQUERY ADDRESS TO THE END OF YOUR DOM -->
-    <!-- THIS OPTION REQUIRES INTERNET AS IT FETCHES THE JQUERY LIBRARY FROM
-    THE ADDRESS -->
-    <!-- ANOTHER OPTION IS TO HAVE THE LIBRARY UNDER YOUR JS FOLDER BUT YOU SHOULDN'T
-    WORRY ABOUT THAT FOR NOW -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- 
+        
+        To use jQuery we need to import the library. 
+    
+        There are a couple of options to do it: 
+    
+        1- You may include the library locally (like a css, or local js file)
+        2- Use a CDN (Content Delivery Network), i.e., an online repository.
+   
+        We use the second approach here.
+    -->
 
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">    
+    </script>
 
-    <!-- ONCE YOU HAVE THE LIBRARY YOU CAN BEGIN USING IT IN YOUR SCRIPT -->
     <script>
 
+    // jQuery exposes the $ operator to access all jQuery methods.
+    // It is in fact an alias for the jQuery object, but in this 
+    // case the shorter the better.
 
+    // We wrap the whole code in the .ready() method to make sure the DOM is 
+    // fully loaded once we start interacting with it. 
     $(document).ready( function() {
-        // There is nothing on the page...
 
-        // Let's fill it in with stuff
+        // There is not much on the page until now, let's add some stuff.
 
-        // Let's begin with some text
+        // How do we select the div we want to manipulate?
+        // The syntax is the same as document.querySelector()
+        // we have seen before in the previous section of exercises.
 
+        // Let' access a div by its class name: $('.CLASS_NAME')
+        let myDiv01 = $('.myClass-0-1');
+
+        // What is the return value? It is not the HTML element,
+        // it is the HTML wrapped in a jQuery data structure, providing
+        // additional methods.
+
+        // How do I unwrap it?
+        let originalElement = myDiv01.get(0);
+        // Why 0? Because the wrap is agnostic to its content, it could be
+        // one elment, it could be many of them (e.g., if many elements share
+        // same class).
+
+        // If you prefer, you can also unwrap in an array-like fashion:
+        originalElement = myDiv01[0];
+
+        // Let's begin with some new text.
         // With jquery life is easy all you do is use the command
-        // .html('place the text you want here')
+        // .html('place the text you want here');
 
-        // how do we select the div we want to manipulate?
+        // We can chain methods in jQuery.
+        // HTML tags are supported.
+        $('.myClass-0-1').html('jQuery is <em>easy</em>.<br/><br/>');
 
-        // you can access a div by its class name: $('.CLASS_NAME')
-        let myDiv01 = $('.myClass-0-1')
-
-        // Now let's combine the two
-        $('.myClass-0-1').html('jquery is easy')
+        // Let's make some style manipulations.
 
         // The text is there but small. Let's make it bigger.
-        $('.myClass-0-1').css({'font-size':'40px'});
+        $('.myClass-0-1').css({ 'font-size': '40px' });
 
-        // You can change multiple attributes at once.
-        $('.myClass-0-1').css({
-            'margin-left':'30%',
-            'margin-top':'30%'
-        });
-
-        // You can also us the ID of the div: $('#ID_NAME')
-        $('#myID-0-1').css({
-            'transition':'1s',
-            'margin-left':'33%',
-            'margin-top':'10%'
-        });
-
-        // Let's constraint the parent div's (myClass-0) active region
-        $('.myClass-0').css({
-            'margin-left':'20%',
-            'margin-right':'20%'
-        });
-
-
-        // If there are multiple divs with the same class name
-        // All will be affected by the jquery command
-        // Try to add some text to divs with class name: myClass-0-3
-
-        $('.myClass-0-3').html('some text');
-
-        // Add some fun attributes to your text
-        $('.myClass-0-3').css({
-            'transition':'1s',
-            'background-color':'black',
-            'color':'white',
-            'font-size':'40px'
-        })
-
-        // Try to change the text to divs with the same id: myID-0-3
-        $('#myID-0-3').html('another text')
-
-        // When you query a div by its id, jquery will only fetch the first
-        // object with that id name.
-
-
-
-        //------------------------------------------------------------------------//
-        //------------------------------------------------------------------------//
-        //--------------------------- EXERCISE 1 ---------------------------------//
-        //------------------------------------------------------------------------//
-        //------------------------------------------------------------------------//
-        //---------------------------- .EACH() -----------------------------------//
-        //------------------------------------------------------------------------//
-        //------------------------------------------------------------------------//
-
-
-        // When you fetch multiple divs with the same class name you can also
-        // go through each of them and do something different
-
-        // You can use .each() as below
-        $('.myClass-0-3').each(function() {
-
-            // write here anything you want to happen for each div with the same class
-            // this.html('');
-            // this.css({'':''});
-
-        })
-
-
-
-        //------------------------------------------------------------------------//
-        /*
-        * DEFINE A GLOBAL VARIABLE AND UPDATE/CHANGE IT INSIDE .each()
-        * FOR EVERY ITERATION
-        * SUCH THAT FOR EACH DIV THE GLOBAL VARIABLE CHANGES OR AFFECTS
-        * THE DIVS SLIGHTLY DIFFERENTLY
-        */
-        //------------------------------------------------------------------------//
-
-
-
-
-
-
-
-
-
-
-
-        //------------------------------------------------------------------------//
-        // EXAMPLE
-        //------------------------------------------------------------------------//
-        // let's set up some variables to use
-        let counter = 0;
-        let myString = '';
-        let someNumber = 50;
-        let someOtherNumber, someColor;
-
-
-        $('.myClass-0-3').each(function() {
-
-            // here 'this' represents a single div
-            // .each() goes through every element in the list of divs
-            // with the given class name
-            // with the order they appear in the DOM
-
-            // let's index the divs and add their index to inside the
-            // div as text
-            // (we will use counter to index the div list elements)
-            counter += 1;
-            myString = 'This is div number ' + counter;
-            $(this).html(myString);
-
-            // let's differentiate the divs based on the index number we
-            // just used
-            // Use the index to differentiate their rgb color code
-            someOtherNumber = 50 * counter;
-            someColor = 'rgb(100, 200, ' + someOtherNumber + ')';
-            // we can define strings then use the defined string as above
-            // inside the .css() as below
-            $(this).css({'background-color' : someColor});
-
-        })
-
-
-
-
-
-    })
-
+        // Checkpoint 1.
+        // What is the equivalent vanilla JS method?
+        // let vanillaEl = document.querySelector('.myClass-0-1');
+        // vanillaEl.innerHTML = 'jQuery is easy';
+        // vanillaEl.style['font-size'] = '40px';
+    });
     </script>
 
 </body>
