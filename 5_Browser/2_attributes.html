@@ -2,11 +2,9 @@
     <head>
         <title>Id and Attributes</title>
     </head>
-    <!-- This is an inline comment inside the HTML -->
-    <!-- This is another one -->    
     <!-- 
         This is multi-line comment and
-        it will not be displayed either, 
+        no line in here will not be displayed, 
         you got the point
     -->
     <body>
@@ -16,20 +14,24 @@
             A very common attribute is "id", a **unique** identifier
             for the element within the page.
             
-            You add your own attributes as well.
+            You can add your own attributes as well.
         -->
         
         <div id="above" name="Brendan">
             Hello World!
         </div>
 
-        <!-- You you break a tag declaration on multiple lines -->
+        <!-- You can break a tag declaration on multiple lines -->
         <div 
             id="below">
             Hello World Again!
         </div>
         
         <script>
+        
+            // Uncomment for step-by-step execution.
+            // debugger;
+
             // Locate the second <DIV> tag.
             let divs = document.getElementsByTagName('div');
             divs.length; // 2
